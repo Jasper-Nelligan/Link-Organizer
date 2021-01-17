@@ -9,14 +9,15 @@ h1{
 }
 
 .grid-container{
+    width: 100%;
     display: inline-grid;
-    grid-template-columns: auto auto auto auto auto; 
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-gap: 1em;
 }
 
 .frame{
     display: inline-block;
     background-size: contain;
-    width: 15em;
     height: calc(100%em);
 }
 
@@ -34,6 +35,7 @@ h1{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2%;
 }
 
 
