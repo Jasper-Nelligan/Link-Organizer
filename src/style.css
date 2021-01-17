@@ -16,6 +16,7 @@ h1{
 }
 
 .frame{
+    position: relative;
     display: inline-block;
     background-size: contain;
     height: calc(100%em);
@@ -27,8 +28,22 @@ h1{
 }
 
 .links{
+    border-style: solid;
+    border-width: 5px;
     padding-left: 5%;
     padding-bottom: 5%;
+}
+
+/* This positions the edit button at bottom center.
+ * The bottom: 0 places the button at the bottom of the container
+ * left 50% will move it 50% of the parents width to the right
+ * transform() will adjust for the edit buttons width and height
+ */
+.edit_btn{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .schedule{
