@@ -1,0 +1,62 @@
+body{
+    background-color:powderblue;
+}
+
+h1{
+    font-family: verdanan;
+    font-size: 300%;
+    text-align: center;
+}
+
+.grid-container{
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto; 
+}
+
+.frame{
+    display: inline-block;
+    background-size: contain;
+    width: 15em;
+    height: calc(100%em);
+}
+
+.course_title{
+    padding-top: 5%;
+    padding-left: 5%;
+}
+
+.links{
+    padding-left: 5%;
+    padding-bottom: 5%;
+}
+
+.schedule{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Colors:
+ * Red: #fe7b7b
+ * Green: #75d073
+ * Blue: #74a3ff
+ * Yellow: #ffe977
+ * Orange: #fbb143
+ * Purple: #c17ed9
+ */
+#Seng275{
+    background-color:#fe7b7b;
+}
+#Seng321{
+    background-color:#ffe977;
+}
+#CSC360{
+    background-color:#fbb143;
+}
+#CSC370{
+    background-color:#74a3ff;
+}
+#Other{
+    background-color:#75d073;
+}

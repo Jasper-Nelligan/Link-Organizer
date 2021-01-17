@@ -2,43 +2,56 @@
 <html>
 	<head>
 		<title>Home | UVic courses</title>
-		<style>
-			a:link,a:visited,a:hover{
-				color:white;
-				text-decoration:none;
-				padding:15px 25px;
-				display:inline-block;
-				cursor:pointer;
-			}
-			.Seng275:link{
-				background-color:red;
-			}
-			.Seng321:link{
-				background-color:#f5e61d;
-			}
-			.CSC360:link{
-				background-color:orange;
-			}
-			.CSC370:link{
-				background-color:blue;
-			}
-			.Rotaract:link{
-				background-color:green;
-			}
-		</style>
+		<meta charset="utf-8">
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="style.css">
 	</head>
 
-	<body style = "background-color:powderblue;">
-		<h1 style = "font-family:verdanan;font-size:300%;text-align:center;">2021 Winter Semester</h1>
+	<body>
+		<h1>2021 Winter Semester</h1>
+		
+		<div class="grid-container">
+			<div class="frame" id="Seng275">
+				<p class="course_title">Seng 275 Links<p>
 
-		<a class="Seng275" href = "https://uvic.zoom.us/j/88960014852?pwd=Q09NWjVyT0JSNkk3NS95V1AyWVIwQT09">Seng 275</a>
-		<a class="Seng275" href = "https://uvic.zoom.us/j/88414646352?pwd=ZWVpSDZmVUVWY05KRzRjSlY4Nm1lUT09">Seng 275 Lab</a>
-		<a class="Seng321" href = "https://uvic.zoom.us/j/88224941601?pwd=TWxNMnlCRjVPdEZENUJsamVxWnIyQT09">Seng 321</a>
-		<a class="CSC360" href = "https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">CSC 360</a>
-		<a class="CSC370" href = "https://uvic.zoom.us/j/87384213352">CSC 370</a>
-		<a class="Rotaract" href = "https://uvic.zoom.us/j/82625710283?pwd=c1VDVlhxdWUvKzVlTkY0a2RTd0VpUT09">Rotaract</a>
+				<div class="links">
+					<a href ="https://uvic.zoom.us/j/88960014852?pwd=Q09NWjVyT0JSNkk3NS95V1AyWVIwQT09">Lecture</a><br><br>
+					<a href="https://uvic.zoom.us/j/88414646352?pwd=ZWVpSDZmVUVWY05KRzRjSlY4Nm1lUT09">Lab</a>
+				</div>
+			</div>
+			<div class="frame" id="Seng321">
+				<p class="course_title">Seng 321 Links<p>
 
+				<div class="links">
+					<a href ="https://uvic.zoom.us/j/88224941601?pwd=TWxNMnlCRjVPdEZENUJsamVxWnIyQT09">Lecture</a><br><br>
+				</div>
+			</div>
+			<div class="frame" id="CSC360">
+				<p class="course_title">CSC 360 Links<p>
 
-    <img src="Schedule.jpg" alt="Schedule">
+				<div class="links">
+					<a href ="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
+					<a href ="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
+					<a href ="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
+					<a href ="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
+				</div>
+			</div>
+			<div class="frame" id="CSC370">
+				<p class="course_title">CSC 370 Links <p>
+
+				<div class="links">
+					<a href ="https://uvic.zoom.us/j/87384213352">Lecture</a><br><br>
+				</div>
+			</div>
+			<div class="frame" id="Other">
+				<p class="course_title">Other<p>
+
+				<div class="links">
+					<a href ="https://uvic.zoom.us/j/82625710283?pwd=c1VDVlhxdWUvKzVlTkY0a2RTd0VpUT09">Rotaract</a><br><br>
+				</div>
+			</div>
+		</div>
+
+    	<img class="schedule" src="Schedule.jpg" alt="Schedule">
 	</body>
 </html>
