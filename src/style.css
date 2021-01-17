@@ -1,33 +1,33 @@
-body{
+body {
     background-color:powderblue;
 }
 
-h1{
+h1 {
     font-family: verdanan;
     font-size: 300%;
     text-align: center;
 }
 
-.grid-container{
+.grid-container {
     width: 100%;
     display: inline-grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-gap: 1em;
 }
 
-.frame{
+.frame {
     position: relative;
     display: inline-block;
     background-size: contain;
     height: calc(100%em);
 }
 
-.course_title{
+.course-title {
     padding-top: 5%;
     padding-left: 5%;
 }
 
-.links{
+.links {
     padding-left: 5%;
     padding-bottom: 5%;
 }
@@ -37,20 +37,19 @@ h1{
  * left 50% will move it 50% of the parents width to the right
  * transform() will adjust for the edit buttons width and height
  */
-.edit_btn{
+.edit-btn {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.schedule{
+.schedule {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
 }
-
 
 /* Colors:
  * Red: #fe7b7b
@@ -60,18 +59,18 @@ h1{
  * Orange: #fbb143
  * Purple: #c17ed9
  */
-#Seng275{
+#Seng275 {
     background-color:#fe7b7b;
 }
-#Seng321{
+#Seng321 {
     background-color:#ffe977;
 }
-#CSC360{
+#CSC360 {
     background-color:#fbb143;
 }
-#CSC370{
+#CSC370 {
     background-color:#74a3ff;
 }
-#Other{
+#Other {
     background-color:#75d073;
 }
