@@ -1,3 +1,18 @@
+"use strict"
+
+/* Sets the onclick events for the buttons initially loaded on the page */
+function set_buttons() {
+    let btn  = document.getElementById("new-course-btn");
+    btn.addEventListener("click",
+        function () {
+            let modal = btn.getAttribute('data-modal');
+            document.getElementById(modal)
+                .style.display = "block";
+        }
+    );
+}
+
+/* Functionality for popup edit form */
 let modalBtns = [...document.querySelectorAll(".edit-btn")];
 modalBtns.forEach(function (btn) {
     btn.onclick = function () {

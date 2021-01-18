@@ -7,64 +7,14 @@
   <link rel="stylesheet" href="style.css">
   </head>
 
-  <body>
+  <body onload="set_buttons()">
     <h1>2021 Winter Semester</h1>
     
-    <div class="grid-container">
-      <div class="frame" id="Seng275">
-        <p class="course-title">Seng 275 Links</p>
-
-        <div class="links">
-          <a href="https://uvic.zoom.us/j/88960014852?pwd=Q09NWjVyT0JSNkk3NS95V1AyWVIwQT09">Lecture</a><br><br>
-          <a href="https://uvic.zoom.us/j/88414646352?pwd=ZWVpSDZmVUVWY05KRzRjSlY4Nm1lUT09">Lab</a>
-        </div>
-
-        <button type="button" class="edit-btn" id="edit-Seng275" data-modal="modal-Seng275">Edit</button>
-      </div>
-      <div class="frame" id="Seng321">
-        <p class="course-title">Seng 321 Links</p>
-
-        <div class="links">
-          <a href="https://uvic.zoom.us/j/88224941601?pwd=TWxNMnlCRjVPdEZENUJsamVxWnIyQT09">Lecture</a><br><br>
-        </div>
-
-        <button type="button" class="edit-btn" id="edit-Seng321">Edit</button>
-      </div>
-      <div class="frame" id="CSC360">
-        <p class="course-title">CSC 360 Links</p>
-
-        <div class="links">
-          <a href="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
-          <a href="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
-          <a href="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
-          <a href="https://uvic.zoom.us/j/82446498056?pwd=M2FZNjQ4MDN3cE5RTThQM2luaXVtZz09">Lecture</a><br><br>
-        </div>
-
-        <button type="button" class="edit-btn" id="edit-CSC360">Edit</button>
-      </div>
-      <div class="frame" id="CSC370">
-        <p class="course-title">CSC 370 Links </p>
-
-        <div class="links">
-          <a href ="https://uvic.zoom.us/j/87384213352">Lecture</a><br><br>
-        </div>
-
-        <button type="button" class="edit-btn" id="edit-CSC370">Edit</button>
-      </div>
-      <div class="frame" id="Other">
-        <p class="course-title">Other</p>
-
-        <div class="links">
-          <a href ="https://uvic.zoom.us/j/82625710283?pwd=c1VDVlhxdWUvKzVlTkY0a2RTd0VpUT09">Rotaract</a><br><br>
-        </div>
-
-        <button type="button" class="edit-btn" id="edit-Other">Edit</button>
-      </div>
-    </div>
+    <button id="new-course-btn" data-modal="new-modal">Add new course</button>
   
     <!-- Popup edit form -->
 
-    <div class="modal" id="modal-Seng275">
+    <div class="modal" id="new-modal">
       <div class="modal-content">
         <div class="course-edit-form">
           <form action="/">

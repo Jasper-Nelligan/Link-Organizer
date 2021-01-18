@@ -12,6 +12,20 @@ button:hover {
     cursor: pointer;
 }
 
+#new-course-btn {
+  background-color: #4caf50;
+  border: none;
+  color: #fff;
+  padding: 0.5em 0.75em;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 2em;
+}
+
+.new-course-btn:hover {
+  background-color: #337a36;
+}
+
 /* Link organizer grid */
 
 .grid-container {
@@ -144,7 +158,6 @@ button:hover {
     background: #f44336;
     color: #fff;
     border: none;
-    border-radius: 0.5em;
     padding: 0.5em
 }
 
@@ -175,12 +188,6 @@ button:hover {
     top: -0.38em; 
     left: -0.17em;
 }
-
-/* .circle-add-btn:after{
-    content: "add new link";
-    line-height: 1em;
-    font-size: 1em;
-} */
 
 .form-bottom button {
     padding: 10px;
