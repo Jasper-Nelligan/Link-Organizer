@@ -28,7 +28,7 @@ button:hover {
 
 /* Link organizer grid */
 
-.grid-container {
+#grid-container {
     width: 100%;
     display: inline-grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -72,21 +72,6 @@ button:hover {
  * Orange: #fbb143
  * Purple: #c17ed9
  */
-#Seng275 {
-    background-color:#fe7b7b;
-}
-#Seng321 {
-    background-color:#ffe977;
-}
-#CSC360 {
-    background-color:#fbb143;
-}
-#CSC370 {
-    background-color:#74a3ff;
-}
-#Other {
-    background-color:#75d073;
-}
 
 /* Popup edit form */
 
@@ -109,10 +94,10 @@ button:hover {
     width: 50%;
 }
 
-.course-edit-form form {
+.form {
     padding: 2%;
     margin: 25px;
-    background: #fe7b7b;
+    background: #fff;
 }
 
 .modal-content input, textarea {
@@ -172,12 +157,15 @@ button:hover {
 }
 
 .circle-add-btn {
-    width: 1.5em; 
-    height: 1.5em; 
-    border-radius: 1em; 
-    background: none; 
-    color:#000; 
-    border: 0.14em solid #000;  
+  width: 1.5em; 
+  height: 1.5em; 
+  border-radius: 1em; 
+  background: none; 
+  color:#000; 
+  border: 0.14em solid #000;
+  /* Prevents border from displaying when clicked */
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .circle-add-btn:before {
@@ -187,6 +175,10 @@ button:hover {
     line-height: 1.48em; 
     top: -0.38em; 
     left: -0.17em;
+}
+
+.errorMsg {
+    color: red;
 }
 
 .form-bottom button {

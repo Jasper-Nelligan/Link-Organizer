@@ -1,74 +1,77 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <html lang="en"></html>
-  <title>Home | UVic courses</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
+    <html lang="en"></html>
+    <title>Home | UVic courses</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
   </head>
 
-  <body onload="set_buttons()">
+  <body onload="setButtons()">
     <h1>2021 Winter Semester</h1>
     
     <button id="new-course-btn" data-modal="new-modal">Add new course</button>
+
+    <!-- Grid for storing course frames -->
+    <div id="grid-container"></div>
   
     <!-- Popup edit form -->
+    <div id="modals">
+      <div class="modal" id="new-modal">
+        <div class="modal-content">
+          <div class="course-edit-form">
+            <div class="form" id="initial-form">
+              <a class="close">&times;</a>
+              <input class="course-input" type="text" name="course" placeholder="Course">
+              <label for="colors">Color:</label>
+              <select id="colors" name="colors">
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+                <option value="purple">Purple</option>
+              </select>
 
-    <div class="modal" id="new-modal">
-      <div class="modal-content">
-        <div class="course-edit-form">
-          <form action="/">
-            <a class="close">&times;</a>
-            <input class="course-input" type="text" name="course" placeholder="Course">
-            <label for="colours">Colour:</label>
-            <select id="colours" name="colours">
-              <option value="red">Red</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-              <option value="yellow">Yellow</option>
-              <option value="orange">Orange</option>
-              <option value="purple">Purple</option>
-            </select>
+              <div class="form-links">
+                <input class="link-name" type="text" name="link-name" placeholder="Link name">
+                <input class="link-input" type="text" name="link" placeholder="Link">
+                <button type="button" class="remove-btn">Remove</button>
+              </div>
+              <div class="form-links">
+                <input class="link-name" type="text" name="link-name" placeholder="Link name">
+                <input class="link-input" type="text" name="link" placeholder="Link">
+                <button type="button" class="remove-btn">Remove</button>
+              </div>
+              <div class="form-links">
+                <input class="link-name" type="text" name="link-name" placeholder="Link name">
+                <input class="link-input" type="text" name="link" placeholder="Link">
+                <button type="button" class="remove-btn">Remove</button>
+              </div>
+              <div class="form-links">
+                <input class="link-name" type="text" name="link-name" placeholder="Link name">
+                <input class="link-input" type="text" name="link" placeholder="Link">
+                <button type="button" class="remove-btn">Remove</button>
+              </div>
+              
+              <div class="add-new-link">
+                <button class="circle-add-btn"></button>
+                <!-- Use <p<span>> to place text to the right of a button. Styling only
+                  works inline for this. -->
+                <p<span style="position: relative; bottom: 0.5625em; left: 0.1875em;">Add new link</span>
+              </div>
 
-            <div class="form-links">
-              <input class="link-name" type="text" name="link-name" placeholder="Link name">
-              <input class="link-input" type="text" name="link" placeholder="Link">
-              <button type="button" class="remove-btn">Remove</button>
+              <div class="form-bottom">
+                <button type="button" class="delete-btn">Delete Course</button>
+                <button type="submit" class="submit-btn">Save Changes</button>
+              </div>
             </div>
-            <div class="form-links">
-              <input class="link-name" type="text" name="link-name" placeholder="Link name">
-              <input class="link-input" type="text" name="link" placeholder="Link">
-              <button type="button" class="remove-btn">Remove</button>
-            </div>
-            <div class="form-links">
-              <input class="link-name" type="text" name="link-name" placeholder="Link name">
-              <input class="link-input" type="text" name="link" placeholder="Link">
-              <button type="button" class="remove-btn">Remove</button>
-            </div>
-            <div class="form-links">
-              <input class="link-name" type="text" name="link-name" placeholder="Link name">
-              <input class="link-input" type="text" name="link" placeholder="Link">
-              <button type="button" class="remove-btn">Remove</button>
-            </div>
-            
-            <div class="add-new-link">
-              <button class="circle-add-btn"></button>
-              <!-- Use <p<span>> to place text to the right of a button. Styling only
-                works inline for this. -->
-              <p<span style="position: relative; bottom: 0.5625em; left: 0.1875em;">Add new link</span>
-            </div>
-
-            <div class="form-bottom">
-              <button type="button" class="delete-btn">Delete Course</button>
-              <button type="submit" class="submit-btn" href="/">Save Changes</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Image of schedule -->
-
     <img class="schedule" src="Schedule.jpg" alt="Schedule">
 
     <script src="script.js"></script>
