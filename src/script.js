@@ -11,6 +11,30 @@ const YELLOW_POS = 3;
 const ORANGE_POS = 4;
 const PURPLE_POS = 5;
 
+// Stores private variables that can be altered by calling the public functions
+var stateModule = (function (){
+    // Private variable to store # of link input fields
+    // This is used to create a unique ID for each link input
+    let _linkCount = 1;
+    
+    function incLinkCount(num){
+        _linkCount++;
+    }
+
+    function setLinkCount(num){
+        _linkCount = num;
+    }
+
+    function getLinkCount(){
+        return _linkCount;
+    }
+
+    return{
+        inc_counter: incLinkCount,
+        get_counter: getLinkCount
+    };
+})();
+
 // Closes popup when user clicks outside of it
 window.onclick = function (event) {
     if (event.target.className === "modal") {
@@ -35,10 +59,11 @@ function setButtons() {
     );
     
     // link remove buttons
+    let j = 0;
     for (i; i < FORM_LINKS+1; i++){
         btns[i].addEventListener("click", 
         function(){
-            removeLink();
+            removeLink("link" + j++);
         });
     }
 
@@ -92,8 +117,10 @@ function addLink(){
 }
 
 // TODO
-function removeLink(){
+function removeLink(id){
     console.log("In remove link function");
+    let link = document.getElementById(id);
+    link.remove();
 }
 
 // TODO
@@ -308,6 +335,8 @@ function newModal(course, colorCode, linkPairs, courseId){
     for (var i = 0; i < linkPairs.length; i++) {
         let div = document.createElement("div");
         div.className = "form-links";
+        div.id = "link" + stateModule.get_counter();
+        stateModule.inc_counter();
         div.innerHTML = `
             <input class="link-name" type="text" name="link-name" placeholder="Link name" value="${linkPairs[i][0]}">
             <input class="link-input" type="text" name="link" placeholder="Link" value="${linkPairs[i][1]}">
