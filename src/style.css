@@ -190,8 +190,9 @@ button:hover {
 }
 
 .delete-btn {
-    width: 30%;
+    width: 31%;
     background: #f44336;
+    margin-right: 0.7em;
 }
 
 .delete-btn:hover {
@@ -199,7 +200,7 @@ button:hover {
 }
 
 .submit-btn {
-    width: 69%;
+    width: 67%;
     background: #1c87c9;
 }
 
