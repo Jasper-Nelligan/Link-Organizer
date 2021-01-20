@@ -207,6 +207,10 @@ button:hover {
     background: #2371a0;
 }
 
+#submit-course {
+    width: 100%;
+}
+
 /* Image */
 
 .schedule {
