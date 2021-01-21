@@ -173,8 +173,17 @@ function submitForm(formId, frameId){
     // parse links
     let linkPairs = new Array();
     while(inputElements[i] != null){
-        let pair = [inputElements[i++].value, inputElements[i++].value];
+        let pair = [inputElements[i].value, inputElements[i+1].value];
         linkPairs.push(pair);
+        // clear form links so form is empty when opened again
+        if (inputElements[i] != ""){
+            inputElements[i].value = "";
+        }
+        if (inputElements[i+1] != ""){
+            inputElements[i+1].value = "";
+        }
+
+        i += 2;
     }
 
     // Delete previous error msg if there is one
@@ -200,8 +209,15 @@ function submitForm(formId, frameId){
     else{
         editCourse(course, color, linkPairs, formId, frameId);
     }
+
+    // clear form data
+    // color.value = "";
+    form.querySelector("input").value = "";
+
+
     
     // TODO Save to file
+
 
     let modal = form.closest('.modal');
     modal.style.display = "none";
