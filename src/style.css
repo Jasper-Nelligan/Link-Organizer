@@ -1,3 +1,13 @@
+/* 
+ * Colors used:
+ * Red: #fe7b7b
+ * Green: #75d073
+ * Blue: #74a3ff
+ * Yellow: #ffe977
+ * Orange: #fbb143
+ * Purple: #c17ed9
+ */
+
 body {
     background-color:powderblue;
 }
@@ -54,7 +64,7 @@ button:hover {
 
 /* 
  * Positions edit button at bottom center of container 
- * The translate() adjusts for the edit buttons width and height
+ * The translate() adjusts for the edit button's width and height
  */
 .edit-btn {
     position: absolute;
@@ -62,16 +72,6 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* 
- * Colors:
- * Red: #fe7b7b
- * Green: #75d073
- * Blue: #74a3ff
- * Yellow: #ffe977
- * Orange: #fbb143
- * Purple: #c17ed9
- */
 
 /* Popup edit form */
 
@@ -88,7 +88,7 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Margin positions where form will appear on screen. */
+/* Size and position of modal on screen*/
 .modal-content {
     margin: 6.25em auto;
     width: 50%;
@@ -116,7 +116,6 @@ button:hover {
 .close:hover,
 .close:focus {
     color: black;
-    cursor: pointer;
 }
 
 .course-input {
@@ -164,7 +163,6 @@ button:hover {
 .add-new-link:hover {
   background-color: #337a36;
 }
-
 
 .error-msg {
     display: inline;

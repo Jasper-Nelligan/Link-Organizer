@@ -1,5 +1,7 @@
 "use strict"
 
+// TODO indent 2 space blocks
+
 // # of initial input lines for links
 const FORM_LINKS = 4;
 
@@ -12,24 +14,24 @@ const ORANGE_POS = 4;
 const PURPLE_POS = 5;
 
 // Stores private variables that can be altered by calling the public functions
-var stateModule = (function (){
+var stateModule = ( function () {
     // Private variable to store # of link input fields
     // This is used to create a unique ID for each link input
     let _linkCount = FORM_LINKS;
     
-    function incLinkCount(num){
+    function incLinkCount(num) {
         _linkCount++;
     }
 
-    function setLinkCount(num){
+    function setLinkCount(num) {
         _linkCount = num;
     }
 
-    function getLinkCount(){
+    function getLinkCount() {
         return _linkCount;
     }
 
-    return{
+    return {
         incLinkCount: incLinkCount,
         setLinkCount: setLinkCount,
         getLinkCount: getLinkCount
@@ -37,74 +39,73 @@ var stateModule = (function (){
 })();
 
 /**
- * Sets the onclick events for buttons initially loaded on the page.
+ * Initializes page by loading in course data and setting button events
  */
-function setButtons() {
-    let btns = document.getElementsByTagName("button");
-    var i = 0;
+function initPage() {
+    loadCourses();
+    setBtns();
+}
 
+function loadCourses() {
+    // var object = [["TestCourse", "TestColour", linkPairs], ["TestCourse2", "TestColor2", linkPairs]]
+    // object = JSON.stringify(object);
+    // localStorage.courses = object;
+
+    // var readJSON = JSON.parse(localStorage.getItem('courses'));
+    // console.log("The read in string was: ", readJSON);
+    // readJSON.forEach(function (course) {
+    //     console.log("Course was: ", course[0]);
+    // }); 
+}
+
+/**
+ * Sets onclick events for buttons initially loaded on page.
+ */
+function setBtns() {
     // new course button
-    btns[i++].addEventListener("click",
+    let addCourseBtn = document.getElementById("new-course-btn");
+    addCourseBtn.addEventListener("click",
         function () {
-            let modal = btns[0].getAttribute("data-modal");
+            let modal = addCourseBtn.getAttribute("data-modal");
             document.getElementById(modal)
                 .style.display = "block";
         }
     );
-    
+
     // link remove buttons
-    var j = 1;
-    for (i; i < FORM_LINKS; i++){
-        let linkId = "link" + j++;
-        btns[i].addEventListener("click", 
-            function(){
+    let i = 1;
+    let removeBtns = document.getElementsByClassName("remove-btn");
+    for (let j = 0; j < removeBtns.length; j++){
+        let linkId = "link" + i++;
+        removeBtns[j].addEventListener("click",
+            function () {
                 removeLink(linkId);
             }
         );
     }
 
     // add new link button
-    btns[i++].addEventListener("click",
+    let newLinkBtn = document.querySelector(".add-new-link");
+    newLinkBtn.addEventListener("click",
         function () {
             addLink("new-course-form");
         }
     );
 
     // form submit button
-    btns[i++].addEventListener("click", 
-        function(){
-            submitForm("new-course-form","");
+    let submitBtn = document.querySelector(".submit-btn");
+    submitBtn.addEventListener("click",
+        function () {
+            submitForm("new-course-form");
         }
     );
-
-    // link modals to loaded edit buttons
-    setEditBtns();
-}
-
-/* Functionality for popup edit form */
-function setEditBtns(){
-    let modalBtns = [...document.querySelectorAll(".edit-btn")];
-    modalBtns.forEach(function (btn) {
-        btn.onclick = function () {
-            let modal = btn.getAttribute('data-modal');
-            document.getElementById(modal)
-                .style.display = "block";
-        }
-    });
-    let closeBtns = [...document.querySelectorAll(".close")];
-    closeBtns.forEach(function (btn) {
-        btn.onclick = function () {
-            let modal = btn.closest('.modal');
-            modal.style.display = "none";
-        }
-    });
 }
 
 /**
  * Adds a new link input line to a form
  * @param {String} formId id of form to add new link input
  */
-function addLink(formId){
+function addLink(formId) {
     let form = document.getElementById(formId);
     let newLink = document.createElement("div");
     newLink.className = "form-links"
@@ -130,7 +131,6 @@ function addLink(formId){
     newLink.appendChild(removeBtn);
 
     let links = form.querySelectorAll(".form-links");
-    // TODO fix here
     links[links.length - 1].insertAdjacentElement("afterend", newLink);
 }
 
@@ -138,18 +138,17 @@ function addLink(formId){
  * Removes a link input pair
  * @param {String} id The id of the div containing the link inputs
  */
-function removeLink(id){
+function removeLink(id) {
     let link = document.getElementById(id);
     link.remove();
 }
 
 /**
- * 
+ * Removes a course's frame and modal 
+ * @param {String} modalId 
+ * @param {String} frameId 
  */
-function deleteCourse(modalId, frameId){
-    console.log("In delete form function");
-    console.log("MOdal id was: ", modalId);
-    console.log("frameID was: ", frameId);
+function deleteCourse(modalId, frameId) {
     let modal = document.getElementById(modalId);
     modal.remove();
     let frame = document.getElementById(frameId);
@@ -157,44 +156,33 @@ function deleteCourse(modalId, frameId){
 }
 
 /**
- * Handles form input when user clicks "Save Changes" 
- * @param {String} formId
- * @param {String} frameId
+ * Handles form input when user clicks "Save Changes".
+ * @param {String} formId Id of form the submit button was attached to.
  */
-function submitForm(formId, frameId){
-    console.log("Passed Id was: ", formId);
+function submitForm(formId) {
     let form = document.getElementById(formId);
+    
     let i = 0;
-
     let inputElements = form.querySelectorAll("input, select");
     let course = inputElements[i++].value;
     let color = inputElements[i++].value;
-
+    
     // parse links
     let linkPairs = new Array();
-    while(inputElements[i] != null){
-        let pair = [inputElements[i].value, inputElements[i+1].value];
+    while(inputElements[i] != null) {
+        let pair = [inputElements[i++].value, inputElements[i++].value];
         linkPairs.push(pair);
-        // clear form links so form is empty when opened again
-        if (inputElements[i] != ""){
-            inputElements[i].value = "";
-        }
-        if (inputElements[i+1] != ""){
-            inputElements[i+1].value = "";
-        }
-
-        i += 2;
     }
-
+    
     // Delete previous error msg if there is one
     let prevErrMsg = form.querySelector(".error-msg");
     if (prevErrMsg != null) {
         prevErrMsg.remove();
     }
-
+    
     // If error in input, place error message above "Save Changes" button
     let errorMsg = validateForm(course, linkPairs, formId);
-    if (errorMsg != null){
+    if (errorMsg != null) {
         let newLinkBtn = form.querySelector(".add-new-link");
         let p = document.createElement("p");
         p.className = "error-msg";
@@ -202,23 +190,30 @@ function submitForm(formId, frameId){
         newLinkBtn.insertAdjacentElement("afterend", p);
         return;
     }
-
-    if (formId == "new-course-form"){
+    
+    if (formId == "new-course-form") {
         newCourse(course, color, linkPairs);
+        // clear form text data
+        form.querySelectorAll("input").forEach(
+            function (input) {
+                input.value = "";
+            }
+        )
     }
     else{
-        editCourse(course, color, linkPairs, formId, frameId);
+        editCourse(course, color, linkPairs, formId);
     }
 
-    // clear form data
-    // color.value = "";
-    form.querySelector("input").value = "";
+        // var object = [["TestCourse", "TestColour", linkPairs], ["TestCourse2", "TestColor2", linkPairs]]
+    // object = JSON.stringify(object);
+    // localStorage.courses = object;
 
-
+    // var readJSON = JSON.parse(localStorage.getItem('courses'));
+    // console.log("The read in string was: ", readJSON);
+    // readJSON.forEach(function (course) {
+    //     console.log("Course was: ", course[0]);
+    // }); 
     
-    // TODO Save to file
-
-
     let modal = form.closest('.modal');
     modal.style.display = "none";
 }
@@ -226,28 +221,38 @@ function submitForm(formId, frameId){
 /**
  * Validates form input
  * @param {String} course The course name that the user input
- * @param {Array[[String, String]]} linkPairs a link pair is an array of size two, 
+ * @param {Array[[String, String]]} linkPairs a link pair that's an array of size two, 
  * with the first element being the link name and the second element being the
  * actual link. Each link pair is stored as a subarray.
+ * @param {String} formId Id of form to be validated
  *                                            
  * @returns {String} an error message if form input is invalid,
  * @returns {null} otherwise
  */
-function validateForm(course, linkPairs, formId){
+function validateForm(course, linkPairs, formId) {
+    let curForm = document.getElementById(formId);
+    let newFormId = course.replace(/\s/g, '') + "-form";
+    let newForm = document.getElementById(newFormId);
+    
+    console.log("Form Id was: ", formId);
+    console.log("New form id was: ", newFormId);
+    console.log("Query returned: ", curForm.querySelector("#" + newFormId));
 
-    if (course == ""){
-        return("Error: course name cannot be empty");
-    }
-
-    // remove whitespace
-    let courseId = course.replace(/\s/g, '');
-    if (document.getElementById(courseId) != null && formId == "new-course-form"){
+    if (formId == "new-course-form" && newForm != null){
         return("Error: cannot have two courses with the same name");
     }
 
-    // Error if link is present but no link name
-    for(var i = 0; i < linkPairs.length; i++){
-        if (linkPairs[i][0] == "" && linkPairs[i][1] != ""){
+    if (formId != "new-course-form" && newForm != null && curForm != newForm){
+        return ("Error: cannot have two courses with the same name");
+    }
+
+    if (course == "") {
+        return("Error: course name cannot be empty");
+    }
+
+    // Check of link is present but has no link name
+    for(var i = 0; i < linkPairs.length; i++) {
+        if (linkPairs[i][0] == "" && linkPairs[i][1] != "") {
             return("Error: link name cannot be empty");
         }
     }
@@ -255,64 +260,87 @@ function validateForm(course, linkPairs, formId){
     return(null);
 }
 
-function editCourse(course, color, linkPairs, formId, frameId){
-    
-    // remove whitespace
+/**
+ * Edits course info by creating a new frame and modal and places
+ * them into the DOM. The original frame and modal is deleted. Form must be
+ * validated before calling this function.
+ * @param {String} course The new course name
+ * @param {String} color The new color chosen
+ * @param {Array[[String, String]]} linkPairs a link pair that's an array of size two,
+ * with the first element being the link name and the second element being the
+ * actual link. Each link pair is stored as a subarray.
+ * @param {String} formId id of the form that the submit button was attached to
+ */
+function editCourse(course, color, linkPairs, formId) {
+    // remove whitespace from course to be used in Id's
     let courseId = course.replace(/\s/g, '');
-    console.log("Form Id was: ", formId);
+    let newFormId = `${courseId}-form`;
+    let newFrameId = `${courseId}-frame`;
 
-    let form = document.getElementById(formId);
-    let thisModal = form.closest(".modal");
-    thisModal.insertAdjacentElement("beforebegin", newModal(course, color, linkPairs, courseId));
-    thisModal.remove();
-    
-    let thisFrame = document.getElementById(frameId);
-    thisFrame.insertAdjacentElement("beforebegin", newFrame(course, color, linkPairs, courseId));
-    thisFrame.remove()
+    // if user has changed the course name, delete existing course frame and modal and create new course
+    if (document.getElementById(newFormId) == null){
+        let oldForm = document.getElementById(formId);
+        let oldModal = oldForm.closest(".modal");
+        oldModal.insertAdjacentElement("beforebegin", newModal(course, color, linkPairs, courseId));
+        oldModal.remove();
 
-    // Insert new frame and modal
+        let oldFrame = formId.replace("-form", "-frame");
+        console.log("Generated Id:", oldFrame);
+        oldFrame = document.getElementById(oldFrame);
+        oldFrame.insertAdjacentElement("beforebegin", newFrame(course, color, linkPairs, courseId));
+        oldFrame.remove();
+    }
+    // else 
+    else {
+        let curForm = document.getElementById(newFormId);
+        let curModal = curForm.closest(".modal");
+        curModal.insertAdjacentElement("beforebegin", newModal(course, color, linkPairs, courseId));
+        curModal.remove();
+
+        let thisFrame = document.getElementById(newFrameId);
+        thisFrame.insertAdjacentElement("beforebegin", newFrame(course, color, linkPairs, courseId));
+        thisFrame.remove()
+    }
 }
 
 /**
  * Creates a new course frame and associated modal and inserts into document
  * @param {String} course What the user input in the 'course' field
- * @param {String} colorCode Hexcode for the color of the new modal
- * @param {Array[[String, String]]} linkPairs a link pair is an array of size two,
+ * @param {String} color Color that the user chose
+ * @param {Array[[String, String]]} linkPairs a link pair that's an array of size two,
  * with the first element being the link name and the second element being the
  * actual link. Each link pair is stored as a subarray.
  */
-function newCourse(course, color, linkPairs){
+function newCourse(course, color, linkPairs) {
     let grid = document.getElementById("grid-container");
     let modals = document.getElementById("modals");
 
-    // remove whitespace
-    let courseId = course.replace(/\s/g, '');
-
-    // Insert new frame and modal
-    grid.appendChild(newFrame(course, color, linkPairs, courseId));
-    modals.appendChild(newModal(course, color, linkPairs, courseId));
-
-    setEditBtns();
-    
-    // TODO more shit
+    // Insert new frame and modal. Modal must be created first
+    // so the edit button can be set in newFrame() function
+    modals.appendChild(newModal(course, color, linkPairs));
+    grid.appendChild(newFrame(course, color, linkPairs));
 }
 
 /**
- * Creates a new course frame to be inserted into grid
+ * Creates a new course frame to be inserted into grid. Each frame contains
+ * the links that the user created.
  * @param {String} course What the user input in the 'course' field
  * @param {String} colorCode Hexcode for the color of the new modal
- * @param {Array[[String, String]]} linkPairs a link pair is an array of size two,
+ * @param {Array[[String, String]]} linkPairs a link pair that's an array of size two,
  * with the first element being the link name and the second element being the
  * actual link. Each link pair is stored as a subarray.
- * @param {*} courseId Course but with all whitespace removed
  * 
  * @returns {div} a div with class="frame" and id=courseId that contains
  * all HTML for a new course frame.
  */
-function newFrame(course, color, linkPairs, courseId){
+function newFrame(course, color, linkPairs) {
+    // remove whitespace in course and use it for Id's
+    let courseId = course.replace(/\s/g, '');
+    let frameId = `${courseId}-frame`;
+
     let frame = document.createElement("div");
     frame.className = "frame";
-    frame.id = courseId;
+    frame.id = frameId;
 
     let title = document.createElement("p");
     title.className = "course-title";
@@ -322,8 +350,8 @@ function newFrame(course, color, linkPairs, courseId){
     let links = document.createElement("div");
     links.className = "links";
 
-    var firstLink = true;
-    for (var i = 0; i < linkPairs.length; i++) {
+    let firstLink = true;
+    for (let i = 0; i < linkPairs.length; i++) {
         if (firstLink) {
             firstLink = false;
         }
@@ -349,7 +377,6 @@ function newFrame(course, color, linkPairs, courseId){
             .style.display = "block";
     });
 
-
     frame.style.backgroundColor = getColorCode(color);
     return frame;
 }
@@ -358,27 +385,29 @@ function newFrame(course, color, linkPairs, courseId){
  * Creates a div element containing all HTML for a new modal
  * @param {String} course What the user input in the 'course' field 
  * @param {String} colorCode Hexcode for the color of the new modal
- * @param {Array[[String, String]]} linkPairs a link pair is an array of size two,
+ * @param {Array[[String, String]]} linkPairs a link pair that's an array of size two,
  * with the first element being the link name and the second element being the
  * actual link. Each link pair is stored as a subarray.
- * @param {*} courseId Course but with all whitespace removed
  * 
  * @returns {Div} a div element with class="modal" and id=`$courseId-modal`
  * containing all HTML for the new modal.
  */
-function newModal(course, color, linkPairs, courseId){
+function newModal(course, color, linkPairs) {
+    // remove whitespace in course and use it for Id's
+    let courseId = course.replace(/\s/g, '');
+    let modalId = `${courseId}-modal`;
+    let formId = `${courseId}-form`;
+    let frameId = `${course}-frame`;
+
+
     // Create new modal with saved values loaded into input boxes
     let newModal = document.createElement("div");
     newModal.className = "modal";
-    let modalId = `${courseId}-modal`
     newModal.id = modalId;
 
     let modalContent = document.createElement("div");
     modalContent.className = "modal-content";
-    let courseEdit = document.createElement("div");
-    courseEdit.className = "course-edit-form";
     let form = document.createElement("div");
-    let formId = `${courseId}-form`;
     form.className = "form";
     form.id = formId;
 
@@ -399,7 +428,6 @@ function newModal(course, color, linkPairs, courseId){
     form.appendChild(fragment);
 
     let colorSelector = document.createElement("select");
-    colorSelector.id = "color-selector";
     colorSelector.name = "colors";
 
     fragment = createFragment(`
@@ -419,7 +447,7 @@ function newModal(course, color, linkPairs, courseId){
 
     // insert link inputs with loaded values
     let links = document.createDocumentFragment();
-    for (var i = 0; i < linkPairs.length; i++) {
+    for (let i = 0; i < linkPairs.length; i++) {
         let newLink = document.createElement("div");
         newLink.className = "form-links";
         let linkId = "link" + stateModule.getLinkCount();
@@ -431,7 +459,7 @@ function newModal(course, color, linkPairs, courseId){
         `;
 
         // First link does not have remove button
-        if (i != 0){
+        if (i != 0) {
             let removeBtn = document.createElement("button");
             removeBtn.type = "button";
             removeBtn.className = "remove-btn";
@@ -446,13 +474,11 @@ function newModal(course, color, linkPairs, courseId){
             );
             newLink.appendChild(removeBtn);
         }
-
         links.appendChild(newLink);
     }
     form.appendChild(links);
 
     // add buttons at bottom
-
     let newLinkBtn = document.createElement("button");
     newLinkBtn.className = "add-new-link";
     newLinkBtn.innerHTML = "Add new link";
@@ -468,10 +494,9 @@ function newModal(course, color, linkPairs, courseId){
     let deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
     deleteBtn.innerHTML = "Delete Course";
-    // TODO courseID is the same as frameID
     deleteBtn.addEventListener("click",
         function() {
-            deleteCourse(modalId, courseId);
+            deleteCourse(modalId, frameId);
         }
     );
     formBottom.appendChild(deleteBtn);
@@ -482,7 +507,7 @@ function newModal(course, color, linkPairs, courseId){
     submitBtn.innerHTML = "Save Changes";
     submitBtn.addEventListener("click",
         function () {
-            submitForm(formId, courseId);
+            submitForm(formId, frameId);
         }
     );
     formBottom.appendChild(submitBtn);
@@ -490,8 +515,7 @@ function newModal(course, color, linkPairs, courseId){
 
     form.style.background = getColorCode(color);
 
-    courseEdit.appendChild(form);
-    modalContent.appendChild(courseEdit);
+    modalContent.appendChild(form);
     newModal.appendChild(modalContent);
     return (newModal);
 }
@@ -502,8 +526,8 @@ function newModal(course, color, linkPairs, courseId){
  * @return {String}      The hex code associated with each color according to the color scheme
  *                       of this web app.
  */
-function getColorCode(color){
-    switch(color){
+function getColorCode(color) {
+    switch(color) {
         case "red":
             return "#fe7b7b";
             break;
@@ -532,7 +556,7 @@ function getColorCode(color){
  * @param {String} color Either 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
  * @return {Number}      The position of the color in the dropdown select menu
  */
-function getColorPos(color){
+function getColorPos(color) {
     switch (color) {
         case "red":
             return RED_POS;
@@ -558,7 +582,7 @@ function getColorPos(color){
 }
 
 /**
- * Creates a new fragment with the passed in string as its inner HTML
+ * Creates a new fragment with the passed in string as its inner HTML.
  * @param {String} htmlStr an HTML string to be made into a fragment
  * @returns {fragment}
  */
@@ -571,6 +595,3 @@ function createFragment(htmlStr) {
     }
     return frag;
 }
-
-// TODO
-function calcSemester(){}

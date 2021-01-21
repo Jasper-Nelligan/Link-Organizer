@@ -7,60 +7,56 @@
     <link rel="stylesheet" href="style.css">
   </head>
 
-  <body onload="setButtons()">
+  <body onload="initPage()">
     <h1>2021 Winter Semester</h1>
     
-    <button id="new-course-btn" data-modal="new-modal">Add new course</button>
+    <button id="new-course-btn" data-modal="new-course-modal">Add new course</button>
 
-    <!-- Grid for storing course frames -->
+    <!-- Grid for storing course frames. These are added dynamically by script. -->
     <div id="grid-container"></div>
   
-    <!-- Popup edit form -->
+    <!-- Div for storing popup forms. -->
     <div id="modals">
-      <div class="modal" id="new-modal">
+      <!-- Initial modal loaded on page for adding new courses. -->
+      <div class="modal" id="new-course-modal">
         <div class="modal-content">
-          <div class="course-edit-form">
-            <div class="form" id="new-course-form">
-              <a class="close">&times;</a>
-              <input class="course-input" type="text" name="course" placeholder="Course">
-              <label for="colors">Color:</label>
-              <select id="color-selector" name="colors">
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-                <option value="yellow">Yellow</option>
-                <option value="orange">Orange</option>
-                <option value="purple">Purple</option>
-              </select>
+          <div class="form" id="new-course-form">
+            <a class="close">&times;</a>
+            <input class="course-input" type="text" name="course" placeholder="Course">
+            <label for="colors">Color:</label>
+            <select id="color-selector" name="colors">
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="yellow">Yellow</option>
+              <option value="orange">Orange</option>
+              <option value="purple">Purple</option>
+            </select>
 
-              <div class="form-links" id="link0">
-                <input class="link-name" type="text" name="link-name" placeholder="Link name">
-                <input class="link-input" type="text" name="link" placeholder="Link">
-              </div>
-              <div class="form-links" id="link1">
-                <input class="link-name" type="text" name="link-name" placeholder="Link name">
-                <input class="link-input" type="text" name="link" placeholder="Link">
-                <button type="button" class="remove-btn">Remove</button>
-              </div>
-              <div class="form-links" id="link2">
-                <input class="link-name" type="text" name="link-name" placeholder="Link name">
-                <input class="link-input" type="text" name="link" placeholder="Link">
-                <button type="button" class="remove-btn">Remove</button>
-              </div>
-              <div class="form-links" id="link3">
-                <input class="link-name" type="text" name="link-name" placeholder="Link name">
-                <input class="link-input" type="text" name="link" placeholder="Link">
-                <button type="button" class="remove-btn">Remove</button>
-              </div>
-              
-              <button class="add-new-link">Add new link</button>
-              <!-- Use <p<span>> to place text to the right of a button. Styling only
-                works inline for this. -->
-              <!-- <p<span style="position: relative; bottom: 0.5625em; left: 0.1875em;">Add new link</span> -->
+            <div class="form-links" id="link0">
+              <input class="link-name" type="text" name="link-name" placeholder="Link name">
+              <input class="link-input" type="text" name="link" placeholder="Link">
+            </div>
+            <div class="form-links" id="link1">
+              <input class="link-name" type="text" name="link-name" placeholder="Link name">
+              <input class="link-input" type="text" name="link" placeholder="Link">
+              <button type="button" class="remove-btn">Remove</button>
+            </div>
+            <div class="form-links" id="link2">
+              <input class="link-name" type="text" name="link-name" placeholder="Link name">
+              <input class="link-input" type="text" name="link" placeholder="Link">
+              <button type="button" class="remove-btn">Remove</button>
+            </div>
+            <div class="form-links" id="link3">
+              <input class="link-name" type="text" name="link-name" placeholder="Link name">
+              <input class="link-input" type="text" name="link" placeholder="Link">
+              <button type="button" class="remove-btn">Remove</button>
+            </div>
+            
+            <button class="add-new-link">Add new link</button>
 
-              <div class="form-bottom">
-                <button type="submit" class="submit-btn" id="submit-course">Create new course</button>
-              </div>
+            <div class="form-bottom">
+              <button type="submit" class="submit-btn" id="submit-course">Create new course</button>
             </div>
           </div>
         </div>
