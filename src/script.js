@@ -178,18 +178,19 @@ function submitForm(formId, frameId){
     }
 
     // Delete previous error msg if there is one
-    let prevErrMsg = form.getElementsByClassName("errorMsg");
-    if (prevErrMsg.length != 0) {
-        prevErrMsg[0].remove();
+    let prevErrMsg = form.querySelector(".error-msg");
+    if (prevErrMsg != null) {
+        prevErrMsg.remove();
     }
 
     // If error in input, place error message above "Save Changes" button
-    let errorMsg = validateForm(course, linkPairs);
+    let errorMsg = validateForm(course, linkPairs, formId);
     if (errorMsg != null){
-        let div = form.getElementsByClassName("add-new-link");
-        div[0].insertAdjacentHTML("beforeend", `
-            <p<span class="errorMsg" style="position: relative; bottom: 0.5625em; left: 4.3em;">${errorMsg}</span>
-        `);
+        let newLinkBtn = form.querySelector(".add-new-link");
+        let p = document.createElement("p");
+        p.className = "error-msg";
+        p.innerHTML = errorMsg;
+        newLinkBtn.insertAdjacentElement("afterend", p);
         return;
     }
 
@@ -216,7 +217,7 @@ function submitForm(formId, frameId){
  * @returns {String} an error message if form input is invalid,
  * @returns {null} otherwise
  */
-function validateForm(course, linkPairs){
+function validateForm(course, linkPairs, formId){
 
     if (course == ""){
         return("Error: course name cannot be empty");
@@ -224,7 +225,7 @@ function validateForm(course, linkPairs){
 
     // remove whitespace
     let courseId = course.replace(/\s/g, '');
-    if (document.getElementById(courseId) != null){
+    if (document.getElementById(courseId) != null && formId == "new-course-form"){
         return("Error: cannot have two courses with the same name");
     }
 
@@ -436,21 +437,15 @@ function newModal(course, color, linkPairs, courseId){
 
     // add buttons at bottom
 
-    let addNewLink = document.createElement("div");
-    addNewLink.className = "add-new-link";
-    let linkAddBtn = document.createElement("button");
-    linkAddBtn.className = "circle-add-btn";
-    addNewLink.appendChild(linkAddBtn);
-    // TODO add new green button and replace 
-    addNewLink.insertAdjacentHTML("beforeend", 
-        '<p<span style="position: relative; bottom: 0.5625em; left: 0.1875em;">Add new link</span>'
-    );
-    linkAddBtn.addEventListener("click",
+    let newLinkBtn = document.createElement("button");
+    newLinkBtn.className = "add-new-link";
+    newLinkBtn.innerHTML = "Add new link";
+    newLinkBtn.addEventListener("click",
         function () {
             addLink(formId);
         }
     );
-    form.appendChild(addNewLink);
+    form.appendChild(newLinkBtn);
 
     let formBottom = document.createElement("div");
     formBottom.className = "form-bottom";
