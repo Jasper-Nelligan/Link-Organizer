@@ -58,16 +58,6 @@ function loadCourses() {
         let linkPairs = courseData[2];
         newCourse(courseName, color, linkPairs);
     })
-
-    // var object = [["TestCourse", "TestColour", linkPairs], ["TestCourse2", "TestColor2", linkPairs]]
-    // object = JSON.stringify(object);
-    // localStorage.courses = object;
-
-    // var readJSON = JSON.parse(localStorage.getItem('courses'));
-    // console.log("The read in string was: ", readJSON);
-    // readJSON.forEach(function (course) {
-    //     console.log("Course was: ", course[0]);
-    // }); 
 }
 
 /**
@@ -163,6 +153,7 @@ function removeLink(id) {
 function deleteCourse(modalId, frameId) {
     let modal = document.getElementById(modalId);
     modal.remove();
+    console.log(frameId);
     let frame = document.getElementById(frameId);
     frame.remove();
 
@@ -413,7 +404,7 @@ function newModal(course, color, linkPairs) {
     let courseId = course.replace(/\s/g, '');
     let modalId = `${courseId}-modal`;
     let formId = `${courseId}-form`;
-    let frameId = `${course}-frame`;
+    let frameId = `${courseId}-frame`;
 
 
     // Create new modal with saved values loaded into input boxes
@@ -544,7 +535,6 @@ function saveCourseData() {
     let forms = document.getElementsByClassName("form");
     for (let i = 1; i < forms.length; i++){
         let values = parseForm(forms[i]);
-        console.log(values);
         courses.push(values);
     }
 
