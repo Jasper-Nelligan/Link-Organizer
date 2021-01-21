@@ -46,7 +46,19 @@ function initPage() {
     setBtns();
 }
 
+/**
+ * Reads in course data from localStorage and re-creates course frames and modals
+ */
 function loadCourses() {
+
+    let courses = JSON.parse(localStorage.getItem('courses'));
+    courses.forEach(function(courseData) {
+        let courseName = courseData[0];
+        let color = courseData[1];
+        let linkPairs = courseData[2];
+        newCourse(courseName, color, linkPairs);
+    })
+
     // var object = [["TestCourse", "TestColour", linkPairs], ["TestCourse2", "TestColor2", linkPairs]]
     // object = JSON.stringify(object);
     // localStorage.courses = object;
@@ -153,6 +165,8 @@ function deleteCourse(modalId, frameId) {
     modal.remove();
     let frame = document.getElementById(frameId);
     frame.remove();
+
+    saveCourseData();
 }
 
 /**
@@ -161,18 +175,10 @@ function deleteCourse(modalId, frameId) {
  */
 function submitForm(formId) {
     let form = document.getElementById(formId);
-    
-    let i = 0;
-    let inputElements = form.querySelectorAll("input, select");
-    let course = inputElements[i++].value;
-    let color = inputElements[i++].value;
-    
-    // parse links
-    let linkPairs = new Array();
-    while(inputElements[i] != null) {
-        let pair = [inputElements[i++].value, inputElements[i++].value];
-        linkPairs.push(pair);
-    }
+    let values = parseForm(form);
+    let course = values[0];
+    let color = values[1];
+    let linkPairs = values[2];
     
     // Delete previous error msg if there is one
     let prevErrMsg = form.querySelector(".error-msg");
@@ -204,18 +210,33 @@ function submitForm(formId) {
         editCourse(course, color, linkPairs, formId);
     }
 
-        // var object = [["TestCourse", "TestColour", linkPairs], ["TestCourse2", "TestColor2", linkPairs]]
-    // object = JSON.stringify(object);
-    // localStorage.courses = object;
-
-    // var readJSON = JSON.parse(localStorage.getItem('courses'));
-    // console.log("The read in string was: ", readJSON);
-    // readJSON.forEach(function (course) {
-    //     console.log("Course was: ", course[0]);
-    // }); 
+    saveCourseData();
     
     let modal = form.closest('.modal');
     modal.style.display = "none";
+}
+
+/**
+ * Given a form, returns all input values in the form
+ * @param {form} formId 
+ * @returns {Array} an array with structure [course, color, linkPairs], where
+ * is an array of size two, with the first element being the link name and the
+ * second element being the actual link. Each link pair is stored as a subarray.
+ */
+function parseForm(form){
+    let i = 0;
+    let inputElements = form.querySelectorAll("input, select");
+    let course = inputElements[i++].value;
+    let color = inputElements[i++].value;
+
+    // parse links
+    let linkPairs = new Array();
+    while (inputElements[i] != null) {
+        let pair = [inputElements[i++].value, inputElements[i++].value];
+        linkPairs.push(pair);
+    }
+
+    return ([course, color, linkPairs]);
 }
 
 /**
@@ -234,10 +255,6 @@ function validateForm(course, linkPairs, formId) {
     let newFormId = course.replace(/\s/g, '') + "-form";
     let newForm = document.getElementById(newFormId);
     
-    console.log("Form Id was: ", formId);
-    console.log("New form id was: ", newFormId);
-    console.log("Query returned: ", curForm.querySelector("#" + newFormId));
-
     if (formId == "new-course-form" && newForm != null){
         return("Error: cannot have two courses with the same name");
     }
@@ -285,7 +302,6 @@ function editCourse(course, color, linkPairs, formId) {
         oldModal.remove();
 
         let oldFrame = formId.replace("-form", "-frame");
-        console.log("Generated Id:", oldFrame);
         oldFrame = document.getElementById(oldFrame);
         oldFrame.insertAdjacentElement("beforebegin", newFrame(course, color, linkPairs, courseId));
         oldFrame.remove();
@@ -501,7 +517,6 @@ function newModal(course, color, linkPairs) {
     );
     formBottom.appendChild(deleteBtn);
 
-    console.log("Form id before was: ", formId);
     let submitBtn = document.createElement("button");
     submitBtn.className = "submit-btn";
     submitBtn.innerHTML = "Save Changes";
@@ -518,6 +533,22 @@ function newModal(course, color, linkPairs) {
     modalContent.appendChild(form);
     newModal.appendChild(modalContent);
     return (newModal);
+}
+
+/**
+ * Traverse through DOM and save all data to localStorage
+ */
+function saveCourseData() {
+    let courses = new Array();
+
+    let forms = document.getElementsByClassName("form");
+    for (let i = 1; i < forms.length; i++){
+        let values = parseForm(forms[i]);
+        console.log(values);
+        courses.push(values);
+    }
+
+    localStorage.courses = JSON.stringify(courses);
 }
 
 /**
