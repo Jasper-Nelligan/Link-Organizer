@@ -370,6 +370,8 @@ function newFrame(course, color, linkPairs) {
         link.innerHTML = linkPairs[i][0];
         links.appendChild(link);
     }
+    // Add space between last link and edit button
+    links.insertAdjacentHTML("beforeend", "<br><br><br>");
 
     frame.appendChild(links);
 
