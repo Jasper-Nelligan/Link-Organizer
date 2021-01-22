@@ -60,6 +60,7 @@ button:hover {
 .links {
     margin-left: 5%;
     margin-bottom: 5%;
+    word-wrap: break-word;
 }
 
 
