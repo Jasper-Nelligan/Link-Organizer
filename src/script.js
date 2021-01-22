@@ -39,13 +39,14 @@ var stateModule = ( function () {
 })();
 
 /**
- * Initializes page by loading in course data and setting button events
+ * Initializes page by setting button events and loading course data
  */
 function initPage() {
-    localStorage.example = null; 
+    setBtns();
+
+    let courses = JSON.parse(localStorage.getItem("courses"));
     // if user is accessing page for the first time;
-    if (localStorage.getItem("example") == null) {
-        localStorage.example = "notNull";
+    if (courses == null || courses.length == 0) {
         newCourse("Example Course", "green", [
             ["Example Link 1", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
             ["Example Link 2", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
@@ -54,9 +55,9 @@ function initPage() {
         ])
         saveCourseData();
     }
-
-    setBtns();
-    loadCourses();
+    else{
+        loadCourses();
+    }
 }
 
 /**
