@@ -42,15 +42,27 @@ var stateModule = ( function () {
  * Initializes page by loading in course data and setting button events
  */
 function initPage() {
-    loadCourses();
+    localStorage.example = null; 
+    // if user is accessing page for the first time;
+    if (localStorage.getItem("example") == null) {
+        localStorage.example = "notNull";
+        newCourse("Example Course", "green", [
+            ["Example Link 1", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
+            ["Example Link 2", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
+            ["Example Link 3", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
+            ["Example Link 4", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"]
+        ])
+        saveCourseData();
+    }
+
     setBtns();
+    loadCourses();
 }
 
 /**
  * Reads in course data from localStorage and re-creates course frames and modals
  */
 function loadCourses() {
-
     let courses = JSON.parse(localStorage.getItem('courses'));
     courses.forEach(function(courseData) {
         let courseName = courseData[0];
@@ -73,6 +85,14 @@ function setBtns() {
                 .style.display = "block";
         }
     );
+
+    // close Modal button
+    let closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click",
+        function () {
+            let modal = closeBtn.closest('.modal');
+            modal.style.display = "none";
+        });
 
     // link remove buttons
     let i = 1;

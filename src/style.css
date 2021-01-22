@@ -118,6 +118,7 @@ button:hover {
 .close:hover,
 .close:focus {
     color: black;
+    cursor: pointer;
 }
 
 .course-input {
