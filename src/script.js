@@ -45,6 +45,9 @@ var stateModule = ( function () {
 function initPage() {
     setBtns();
 
+    let length = (localStorage.getItem("courses") + localStorage.getItem("image")).length;
+    console.log("Total length of JSON was: ", length);
+    
     let courses = JSON.parse(localStorage.getItem("courses"));
     // if user is accessing page for the first time;
     if (courses == null || courses.length == 0) {
@@ -77,27 +80,43 @@ function loadCourses() {
 }
 
 function loadImage(){
-    let imgBase64 = localStorage.getItem('image');
     let img = document.getElementById('schedule-image');
-    img.src = imgBase64;
+    img.src = localStorage.getItem('image');
 }
 
 function newImage() {
     const imgDisplay = document.getElementById("schedule-image");
     const imgPath = document.querySelector('input[type=file]').files[0];
-    console.log("File path: ", imgPath);
     const reader = new FileReader();
+
+    if (imgPath.size > 2000000){
+        let p = document.createElement("p");
+        p.className = "error-msg";
+        p.textContent = "Error: image must be less than 2 MB.";
+        imgDisplay.insertAdjacentElement("beforebegin", p);
+        return;
+    }
 
     reader.addEventListener("load", function () {
         // convert image file to base64 string
         let imgBase64 = reader.result;
         imgDisplay.src = imgBase64;
-        localStorage.setItem = imgBase64;
+        localStorage.setItem("image", imgBase64);
     }, false);
 
     if (imgPath) {
         reader.readAsDataURL(imgPath);
     }
+}
+
+document.getElementById("btnLoad").addEventListener("click", function showFileSize() {
+
+});
+
+function addPara(text) {
+    var p = document.createElement("p");
+    p.textContent = text;
+    document.body.appendChild(p);
 }
 
 /**
