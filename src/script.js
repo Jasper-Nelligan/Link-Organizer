@@ -39,7 +39,8 @@ var stateModule = ( function () {
 })();
 
 /**
- * Initializes page by setting button events and loading course data
+ * Initializes page by setting button events, loading course data, and loading
+ * image of schedule.
  */
 function initPage() {
     setBtns();
@@ -58,6 +59,8 @@ function initPage() {
     else{
         loadCourses();
     }
+
+    loadImage();
 }
 
 /**
@@ -71,6 +74,30 @@ function loadCourses() {
         let linkPairs = courseData[2];
         newCourse(courseName, color, linkPairs);
     })
+}
+
+function loadImage(){
+    let imgBase64 = localStorage.getItem('image');
+    let img = document.getElementById('schedule-image');
+    img.src = imgBase64;
+}
+
+function newImage() {
+    const imgDisplay = document.getElementById("schedule-image");
+    const imgPath = document.querySelector('input[type=file]').files[0];
+    console.log("File path: ", imgPath);
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        let imgBase64 = reader.result;
+        imgDisplay.src = imgBase64;
+        localStorage.setItem = imgBase64;
+    }, false);
+
+    if (imgPath) {
+        reader.readAsDataURL(imgPath);
+    }
 }
 
 /**
@@ -388,6 +415,7 @@ function newFrame(course, color, linkPairs) {
         }
         let link = document.createElement("a");
         link.href = linkPairs[i][1];
+        link.target = "_blank";
         link.innerHTML = linkPairs[i][0];
         links.appendChild(link);
     }
@@ -638,4 +666,17 @@ function createFragment(htmlStr) {
         frag.appendChild(temp.firstChild);
     }
     return frag;
+}
+
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }

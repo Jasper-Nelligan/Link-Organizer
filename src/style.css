@@ -22,6 +22,10 @@ button:hover {
     cursor: pointer;
 }
 
+input[type="file"] {
+    display: none;
+}
+
 #new-course-btn {
   background-color: #4caf50;
   border: none;
@@ -32,7 +36,7 @@ button:hover {
   margin-bottom: 2em;
 }
 
-.new-course-btn:hover {
+#new-course-btn:hover {
   background-color: #337a36;
 }
 
@@ -203,11 +207,26 @@ button:hover {
     width: 100%;
 }
 
-/* Image */
+/* Upload Schedule Section */
+
+#image-upload-btn {
+    background-color: #4caf50;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+#image-upload-btn:hover {
+    background-color:  #337a36;
+}
 
 .schedule {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
+    width: 60%;
 }
+
+
