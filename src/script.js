@@ -51,11 +51,11 @@ function initPage() {
     let courses = JSON.parse(localStorage.getItem("courses"));
     // if user is accessing page for the first time, load example course and description
     if (courses == null || courses.length == 0) {
-        newCourse("Example Course", "green", [
-            ["Example Link 1", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
-            ["Example Link 2", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
-            ["Example Link 3", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
-            ["Example Link 4", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"]
+        newCourse("Example Course", "blue", [
+            ["Example Link 1", ""],
+            ["Example Link 2", ""],
+            ["Example Link 3", ""],
+            ["Example Link 4", ""]
         ])
         saveCourseData();
 
