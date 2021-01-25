@@ -53,10 +53,11 @@ input[type="file"] {
   display: inline-block;
   cursor: help;
   margin-left: 0.5em;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .dropdown-content {
-  display: none;
+  visibility: hidden;
   position: absolute;
   background-color: #fff;
   min-width: 20em;
@@ -67,7 +68,9 @@ input[type="file"] {
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  transition-delay: 0.6s;
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Link organizer grid */

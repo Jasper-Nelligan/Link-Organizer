@@ -42,7 +42,7 @@ var stateModule = ( function () {
  * Initializes page by setting button events, loading course data, and loading
  * image of schedule.
  */
-function initPage() 
+function initPage() {
     setBtns();
 
     let length = (localStorage.getItem("courses") + localStorage.getItem("image")).length;
