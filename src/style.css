@@ -8,6 +8,8 @@
  * Purple: #c17ed9
  */
 
+/* General */
+
 body {
     background-color:powderblue;
 }
@@ -26,6 +28,13 @@ input[type="file"] {
     display: none;
 }
 
+/* Add-new-course button and dropdown info */
+
+.description {
+    width: 30%;
+    font-size: 1.1em;
+}
+
 #new-course-btn {
   background-color: #4caf50;
   border: none;
@@ -33,11 +42,32 @@ input[type="file"] {
   padding: 0.5em 0.75em;
   text-align: center;
   text-decoration: none;
-  margin-bottom: 2em;
 }
 
 #new-course-btn:hover {
   background-color: #337a36;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  margin-left: 0.5em;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 20em;
+  max-width: 50em;
+  box-shadow:  rgba(0,0,0,0.2);
+  padding: 0px 4px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /* Link organizer grid */
@@ -47,6 +77,8 @@ input[type="file"] {
     display: inline-grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-gap: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 .frame {
@@ -171,7 +203,7 @@ input[type="file"] {
   background-color: #337a36;
 }
 
-.error-msg {
+.form-error-msg {
     display: inline;
     color: red;
 }
@@ -213,20 +245,29 @@ input[type="file"] {
     background-color: #4caf50;
     cursor: pointer;
     color: #fff;
-    display: inline-block;
-    padding: 6px 12px;
+    padding: 0.5em 0.75em;
 }
 
 #image-upload-btn:hover {
     background-color:  #337a36;
 }
 
+.img-error-msg {
+    color: red;
+}
+
 .schedule {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2%;
     width: 60%;
+}
+
+/* Text below image */
+
+#page-end {
+    text-align: center;
+    color: #454545;
 }
 
 

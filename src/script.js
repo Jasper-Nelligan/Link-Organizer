@@ -42,14 +42,14 @@ var stateModule = ( function () {
  * Initializes page by setting button events, loading course data, and loading
  * image of schedule.
  */
-function initPage() {
+function initPage() 
     setBtns();
 
     let length = (localStorage.getItem("courses") + localStorage.getItem("image")).length;
     console.log("Total length of JSON was: ", length);
     
     let courses = JSON.parse(localStorage.getItem("courses"));
-    // if user is accessing page for the first time;
+    // if user is accessing page for the first time, load example course and description
     if (courses == null || courses.length == 0) {
         newCourse("Example Course", "green", [
             ["Example Link 1", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"],
@@ -58,12 +58,15 @@ function initPage() {
             ["Example Link 4", "https://www.youtube.com/watch?v=QtBDL8EiNZo&ab"]
         ])
         saveCourseData();
+
     }
     else{
         loadCourses();
     }
 
-    loadImage();
+    // Load in img data from localStorage and display it 
+    let img = document.getElementById('schedule-image');
+    img.src = localStorage.getItem('image');
 }
 
 /**
@@ -79,11 +82,10 @@ function loadCourses() {
     })
 }
 
-function loadImage(){
-    let img = document.getElementById('schedule-image');
-    img.src = localStorage.getItem('image');
-}
-
+/**
+ * Displays user-uploaded image and saves it's string representation 
+ * into localStorage.
+ */
 function newImage() {
     const imgDisplay = document.getElementById("schedule-image");
     const imgPath = document.querySelector('input[type=file]').files[0];
@@ -91,7 +93,7 @@ function newImage() {
 
     if (imgPath.size > 2000000){
         let p = document.createElement("p");
-        p.className = "error-msg";
+        p.className = "img-error-msg";
         p.textContent = "Error: image must be less than 2 MB.";
         imgDisplay.insertAdjacentElement("beforebegin", p);
         return;
@@ -100,23 +102,30 @@ function newImage() {
     reader.addEventListener("load", function () {
         // convert image file to base64 string
         let imgBase64 = reader.result;
-        imgDisplay.src = imgBase64;
-        localStorage.setItem("image", imgBase64);
+        try {
+            localStorage.setItem("image", imgBase64);
+            imgDisplay.src = imgBase64;
+        }
+        /* 
+         * Check if adding new image exceeds browser's local storage.
+         * This is HIGHLY unlikely to be triggered, since local storage 
+         * is around 5MB, meaning that there would have to be 3MB of 
+         * course link data.
+         */
+        catch (DOMException){
+            let p = document.createElement("p");
+            p.className = "img-error-msg";
+            p.textContent = "Error: Application has run out storage space. Try "
+                        +   "deleting unneeded course links or choose a smaller image "
+                        +   "file.";
+            let imgBtn = document.getElementById("image-upload-btn");
+            imgBtn.insertAdjacentElement("afterend", p);
+        }
     }, false);
 
     if (imgPath) {
         reader.readAsDataURL(imgPath);
     }
-}
-
-document.getElementById("btnLoad").addEventListener("click", function showFileSize() {
-
-});
-
-function addPara(text) {
-    var p = document.createElement("p");
-    p.textContent = text;
-    document.body.appendChild(p);
 }
 
 /**
@@ -239,7 +248,7 @@ function submitForm(formId) {
     let linkPairs = values[2];
     
     // Delete previous error msg if there is one
-    let prevErrMsg = form.querySelector(".error-msg");
+    let prevErrMsg = form.querySelector(".form-error-msg");
     if (prevErrMsg != null) {
         prevErrMsg.remove();
     }
@@ -249,7 +258,7 @@ function submitForm(formId) {
     if (errorMsg != null) {
         let newLinkBtn = form.querySelector(".add-new-link");
         let p = document.createElement("p");
-        p.className = "error-msg";
+        p.className = "form-error-msg";
         p.innerHTML = errorMsg;
         newLinkBtn.insertAdjacentElement("afterend", p);
         return;
@@ -268,7 +277,24 @@ function submitForm(formId) {
         editCourse(course, color, linkPairs, formId);
     }
 
-    saveCourseData();
+    try {
+        saveCourseData();
+    }
+    /*
+     * Check if adding new course data exceeds browser's local storage.
+     * This is HIGHLY unlikely to be triggered, since for a 5MB local
+     * storage there would have to be over 3MB of course link data.
+     */
+    catch (DOMException) {
+        let newLinkBtn = form.querySelector(".add-new-link");
+        let p = document.createElement("p");
+        p.className = "form-error-msg";
+        p.textContent = "Error: Application has run out storage space. Try "
+            + "deleting unneeded course links or choose a smaller image "
+            + "file so more data can be saved.";
+        newLinkBtn.insertAdjacentElement("afterend", p);
+        return;
+    }
     
     let modal = form.closest('.modal');
     modal.style.display = "none";
@@ -685,17 +711,4 @@ function createFragment(htmlStr) {
         frag.appendChild(temp.firstChild);
     }
     return frag;
-}
-
-function getBase64Image(img) {
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    var dataURL = canvas.toDataURL("image/png");
-
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }

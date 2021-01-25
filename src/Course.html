@@ -11,6 +11,17 @@
     <h1>Course Link Organizer</h1>
     
     <button id="new-course-btn" data-modal="new-course-modal">Add new course</button>
+    <div class="dropdown">
+      <span>(i)</span>
+      <div class="dropdown-content">
+        <p>
+          Use this to add your own course links below.
+
+          All webpage data is stored locally, so your course links will still
+          be here after refreshing the page.
+        </p>
+      </div>
+    </div>
 
     <!-- Grid for storing course frames. These are added dynamically by script. -->
     <div id="grid-container"></div>
@@ -65,9 +76,24 @@
 
     <!-- Upload Image -->
 
-    <p><input type="file" accept="image/*" name="image" id="file" onchange="newImage()"></p>
-    <p><label for="file" id="image-upload-btn">Upload image</label></p>
+    <input type="file" accept="image/*" name="image" id = "file" onchange="newImage()">
+    <label for="file" id="image-upload-btn">Upload image of schedule</label>
+    <div class="dropdown">
+      <span>(i)</span>
+      <div class="dropdown-content">
+        <p>
+          Use this to upload an image of your class schedule. File must be 2MB
+          or under. Supported .png and .jpg file types.
+        </p>
+      </div>
+    </div>
+
     <p><img id="schedule-image" class = "schedule"/></p>
+
+    <p id="page-end">Have any questions, issues, or suggestions? 
+      Open an issue on <a href="https://github.com/Jasper-Nelligan/Course-Organizer">github</a>
+      or email me at jasperanmail@gmail.com!
+    </p>
 
     <script src="script.js"></script>
   </body>
