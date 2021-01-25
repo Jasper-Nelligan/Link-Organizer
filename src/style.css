@@ -24,10 +24,6 @@ button:hover {
     cursor: pointer;
 }
 
-input[type="file"] {
-    display: none;
-}
-
 /* Add-new-course button and dropdown info */
 
 .description {
@@ -141,7 +137,8 @@ input[type="file"] {
     background: #fff;
 }
 
-.modal-content input, textarea {
+.modal-content input, 
+textarea {
     padding: 10px;
     border: 1px solid #1c87c9;
     outline: none;
@@ -243,6 +240,10 @@ input[type="file"] {
 }
 
 /* Upload Schedule Section */
+
+#file {
+    display: none;
+}
 
 #image-upload-btn {
     background-color: #4caf50;
