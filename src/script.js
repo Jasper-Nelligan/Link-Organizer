@@ -91,7 +91,7 @@ function newImage() {
     const imgPath = document.querySelector('input[type=file]').files[0];
     const reader = new FileReader();
 
-    if (imgPath.size > 2000000){
+    if (imgPath.size > 3000000){
         let p = document.createElement("p");
         p.className = "img-error-msg";
         p.textContent = "Error: image must be less than 2 MB.";
