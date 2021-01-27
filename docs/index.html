@@ -16,8 +16,8 @@
     <div class="dropdown-content">
       <p>
         Use this to add your own course links below. All webpage data is
-        stored locally, so your course links will still be here after
-        refreshing the page.
+        stored locally, so your course links will remain after refreshing 
+        the page.
       </p>
     </div>
   </div>
@@ -50,17 +50,17 @@
           <div class="form-links" id="link1">
             <input class="link-name" type="text" name="link-name" placeholder="Link name">
             <input class="link-input" type="text" name="link" placeholder="Link">
-            <button type="button" class="remove-btn">Remove</button>
+            <button type="button" class="remove-link-btn">Remove</button>
           </div>
           <div class="form-links" id="link2">
             <input class="link-name" type="text" name="link-name" placeholder="Link name">
             <input class="link-input" type="text" name="link" placeholder="Link">
-            <button type="button" class="remove-btn">Remove</button>
+            <button type="button" class="remove-link-btn">Remove</button>
           </div>
           <div class="form-links" id="link3">
             <input class="link-name" type="text" name="link-name" placeholder="Link name">
             <input class="link-input" type="text" name="link" placeholder="Link">
-            <button type="button" class="remove-btn">Remove</button>
+            <button type="button" class="remove-link-btn">Remove</button>
           </div>
 
           <button class="add-new-link">Add new link</button>
@@ -75,24 +75,34 @@
 
   <!-- Upload Image -->
 
-  <input type="file" accept="image/*" name="image" id="file" onchange="newImage()">
+  <input type="file" accept="image/*" name="image" id="file" onchange="newImage(event)">
   <label for="file" id="image-upload-btn">Upload image of schedule</label>
-  <div class="dropdown">
+  <div class="dropdown" id="image-popup">
     <span>(i)</span>
     <div class="dropdown-content">
       <p>
         Use this to upload an image of your class schedule. File must be 3MB
-        or under. Supports .png and .jpg file types.
+        or under. Supports .png and .jpg file types. Uploading a new image
+        replaces the one already on the page.
       </p>
     </div>
   </div>
 
-  <p><img id="schedule-image" class="schedule"></p>
+  <p><img id="schedule-image"></p>
 
-  <p id="page-end">Have any questions, issues, or suggestions?
-    Open an issue on <a href="https://github.com/Jasper-Nelligan/Course-Organizer">github</a>
-    or email me at jasperanmail@gmail.com!
-  </p>
+  <div id="page-end">
+  
+    <p id="bottom-text">Have any questions, issues, or suggestions?
+      Open an issue on 
+      <a href="https://github.com/Jasper-Nelligan/Link-Organizer" target="_blank">github</a>
+      or email me at jasperanmail@gmail.com!
+    </p>
+  </div>
+
+  <!-- <p id="page-end">Have any questions, issues, or suggestions?
+    Open an issue on <a href="https://github.com/Jasper-Nelligan/Link-Organizer">github</a>
+    or email me at jaspernmail@gmail.com!
+  </p> -->
 
   <script src="script.js"></script>
 </body>

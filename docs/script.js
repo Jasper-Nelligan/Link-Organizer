@@ -46,23 +46,47 @@ function initPage() {
   setBtns();
 
   const courses = JSON.parse(localStorage.getItem('courses'));
-  // load example course if user has no other courses created
+  // if user has no other courses created
   if (courses == null || courses.length == 0) {
-    newCourse('Example Course', 'blue', [
-      ['Example Link 1', ''],
-      ['Example Link 2', ''],
-      ['Example Link 3', ''],
-      ['Example Link 4', ''],
-    ]);
-    saveCourseData();
+    // create welcome message
+    const p = document.createElement('p');
+    p.style.textAlign = 'center';
+    p.innerHTML = `
+      Welcome to Link Organizer! Try adding your course links below, or 
+      upload your class schedule with the "Upload image of schedule" button.
+    `;
+    const newCourseBtn = document.getElementById('new-course-btn');
+    newCourseBtn.insertAdjacentElement('beforebegin', p);
   }
   else {
     loadCourses();
   }
 
   // Load in img data from localStorage and display it
-  const img = document.getElementById('schedule-image');
-  img.src = localStorage.getItem('image');
+  const imgData = localStorage.getItem('image');
+  if (imgData != null) {
+    const img = document.getElementById('schedule-image');
+    img.src = imgData;
+    img.style.opacity = '1';
+    // Shift bottom text to be right after image
+    const pageEnd = document.getElementById('page-end');
+    pageEnd.style.height = '5vh';
+
+    // Create "Remove image" button
+    const btn = document.createElement('button');
+    btn.id = 'remove-image-btn';
+    btn.innerHTML = "Remove image";
+    img.insertAdjacentElement('afterend', btn);
+    btn.addEventListener('click',
+        function() {
+          img.src = '';
+          img.style.opacity = '0';
+          pageEnd.style.height = '50vh';
+          localStorage.removeItem('image');
+          btn.remove();
+        }
+    );
+  }
 }
 
 /**
@@ -82,48 +106,81 @@ function loadCourses() {
  * Displays user-uploaded image and saves it's string representation
  * into localStorage.
  */
-function newImage() {
+function newImage(event) {
   const imgDisplay = document.getElementById('schedule-image');
-  const imgPath = document.querySelector('input[type=file]').files[0];
+  const imgPath = document.querySelector('#file').files[0];
   const reader = new FileReader();
+
+  console.log("File was: ", imgPath);
 
   if (imgPath.size > 3000000) {
     const p = document.createElement('p');
     p.className = 'img-error-msg';
-    p.innerHTML = 'Error: image must be less than 3 MB.';
+    p.innerHTML = 'Error: image file size must be less than 3MB';
     imgDisplay.insertAdjacentElement('beforebegin', p);
     return;
   }
 
-  reader.addEventListener('load', function() {
-    // convert image file to base64 string
-    const imgBase64 = reader.result;
-    try {
-      localStorage.setItem('image', imgBase64);
-      imgDisplay.src = imgBase64;
-    }
-    catch (DOMException) {
-    /*
-     * Check if adding new image exceeds browser's local storage.
-     * This is HIGHLY unlikely to be triggered, since local storage
-     * is around 5MB, meaning that there would have to be 3MB of
-     * course link data.
-     */
-      const p = document.createElement('p');
-      p.className = 'img-error-msg';
-      p.innerHTML = `
+  // Remove previous "Remove image" button
+  let rmvBtn = document.getElementById('remove-image-btn');
+  if (rmvBtn != null){
+    rmvBtn.remove();
+  }
+
+  reader.addEventListener('load',
+      function() {
+      // convert image file to base64 string
+        const imgBase64 = reader.result;
+        try {
+          localStorage.setItem('image', imgBase64);
+          imgDisplay.src = imgBase64;
+          imgDisplay.style.opacity = '1';
+
+          // Create "Remove image" button
+          const btn = document.createElement('button');
+          btn.id = 'remove-image-btn';
+          btn.innerHTML = "Remove image";
+          imgDisplay.insertAdjacentElement('afterend', btn);
+          btn.addEventListener('click',
+            function() {
+              imgDisplay.src = '';
+              imgDisplay.style.opacity = '0';
+              pageEnd.style.height = '50vh';
+              localStorage.removeItem('image');
+              btn.remove();
+            }
+          );
+
+          // Shift bottom text to be right after image
+          const pageEnd = document.getElementById('page-end');
+          pageEnd.style.height = '5vh';
+        }
+        catch (DOMException) {
+          console.log(DOMException.stack);
+          /*
+           * Check if adding new image exceeds browser's local storage.
+           * This is HIGHLY unlikely to be triggered, since local storage
+           * is around 5MB, meaning that there would have to be 3MB of
+           * course link data.
+           */
+          const p = document.createElement('p');
+          p.className = 'img-error-msg';
+          p.innerHTML = `
                 Error: Application has run out storage space. Try
                 deleting unneeded course links or choose a smaller image
                 file.
             `;
-      const imgBtn = document.getElementById('image-upload-btn');
-      imgBtn.insertAdjacentElement('afterend', p);
-    }
-  }, false);
+          const infoPopup = document.getElementById('image-popup');
+          infoPopup.insertAdjacentElement('afterend', p);
+        }
+      }, false);
 
   if (imgPath) {
     reader.readAsDataURL(imgPath);
   }
+
+  // reset value so user can upload same image twice
+  event.target.value = ''
 }
 
 /**
@@ -150,7 +207,7 @@ function setBtns() {
 
   // link remove buttons
   let i = 1;
-  const removeBtns = document.getElementsByClassName('remove-btn');
+  const removeBtns = document.getElementsByClassName('remove-link-btn');
   for (let j = 0; j < removeBtns.length; j++) {
     const linkId = 'link' + i++;
     removeBtns[j].addEventListener('click',
@@ -193,7 +250,7 @@ function addLink(formId) {
 
   const removeBtn = document.createElement('button');
   removeBtn.type = 'button';
-  removeBtn.className = 'remove-btn';
+  removeBtn.className = 'remove-link-btn';
   removeBtn.innerHTML = 'Remove';
 
   // set remove button action
@@ -227,7 +284,6 @@ function removeLink(id) {
 function deleteCourse(modalId, frameId) {
   const modal = document.getElementById(modalId);
   modal.remove();
-  console.log(frameId);
   const frame = document.getElementById(frameId);
   frame.remove();
 
@@ -571,7 +627,7 @@ function newModal(course, color, linkPairs) {
     if (i != 0) {
       const removeBtn = document.createElement('button');
       removeBtn.type = 'button';
-      removeBtn.className = 'remove-btn';
+      removeBtn.className = 'remove-link-btn';
       removeBtn.innerHTML = 'Remove';
 
       // set remove button action
@@ -601,7 +657,7 @@ function newModal(course, color, linkPairs) {
   const formBottom = document.createElement('div');
   formBottom.className = 'form-bottom';
   const deleteBtn = document.createElement('button');
-  deleteBtn.className = 'delete-btn';
+  deleteBtn.className = 'delete-course-btn';
   deleteBtn.innerHTML = 'Delete Course';
   deleteBtn.addEventListener('click',
       function() {
@@ -634,6 +690,7 @@ function newModal(course, color, linkPairs) {
 function saveCourseData() {
   const courses = [];
 
+  // i is set to 1 to avoid saving new-course-form
   const forms = document.getElementsByClassName('form');
   for (let i = 1; i < forms.length; i++) {
     const values = parseForm(forms[i]);
