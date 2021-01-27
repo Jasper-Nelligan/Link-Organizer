@@ -50,6 +50,7 @@ function initPage() {
   if (courses == null || courses.length == 0) {
     // create welcome message
     const p = document.createElement('p');
+    p.style.textAlign = "center";
     p.innerHTML = `
       Welcome to Link Organizer! Try adding your course links below, or 
       upload your class schedule with the "Upload image of schedule" button.
