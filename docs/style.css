@@ -176,7 +176,7 @@ textarea {
     margin-right: 2%;
 }
 
-.remove-btn{
+.remove-link-btn{
     width: 11%;
     background: #f44336;
     color: #fff;
@@ -184,7 +184,7 @@ textarea {
     padding: 0.5em
 }
 
-.remove-btn:hover {
+.remove-link-btn:hover {
     background: #961a12;
 }
 
@@ -216,13 +216,13 @@ textarea {
     color: #fff;
 }
 
-.delete-btn {
+.delete-course-btn {
     width: 31%;
     background: #f44336;
     margin-right: 0.7em;
 }
 
-.delete-btn:hover {
+.delete-course-btn:hover {
     background: #961a12;
 }
 
@@ -266,6 +266,21 @@ textarea {
     margin-right: auto;
     width: 60%;
     opacity: 0;
+}
+
+.remove-image-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f44336;
+    color: #fff;
+    border: none;
+    padding: 0.5em;
+    margin-top: 2em;
+}
+
+.remove-image-btn:hover {
+    background: #961a12;
 }
 
 /* Text below image */

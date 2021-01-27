@@ -50,7 +50,7 @@ function initPage() {
   if (courses == null || courses.length == 0) {
     // create welcome message
     const p = document.createElement('p');
-    p.style.textAlign = "center";
+    p.style.textAlign = 'center';
     p.innerHTML = `
       Welcome to Link Organizer! Try adding your course links below, or 
       upload your class schedule with the "Upload image of schedule" button.
@@ -71,6 +71,21 @@ function initPage() {
     // Shift bottom text to be right after image
     const pageEnd = document.getElementById('page-end');
     pageEnd.style.height = '5vh';
+
+    // Create "Remove image" button
+    const btn = document.createElement('button');
+    btn.className = 'remove-image-btn';
+    btn.innerHTML = "Remove image";
+    img.insertAdjacentElement('afterend', btn);
+    btn.addEventListener('click',
+        function() {
+          img.src = '';
+          img.style.opacity = '0';
+          pageEnd.style.height = '50vh';
+          localStorage.removeItem('image');
+          btn.remove();
+        }
+    );
   }
 }
 
@@ -104,35 +119,52 @@ function newImage() {
     return;
   }
 
-  reader.addEventListener('load', function() {
-    // convert image file to base64 string
-    const imgBase64 = reader.result;
-    try {
-      localStorage.setItem('image', imgBase64);
-      imgDisplay.src = imgBase64;
-      imgDisplay.style.opacity = '1';
-      // Shift bottom text to be right after image
-      const pageEnd = document.getElementById('page-end');
-      pageEnd.style.height = '5vh';
-    }
-    catch (DOMException) {
-    /*
-     * Check if adding new image exceeds browser's local storage.
-     * This is HIGHLY unlikely to be triggered, since local storage
-     * is around 5MB, meaning that there would have to be 3MB of
-     * course link data.
-     */
-      const p = document.createElement('p');
-      p.className = 'img-error-msg';
-      p.innerHTML = `
+  reader.addEventListener('load',
+      function() {
+      // convert image file to base64 string
+        const imgBase64 = reader.result;
+        try {
+          localStorage.setItem('image', imgBase64);
+          imgDisplay.src = imgBase64;
+          imgDisplay.style.opacity = '1';
+
+          // Create "Remove image" button
+          const btn = document.createElement('button');
+          btn.className = 'remove-image-btn';
+          btn.innerHTML = "Remove image";
+          imgDisplay.insertAdjacentElement('afterend', btn);
+          btn.addEventListener('click',
+            function() {
+              imgDisplay.src = '';
+              imgDisplay.style.opacity = '0';
+              pageEnd.style.height = '50vh';
+              localStorage.removeItem('image');
+              btn.remove();
+            }
+          );
+
+          // Shift bottom text to be right after image
+          const pageEnd = document.getElementById('page-end');
+          pageEnd.style.height = '5vh';
+        }
+        catch (DOMException) {
+          /*
+           * Check if adding new image exceeds browser's local storage.
+           * This is HIGHLY unlikely to be triggered, since local storage
+           * is around 5MB, meaning that there would have to be 3MB of
+           * course link data.
+           */
+          const p = document.createElement('p');
+          p.className = 'img-error-msg';
+          p.innerHTML = `
                 Error: Application has run out storage space. Try
                 deleting unneeded course links or choose a smaller image
                 file.
             `;
-      const imgBtn = document.getElementById('image-upload-btn');
-      imgBtn.insertAdjacentElement('afterend', p);
-    }
-  }, false);
+          const infoPopup = document.getElementById('image-popup');
+          infoPopup.insertAdjacentElement('afterend', p);
+        }
+      }, false);
 
   if (imgPath) {
     reader.readAsDataURL(imgPath);
@@ -163,7 +195,7 @@ function setBtns() {
 
   // link remove buttons
   let i = 1;
-  const removeBtns = document.getElementsByClassName('remove-btn');
+  const removeBtns = document.getElementsByClassName('remove-link-btn');
   for (let j = 0; j < removeBtns.length; j++) {
     const linkId = 'link' + i++;
     removeBtns[j].addEventListener('click',
@@ -206,7 +238,7 @@ function addLink(formId) {
 
   const removeBtn = document.createElement('button');
   removeBtn.type = 'button';
-  removeBtn.className = 'remove-btn';
+  removeBtn.className = 'remove-link-btn';
   removeBtn.innerHTML = 'Remove';
 
   // set remove button action
@@ -583,7 +615,7 @@ function newModal(course, color, linkPairs) {
     if (i != 0) {
       const removeBtn = document.createElement('button');
       removeBtn.type = 'button';
-      removeBtn.className = 'remove-btn';
+      removeBtn.className = 'remove-link-btn';
       removeBtn.innerHTML = 'Remove';
 
       // set remove button action
