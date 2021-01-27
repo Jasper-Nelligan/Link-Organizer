@@ -10,16 +10,14 @@
 <body onload="initPage()">
   <h1>Course Link Organizer</h1>
 
-  <p>Testing</p>
-
   <button id="new-course-btn" data-modal="new-course-modal">Add new course</button>
   <div class="dropdown">
     <span>(i)</span>
     <div class="dropdown-content">
       <p>
         Use this to add your own course links below. All webpage data is
-        stored locally, so your course links will still be here after
-        refreshing the page.
+        stored locally, so your course links will remain after refreshing 
+        the page.
       </p>
     </div>
   </div>
@@ -84,17 +82,27 @@
     <div class="dropdown-content">
       <p>
         Use this to upload an image of your class schedule. File must be 3MB
-        or under. Supports .png and .jpg file types.
+        or under. Supports .png and .jpg file types. Uploading a new image
+        replaces the one already on the page.
       </p>
     </div>
   </div>
 
-  <p><img id="schedule-image" onerror="this.style.opacity='0'"></p>
+  <p><img id="schedule-image"></p>
 
-  <p id="page-end">Have any questions, issues, or suggestions?
-    Open an issue on <a href="https://github.com/Jasper-Nelligan/Course-Organizer">github</a>
-    or email me at jasperanmail@gmail.com!
-  </p>
+  <div id="page-end">
+  
+    <p id="bottom-text">Have any questions, issues, or suggestions?
+      Open an issue on 
+      <a href="https://github.com/Jasper-Nelligan/Link-Organizer" target="_blank">github</a>
+      or email me at jasperanmail@gmail.com!
+    </p>
+  </div>
+
+  <!-- <p id="page-end">Have any questions, issues, or suggestions?
+    Open an issue on <a href="https://github.com/Jasper-Nelligan/Link-Organizer">github</a>
+    or email me at jaspernmail@gmail.com!
+  </p> -->
 
   <script src="script.js"></script>
 </body>

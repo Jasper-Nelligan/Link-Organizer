@@ -46,23 +46,31 @@ function initPage() {
   setBtns();
 
   const courses = JSON.parse(localStorage.getItem('courses'));
-  // load example course if user has no other courses created
+  // if user has no other courses created
   if (courses == null || courses.length == 0) {
-    newCourse('Example Course', 'blue', [
-      ['Example Link 1', ''],
-      ['Example Link 2', ''],
-      ['Example Link 3', ''],
-      ['Example Link 4', ''],
-    ]);
-    saveCourseData();
+    // create welcome message
+    const p = document.createElement('p');
+    p.innerHTML = `
+      Welcome to Link Organizer! Try adding your course links below, or 
+      upload your class schedule with the "Upload image of schedule" button.
+    `;
+    const newCourseBtn = document.getElementById('new-course-btn');
+    newCourseBtn.insertAdjacentElement('beforebegin', p);
   }
   else {
     loadCourses();
   }
 
   // Load in img data from localStorage and display it
-  const img = document.getElementById('schedule-image');
-  img.src = localStorage.getItem('image');
+  const imgData = localStorage.getItem('image');
+  if (imgData != null) {
+    const img = document.getElementById('schedule-image');
+    img.src = imgData;
+    img.style.opacity = '1';
+    // Shift bottom text to be right after image
+    const pageEnd = document.getElementById('page-end');
+    pageEnd.style.height = '5vh';
+  }
 }
 
 /**
@@ -90,7 +98,7 @@ function newImage() {
   if (imgPath.size > 3000000) {
     const p = document.createElement('p');
     p.className = 'img-error-msg';
-    p.innerHTML = 'Error: image must be less than 3 MB.';
+    p.innerHTML = 'Error: image file size must be less than 3MB';
     imgDisplay.insertAdjacentElement('beforebegin', p);
     return;
   }
@@ -101,6 +109,10 @@ function newImage() {
     try {
       localStorage.setItem('image', imgBase64);
       imgDisplay.src = imgBase64;
+      imgDisplay.style.opacity = '1';
+      // Shift bottom text to be right after image
+      const pageEnd = document.getElementById('page-end');
+      pageEnd.style.height = '5vh';
     }
     catch (DOMException) {
     /*
@@ -227,7 +239,6 @@ function removeLink(id) {
 function deleteCourse(modalId, frameId) {
   const modal = document.getElementById(modalId);
   modal.remove();
-  console.log(frameId);
   const frame = document.getElementById(frameId);
   frame.remove();
 
@@ -634,6 +645,7 @@ function newModal(course, color, linkPairs) {
 function saveCourseData() {
   const courses = [];
 
+  // i is set to 1 to avoid saving new-course-form
   const forms = document.getElementsByClassName('form');
   for (let i = 1; i < forms.length; i++) {
     const values = parseForm(forms[i]);
