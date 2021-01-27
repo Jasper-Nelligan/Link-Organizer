@@ -6,6 +6,6 @@ class schedule so you don't miss class.
 The website is live at https://jasper-nelligan.github.io/Link-Organizer/.
 
 An example of using the webpage to create a new course with links:
-![Link Organizer Demo](https://imgur.com/gallery/xZLY3oY)
+![Alt Text](https://imgur.com/gallery/xZLY3oY)
 
 
