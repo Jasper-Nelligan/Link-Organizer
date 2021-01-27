@@ -1,2 +1,11 @@
 # Course-Organizer
-A small HTML page used to organize your class zoom links. You can replace the current courses with your own. I didn't write the original code but I've improved upon it in this repo. 
+A customizable webpage geared towards organizing your links for online learning! Great for keeping your 
+zoom links, class websites, and assignments all in one page. Additionally, you can upload an image of your
+class schedule so you don't miss class.
+
+The website is live at https://jasper-nelligan.github.io/Link-Organizer/.
+
+An example of using the webpage to create a new course with links:
+![Demo](https://i.imgur.com/o1Bsc5h.gif)
+
+
