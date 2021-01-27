@@ -74,7 +74,7 @@ function initPage() {
 
     // Create "Remove image" button
     const btn = document.createElement('button');
-    btn.className = 'remove-image-btn';
+    btn.id = 'remove-image-btn';
     btn.innerHTML = "Remove image";
     img.insertAdjacentElement('afterend', btn);
     btn.addEventListener('click',
@@ -106,10 +106,12 @@ function loadCourses() {
  * Displays user-uploaded image and saves it's string representation
  * into localStorage.
  */
-function newImage() {
+function newImage(event) {
   const imgDisplay = document.getElementById('schedule-image');
-  const imgPath = document.querySelector('input[type=file]').files[0];
+  const imgPath = document.querySelector('#file').files[0];
   const reader = new FileReader();
+
+  console.log("File was: ", imgPath);
 
   if (imgPath.size > 3000000) {
     const p = document.createElement('p');
@@ -117,6 +119,12 @@ function newImage() {
     p.innerHTML = 'Error: image file size must be less than 3MB';
     imgDisplay.insertAdjacentElement('beforebegin', p);
     return;
+  }
+
+  // Remove previous "Remove image" button
+  let rmvBtn = document.getElementById('remove-image-btn');
+  if (rmvBtn != null){
+    rmvBtn.remove();
   }
 
   reader.addEventListener('load',
@@ -130,7 +138,7 @@ function newImage() {
 
           // Create "Remove image" button
           const btn = document.createElement('button');
-          btn.className = 'remove-image-btn';
+          btn.id = 'remove-image-btn';
           btn.innerHTML = "Remove image";
           imgDisplay.insertAdjacentElement('afterend', btn);
           btn.addEventListener('click',
@@ -148,6 +156,7 @@ function newImage() {
           pageEnd.style.height = '5vh';
         }
         catch (DOMException) {
+          console.log(DOMException.stack);
           /*
            * Check if adding new image exceeds browser's local storage.
            * This is HIGHLY unlikely to be triggered, since local storage
@@ -169,6 +178,9 @@ function newImage() {
   if (imgPath) {
     reader.readAsDataURL(imgPath);
   }
+
+  // reset value so user can upload same image twice
+  event.target.value = ''
 }
 
 /**
@@ -645,7 +657,7 @@ function newModal(course, color, linkPairs) {
   const formBottom = document.createElement('div');
   formBottom.className = 'form-bottom';
   const deleteBtn = document.createElement('button');
-  deleteBtn.className = 'delete-btn';
+  deleteBtn.className = 'delete-course-btn';
   deleteBtn.innerHTML = 'Delete Course';
   deleteBtn.addEventListener('click',
       function() {

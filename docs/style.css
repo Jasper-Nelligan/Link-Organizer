@@ -268,7 +268,7 @@ textarea {
     opacity: 0;
 }
 
-.remove-image-btn{
+#remove-image-btn{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -279,7 +279,7 @@ textarea {
     margin-top: 2em;
 }
 
-.remove-image-btn:hover {
+#remove-image-btn:hover {
     background: #961a12;
 }
 
