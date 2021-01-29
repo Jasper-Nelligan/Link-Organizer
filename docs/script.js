@@ -53,7 +53,9 @@ function initPage() {
     p.style.textAlign = 'center';
     p.innerHTML = `
       Welcome to Link Organizer! Try adding your course links below, or 
-      upload your class schedule with the "Upload image of schedule" button.
+      upload your class schedule with the "Upload image of schedule" button. <br> 
+      All data is stored locally in your browser, so your links and schedule 
+      will remain after refreshing this page.
     `;
     const newCourseBtn = document.getElementById('new-course-btn');
     newCourseBtn.insertAdjacentElement('beforebegin', p);
@@ -78,13 +80,13 @@ function initPage() {
     btn.innerHTML = "Remove image";
     img.insertAdjacentElement('afterend', btn);
     btn.addEventListener('click',
-        function() {
-          img.src = '';
-          img.style.opacity = '0';
-          pageEnd.style.height = '50vh';
-          localStorage.removeItem('image');
-          btn.remove();
-        }
+      function() {
+        img.src = '';
+        img.style.opacity = '0';
+        pageEnd.style.height = '50vh';
+        localStorage.removeItem('image');
+        btn.remove();
+      }
     );
   }
 }
