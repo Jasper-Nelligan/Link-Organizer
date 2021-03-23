@@ -734,7 +734,7 @@ function getColorCode(color) {
 }
 
 /**
- * Returns a hex code for each course color option.
+ * Returns the position of each color in the dropdown select menu.
  * @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
  * @return {Number}      The position of the color in the dropdown select menu
  */
