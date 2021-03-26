@@ -438,7 +438,7 @@ function createiFrame(iFrameLink) {
 
   const removeBtn = document.createElement('button');
   removeBtn.className = "remove-btn";
-  removeBtn.id = "remove-iframe-btn";
+  removeBtn.id = "remove-iFrame-btn";
   removeBtn.innerHTML = "Remove calendar";
   removeBtn.addEventListener('click',
     function() {
