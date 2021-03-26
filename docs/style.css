@@ -255,6 +255,7 @@ textarea {
   color: #fff; 
   cursor: pointer;
   padding: 0.5em 0.75em;
+  font-size: 0.95em;
 }
 
 #image-upload-btn:hover {
@@ -319,6 +320,10 @@ textarea {
 
 #iFrame-error-msg {
   color: red;
+}
+
+#remove-iFrame-btn {
+  margin-bottom: 2em;
 }
 
 /* Text below image */
