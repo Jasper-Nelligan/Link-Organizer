@@ -19,7 +19,7 @@
 <body onload="initPage()">
   <h1>Course Link Organizer</h1>
 
-  <button id="new-course-btn" data-modal="new-course-modal">Add new course</button>
+  <button class="add-btn" id="add-course-btn" data-modal="new-course-modal">Add new course</button>
   <div class="dropdown">
     <span>(i)</span>
     <div class="dropdown-content">
@@ -33,6 +33,48 @@
 
   <!-- Grid for storing course frames. These are added dynamically by script. -->
   <div id="grid-container"></div>
+
+  <!-- Upload Image Of Schedule -->
+  <input type="file" accept="image/*" name="image" id="file" onchange="newImage(event)">
+  <label for="file" id="image-upload-btn">Upload image of schedule</label>
+  <div class="dropdown" id="image-popup">
+    <span>(i)</span>
+    <div class="dropdown-content">
+      <p>
+        Use this to upload an image of your class schedule. File must be 3MB
+        or under. Supports .png and .jpg file types. Uploading a new image
+        replaces the one already on the page.
+      </p>
+    </div>
+  </div>
+
+  <p><img id="schedule-image"></p>
+  
+  <!-- Google calendar iFrame -->
+  <button class="add-btn" id="add-iFrame-btn" data-modal="add-calendar-modal">Add Google Calendar</button>
+  <div class="dropdown">
+    <span>(i)</span>
+    <div class="dropdown-content">
+      <p>
+        Use this to add your own course links below. All webpage data is
+        stored locally, so your course links and schedule will remain after
+        refreshing the page.
+      </p>
+    </div>
+  </div>
+
+  <!-- Google calendar iFrame -->
+  <!-- <iframe src=""
+    id="iFrame" frameborder="0" scrolling="no"></iFrame> -->
+
+  <!-- Page end -->
+  <div id="page-end">
+    <p id="bottom-text">Have any questions, issues, or suggestions?
+      Open an issue on 
+      <a href="https://github.com/Jasper-Nelligan/Link-Organizer" target="_blank">github</a>
+      or email me at jaspernmail@gmail.com!
+    </p>
+  </div>
 
   <!-- Div for storing popup forms. -->
   <div id="modals">
@@ -80,37 +122,33 @@
         </div>
       </div>
     </div>
-  </div>
+    <div class="modal" id="add-calendar-modal">
+      <div class="modal-content">
+        <div class="form" id="add-calendar-form">
+          <a class="close">&times;</a>
+          <h2>Adding your Google Calendar</h2>
+          <p>
+            If you use Google Calendar you can add an interactive version of it right here on this page!
+            <br><br>
+            With this you'll be able to see all your upcoming events and due dates. Adding new events
+            must be done using the actual Google Calendar website.
+            <br><br>
+            You'll have to fetch your Google Calendar's public URL in order to display it here. Here's
+            the steps required to find your public URL:
+            <br><br>
+            1. On your computer, open <a href="https://www.google.com/calendar" target="_blank">Google Calendar<a>.<br>
+            2. In the top right, click on the gear icon to open up settings.<br>
+            3. On the left, under "Setting for my calendars", click on the calendar you want to add. A dropdown
+               menu should appear. From the dropdown menu, click "Integrate calendar".<br>
+            4. Copy the link under "Public URL for my calendar" and paste it below!
+          </p>
 
-  <!-- Upload Image Of Schedule -->
-  <input type="file" accept="image/*" name="image" id="file" onchange="newImage(event)">
-  <label for="file" id="image-upload-btn">Upload image of schedule</label>
-  <div class="dropdown" id="image-popup">
-    <span>(i)</span>
-    <div class="dropdown-content">
-      <p>
-        Use this to upload an image of your class schedule. File must be 3MB
-        or under. Supports .png and .jpg file types. Uploading a new image
-        replaces the one already on the page.
-      </p>
+          <input type="text" id="iFrame-input" name="link-name" placeholder="Google Calendar public URL">
+          <button type="submit" id="submit-iFrame-btn">Submit</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <p><img id="schedule-image"></p>
-    
-  <!-- Google calendar iframe -->
-  <iframe src="https://calendar.google.com/calendar/embed?src=japperan123%40gmail.com&ctz=America%2FEdmonton"
-    id="iframe" frameborder="0" scrolling="no"></iframe>
-
-  <!-- Page end -->
-  <div id="page-end">
-    <p id="bottom-text">Have any questions, issues, or suggestions?
-      Open an issue on 
-      <a href="https://github.com/Jasper-Nelligan/Link-Organizer" target="_blank">github</a>
-      or email me at jaspernmail@gmail.com!
-    </p>
-  </div>
-
 
   <script src="script.js"></script>
 </body>

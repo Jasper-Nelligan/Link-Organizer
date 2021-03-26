@@ -57,7 +57,7 @@ function initPage() {
       All data is stored locally in your browser, so your links and schedule 
       will remain after refreshing this page.
     `;
-    const newCourseBtn = document.getElementById('new-course-btn');
+    const newCourseBtn = document.getElementById('add-course-btn');
     newCourseBtn.insertAdjacentElement('beforebegin', p);
   }
   else {
@@ -77,6 +77,7 @@ function initPage() {
     // Create "Remove image" button
     const btn = document.createElement('button');
     btn.id = 'remove-image-btn';
+    btn.className = "remove-btn";
     btn.innerHTML = "Remove image";
     img.insertAdjacentElement('afterend', btn);
     btn.addEventListener('click',
@@ -89,6 +90,82 @@ function initPage() {
       }
     );
   }
+
+  const iFrameLink = localStorage.getItem('iFrame');
+  if (iFrameLink != null) {
+    createiFrame(iFrameLink);
+  }
+}
+
+/**
+ * Sets onclick events for buttons initially loaded on page.
+ */
+ function setBtns() {
+  // new course button
+  const addCourseBtn = document.getElementById('add-course-btn');
+  addCourseBtn.addEventListener('click',
+      function() {
+        const modal = addCourseBtn.getAttribute('data-modal');
+        document.getElementById(modal)
+            .style.display = 'block';
+      },
+  );
+
+  // close Modal button
+  const closeBtns = document.querySelectorAll('.close');
+  for (let i = 0; i < closeBtns.length; i++) {
+    closeBtns[i].addEventListener('click',
+        function() {
+          const modal = closeBtns[i].closest('.modal');
+          modal.style.display = 'none';
+    });
+  }
+
+  // link remove buttons
+  let i = 1;
+  const removeBtns = document.getElementsByClassName('remove-link-btn');
+  for (let j = 0; j < removeBtns.length; j++) {
+    const linkId = 'link' + i++;
+    removeBtns[j].addEventListener('click',
+        function() {
+          removeLink(linkId);
+        },
+    );
+  }
+
+  // add new link button
+  const newLinkBtn = document.querySelector('.add-new-link');
+  newLinkBtn.addEventListener('click',
+    function() {
+      addLink('new-course-form');
+    },
+  );
+
+  // form submit button
+  const submitBtn = document.querySelector('.submit-btn');
+  submitBtn.addEventListener('click',
+    function() {
+      submitForm('new-course-form');
+    },
+  );
+
+  // add iFrame button
+  const addiFrameBtn = document.getElementById('add-iFrame-btn');
+  addiFrameBtn.addEventListener('click',
+    function() {
+      const modal = addiFrameBtn.getAttribute('data-modal');
+      document.getElementById(modal)
+          .style.display = 'block';
+    },
+  );
+
+  // submit iFrame button
+  const submitiFrameBtn = document.getElementById('submit-iFrame-btn');
+  submitiFrameBtn.addEventListener('click',
+    function() {
+      submitiFrame();
+    }
+  )
 }
 
 /**
@@ -141,6 +218,7 @@ function newImage(event) {
           // Create "Remove image" button
           const btn = document.createElement('button');
           btn.id = 'remove-image-btn';
+          btn.className = "remove-btn";
           btn.innerHTML = "Remove image";
           imgDisplay.insertAdjacentElement('afterend', btn);
           btn.addEventListener('click',
@@ -183,57 +261,6 @@ function newImage(event) {
 
   // reset value so user can upload same image twice
   event.target.value = ''
-}
-
-/**
- * Sets onclick events for buttons initially loaded on page.
- */
-function setBtns() {
-  // new course button
-  const addCourseBtn = document.getElementById('new-course-btn');
-  addCourseBtn.addEventListener('click',
-      function() {
-        const modal = addCourseBtn.getAttribute('data-modal');
-        document.getElementById(modal)
-            .style.display = 'block';
-      },
-  );
-
-  // close Modal button
-  const closeBtn = document.querySelector('.close');
-  closeBtn.addEventListener('click',
-      function() {
-        const modal = closeBtn.closest('.modal');
-        modal.style.display = 'none';
-      });
-
-  // link remove buttons
-  let i = 1;
-  const removeBtns = document.getElementsByClassName('remove-link-btn');
-  for (let j = 0; j < removeBtns.length; j++) {
-    const linkId = 'link' + i++;
-    removeBtns[j].addEventListener('click',
-        function() {
-          removeLink(linkId);
-        },
-    );
-  }
-
-  // add new link button
-  const newLinkBtn = document.querySelector('.add-new-link');
-  newLinkBtn.addEventListener('click',
-      function() {
-        addLink('new-course-form');
-      },
-  );
-
-  // form submit button
-  const submitBtn = document.querySelector('.submit-btn');
-  submitBtn.addEventListener('click',
-      function() {
-        submitForm('new-course-form');
-      },
-  );
 }
 
 /**
@@ -356,6 +383,75 @@ function submitForm(formId) {
 
   const modal = form.closest('.modal');
   modal.style.display = 'none';
+}
+
+/**
+ * Called when the user submits their Google Calendar embedded link. 
+ */
+function submitiFrame() {
+  // delete any pre-existing error messages
+  const errorMsg = document.getElementById("iFrame-error-msg");
+  if (errorMsg != null) {
+    errorMsg.remove();
+  }
+
+  const iFrameLink = document.getElementById("iFrame-input").value;
+
+  // check for valid google calendar link
+  if (!iFrameLink.includes("https://calendar.google.com/calendar/embed?")) {
+    const form = document.getElementById("add-calendar-form");
+    const errorMsg = document.createElement('p');
+    errorMsg.id = "iFrame-error-msg";
+    errorMsg.innerHTML = "Error: link is not a valid Google Calendar public URL";
+    form.insertAdjacentElement('beforeend', errorMsg);
+    return;
+  }
+
+  let iFrame = document.getElementById("iFrame");
+  if (iFrame == null) {
+    createiFrame(iFrameLink);
+  }
+  else {
+    iFrame.src = iFrameLink;
+  }
+
+  localStorage.setItem('iFrame', iFrameLink);
+
+  const modal = document.getElementById("add-calendar-modal");
+  modal.style.display = 'none';
+}
+
+/**
+ * Creates a new iFrame element to hold the user's Google Calendar, assuming that
+ * there is not already an existing iFrame element.
+ * @param {string} iFrameLink the user's Google Calendar embedded link
+ */
+function createiFrame(iFrameLink) {
+  const iFrame = document.createElement('iframe');
+  iFrame.id = "iFrame";
+  iFrame.src = iFrameLink;
+  iFrame.frameborder = "0";
+  iFrame.scrolling = "no";
+
+  const pageEnd = document.getElementById("page-end");
+  pageEnd.insertAdjacentElement('beforebegin', iFrame);
+
+  const removeBtn = document.createElement('button');
+  removeBtn.className = "remove-btn";
+  removeBtn.id = "remove-iframe-btn";
+  removeBtn.innerHTML = "Remove calendar";
+  removeBtn.addEventListener('click',
+    function() {
+      const iFrame = document.getElementById("iFrame");
+      iFrame.remove();
+      localStorage.removeItem('iFrame');
+      removeBtn.remove();
+    }
+  );
+
+  pageEnd.insertAdjacentElement('beforebegin', removeBtn);  
+
+  
 }
 
 /**
@@ -575,7 +671,7 @@ function newModal(course, color, linkPairs) {
   const modalContent = document.createElement('div');
   modalContent.className = 'modal-content';
   const form = document.createElement('div');
-  form.className = 'form';
+  form.className = 'course-form';
   form.id = formId;
 
   const closeBtn = document.createElement('a');
@@ -687,13 +783,12 @@ function newModal(course, color, linkPairs) {
 }
 
 /**
- * Traverse through DOM and save all data to localStorage
+ * Traverses through DOM for course forms and saves all data to localStorage.
  */
 function saveCourseData() {
-  const courses = [];
+  let courses = [];
 
-  // i is set to 1 to avoid saving new-course-form
-  const forms = document.getElementsByClassName('form');
+  const forms = document.getElementsByClassName('course-form');
   for (let i = 1; i < forms.length; i++) {
     const values = parseForm(forms[i]);
     courses.push(values);

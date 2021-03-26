@@ -31,7 +31,7 @@ button:hover {
   width: 30%;
 }
 
-#new-course-btn {
+.add-btn {
   background-color: #4caf50;
   border: none;
   color: #fff;
@@ -40,7 +40,7 @@ button:hover {
   text-decoration: none;
 }
 
-#new-course-btn:hover {
+.add-btn:hover {
   background-color: #337a36;
 }
 
@@ -98,7 +98,6 @@ button:hover {
   word-wrap: break-word;
 }
 
-
 /* 
  * Positions edit button at bottom center of container 
  * The translate() adjusts for the edit button's width and height
@@ -132,6 +131,12 @@ button:hover {
 }
 
 .form {
+  background: #fff;
+  margin: 25px;
+  padding: 2%;
+}
+
+.course-form {
   background: #fff;
   margin: 25px;
   padding: 2%;
@@ -268,7 +273,7 @@ textarea {
   width: 60%;
 }
 
-#remove-image-btn{
+.remove-btn{
   background: #f44336;
   border: none;
   color: #fff;
@@ -279,13 +284,13 @@ textarea {
   padding: 0.5em;
 }
 
-#remove-image-btn:hover {
+.remove-btn:hover {
   background: #961a12;
 }
 
 /* iframe */
 
-#iframe {
+#iFrame {
   border: 0px;
   height: 37.5em;
   width: 56.25em;
@@ -293,6 +298,27 @@ textarea {
   margin-right: auto;
   margin-bottom: 2em;
   display: block;
+}
+
+#iFrame-input {
+  width: 80%;
+}
+
+#submit-iFrame-btn {
+    background: #1c87c9;
+    border: none;
+    color: #fff;
+    padding: 0.5em;
+    width: 11%;
+    margin-left: 2%;
+}
+  
+.submit-iFrame-btn:hover {
+  background: #2371a0;
+}
+
+#iFrame-error-msg {
+  color: red;
 }
 
 /* Text below image */
