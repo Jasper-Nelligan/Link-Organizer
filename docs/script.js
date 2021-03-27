@@ -273,7 +273,7 @@ function addLink(formId) {
   newLink.className = 'form-links';
   newLink.id = 'link' + stateModule.getLinkCount();
   newLink.innerHTML = `
-    <input class="link-name" type="text" name="link-name" placeholder="Link name">
+    <input class="link-name" type="text" name="link-name" placeholder="Title">
     <input class="link-input" type="text" name="link" placeholder="Link">
   `;
 
@@ -717,7 +717,7 @@ function newModal(course, color, linkPairs) {
     newLink.id = linkId;
     stateModule.incLinkCount();
     newLink.innerHTML = `
-            <input class="link-name" type="text" name="link-name" placeholder="Link name" value="${linkPairs[i][0]}">
+            <input class="link-name" type="text" name="link-name" placeholder="Title" value="${linkPairs[i][0]}">
             <input class="link-input" type="text" name="link" placeholder="Link" value="${linkPairs[i][1]}">
         `;
 
