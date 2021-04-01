@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO indent 2 space blocks
-
 // # of initial input lines for links
 const FORM_LINKS = 4;
 
@@ -789,7 +787,7 @@ function saveCourseData() {
   let courses = [];
 
   const forms = document.getElementsByClassName('course-form');
-  for (let i = 1; i < forms.length; i++) {
+  for (let i = 0; i < forms.length; i++) {
     const values = parseForm(forms[i]);
     courses.push(values);
   }
