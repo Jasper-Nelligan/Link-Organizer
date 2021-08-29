@@ -2,6 +2,8 @@
 A customizable webpage to organize internet links for online learning. Great for keeping your 
 zoom links, class websites, and assignments all on one page.
 
+Live at https://jasper-nelligan.github.io/Link-Organizer/
+
 Features:
 
 * Organize all your online learning links into individual classes for easy access
