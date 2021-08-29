@@ -5,5 +5,5 @@ zoom links, class websites, and assignments all on one page.
 Features:
 
 * Organize all your online learning links into individual classes for easy access
-* Add a image of your class schedule so you don't miss class again
+* Add an image of your class schedule so you don't miss class again
 * Add your Google calendar directly to the page to see upcoming assignments
