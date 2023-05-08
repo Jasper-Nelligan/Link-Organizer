@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './App.css';
-
-const pageTitle = <h1 className="center">Course Link Organizer</h1>
+import './app.css';
+import App from './App.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(pageTitle);
+root.render(<App />);

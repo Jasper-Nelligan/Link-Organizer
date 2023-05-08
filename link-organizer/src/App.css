@@ -4,6 +4,25 @@ h1 {
     color: #b16565;
 }
 
+h3 {
+    font-family: "Secular One";
+}
+
+body {
+    font-family: "Secular One";
+}
+
 .center {
     text-align: center;
+}
+
+.centerBottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    text-align: center;
+    background: lightgray;
+    padding: 1em;
+    margin: 0;
 }
