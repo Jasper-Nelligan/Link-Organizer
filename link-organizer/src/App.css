@@ -2,10 +2,14 @@ h1 {
     font-family: "Secular One";
     font-size: 3em;
     color: #b16565;
+    margin:0;
+    padding:0;
 }
 
 h3 {
     font-family: "Secular One";
+    margin-top: 0;
+    margin-bottom: 50px;
 }
 
 body {
