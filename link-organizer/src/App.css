@@ -34,10 +34,13 @@ body {
     background-origin: border-box;
     background-clip: content-box, border-box;
     box-shadow: 2px 1000px 1px #fff inset;
+    transition: .2s ease-in-out 0s;
 }
 
 #add-course-btn:hover {
     background-position: right center;
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 #footer {
