@@ -16,18 +16,19 @@ body {
     text-align: center;
 }
 
-/* https://codepen.io/miraviolet/pen/ZobWEg*/
+/* https://codepen.io/miraviolet/pen/ZobWEg */
 /* https://codepen.io/pirrera/pen/bqVeGx */
 #add-course-btn {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     width: 200px;
     height: 48px;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    font-family: 'Secular One';
-    font-size: 1rem;
-    padding: .5rem 3rem;
-    color: $color-black;
-    box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
     border: solid 3px transparent;
     background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(160deg, #FE7B7B, #75D073, #FFE977, #74A3FF, #FBB143, #C17ED9);
     background-origin: border-box;
@@ -36,8 +37,7 @@ body {
 }
 
 #add-course-btn:hover {
-    box-shadow: none;
-    color: white;
+    background-position: right center;
 }
 
 #footer {

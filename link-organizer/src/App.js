@@ -6,7 +6,7 @@ class App extends React.Component {
             <>
             <h1 className="center">Course Link Organizer</h1>
             <h3 className="center">All your class links - One page</h3>
-            <div className="center">
+            <div className="btn-container">
                 <button id="add-course-btn">Add course</button>
             </div>
             <p id="footer">
