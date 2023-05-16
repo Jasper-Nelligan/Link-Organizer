@@ -1,0 +1,35 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+}
+
+/* Size and position of modal on screen*/
+.modal-content {
+    margin: 6.25em auto;
+    width: 50%;
+  }
+
+  .form {
+    background: #fff;
+    margin: 25px;
+    padding: 2%;
+  }
+
+/* 
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+*/
+  

@@ -1,0 +1,45 @@
+<div id="modals">
+    <div class="modal" id="new-course-modal">
+        <div class="modal-content">
+            <div class="form" id="new-course-form">
+              <a class="close">&times;</a>
+              <input class="course-input" type="text" name="course" placeholder="Course"></input>
+              <label for="colors">Color:</label>
+              <select id="color-selector" name="colors">
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+                <option value="purple">Purple</option>
+              </select>
+    
+              <div class="form-links" id="link0">
+                <input class="link-name" type="text" name="link-name" placeholder="Title"></input>
+                <input class="link-input" type="text" name="link" placeholder="Link"></input>
+              </div>
+              <div class="form-links" id="link1">
+                <input class="link-name" type="text" name="link-name" placeholder="Title"></input>
+                <input class="link-input" type="text" name="link" placeholder="Link"></input>
+                <button type="button" class="remove-link-btn">Remove</button>
+              </div>
+              <div class="form-links" id="link2">
+                <input class="link-name" type="text" name="link-name" placeholder="Title"></input>
+                <input class="link-input" type="text" name="link" placeholder="Link"></input>
+                <button type="button" class="remove-link-btn">Remove</button>
+              </div>
+              <div class="form-links" id="link3">
+                <input class="link-name" type="text" name="link-name" placeholder="Title"></input>
+                <input class="link-input" type="text" name="link" placeholder="Link"></input>
+                <button type="button" class="remove-link-btn">Remove</button>
+              </div>
+    
+              <button class="add-new-link">Add new link</button>
+    
+              <div class="form-bottom">
+                <button type="submit" class="submit-btn" id="submit-course">Create new course</button>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
