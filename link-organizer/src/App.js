@@ -9,7 +9,7 @@ function App() {
         <h1 className="center">Course Link Organizer</h1>
         <h3 className="center">All your class links - One page</h3>
         <div className="btn-container">
-            <button id="add-course-btn" data-modal="new-course-modal" onClick={e => {
+            <button id="add-course-btn" data-modal="new-course-modal" onClick={() => {
                 setShowModal(true);
                 }}>Add course</button>
         </div>
