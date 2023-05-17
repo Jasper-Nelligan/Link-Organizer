@@ -1,5 +1,6 @@
 import React from "react";
-import "./Modal.css"
+import "./Modal.css";
+import LinkField from "./LinkField.js"
 
 export default class Modal extends React.Component {
     onClose = e => {
@@ -19,7 +20,7 @@ export default class Modal extends React.Component {
 
                     <a className="close-button" onClick={this.onClose}>&times;</a>
 
-                    <label for="colors">Color : </label>
+                    <label htmlFor="colors">Color : </label> 
                     <select id="color-selector" name="colors">
                         <option value="red">Red</option>
                         <option value="green">Green</option>
@@ -29,25 +30,10 @@ export default class Modal extends React.Component {
                         <option value="purple">Purple</option>
                     </select>
 
-                    <div className="form-links" id="link0">
-                        <input className="link-name" type="text" name="link-name" placeholder="Title"/>
-                        <input className="link-input" type="text" name="link" placeholder="Link"/>
-                    </div>
-                    <div className="form-links" id="link1">
-                        <input className="link-name" type="text" name="link-name" placeholder="Title"/>
-                        <input className="link-input" type="text" name="link" placeholder="Link"/>
-                        <button type="button" className="remove-link-btn">Remove</button>
-                    </div>
-                    <div className="form-links" id="link2">
-                        <input className="link-name" type="text" name="link-name" placeholder="Title"/>
-                        <input className="link-input" type="text" name="link" placeholder="Link"/>
-                        <button type="button" className="remove-link-btn">Remove</button>
-                    </div>
-                    <div className="form-links" id="link3">
-                        <input className="link-name" type="text" name="link-name" placeholder="Title"/>
-                        <input className="link-input" type="text" name="link" placeholder="Link"/>
-                        <button type="button" className="remove-link-btn">Remove</button>
-                    </div>
+                    <LinkField isFirstLink={true}/>
+                    <LinkField isFirstLink={false}/>
+                    <LinkField isFirstLink={false}/>
+                    <LinkField isFirstLink={false}/>
 
                     <button className="add-new-link">Add link</button>
 
