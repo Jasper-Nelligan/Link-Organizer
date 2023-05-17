@@ -1,9 +1,11 @@
+import { useState } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField.js"
 
 function Modal(props) {
+    const [linkCount, updateLinkCount] = useState(0);
     
-    if (!props.show){
+    if (!props.show) {
         return null;
     }
 
@@ -13,7 +15,7 @@ function Modal(props) {
                 <div className="form">
                     <input className="course-input" type="text" name="course" placeholder="Course"/>
 
-                    <a className="close-button" onClick={props.onClose()}>&times;</a>
+                    <a className="close-button" onClick={() => props.onClose()}>&times;</a>
 
                     <label htmlFor="colors">Color : </label> 
                     <select id="color-selector" name="colors">
@@ -30,7 +32,9 @@ function Modal(props) {
                     <LinkField isFirstLink={false}/>
                     <LinkField isFirstLink={false}/>
 
-                    <button className="add-new-link">Add link</button>
+                    <button className="add-new-link" onClick={() => updateLinkCount(linkCount + 1)}>
+                        Add link
+                    </button>
 
                     <div className="form-bottom">
                         <button type="submit" className="submit-btn" id="submit-course">Create course</button>

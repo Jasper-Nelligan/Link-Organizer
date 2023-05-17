@@ -9,12 +9,13 @@ function App() {
         <h1 className="center">Course Link Organizer</h1>
         <h3 className="center">All your class links - One page</h3>
         <div className="btn-container">
-            <button id="add-course-btn" data-modal="new-course-modal" onClick={() => {
-                setShowModal(true);
-                }}>Add course</button>
+            <button id="add-course-btn" data-modal="new-course-modal"
+                onClick={() => setShowModal(true)}>
+                Add course
+            </button>
         </div>
 
-        <Modal onClose={setShowModal(false)} show={showModal}/>
+        <Modal onClose={() => setShowModal(false)} show={showModal}/>
 
         <p id="footer">
             Questions, issues, or suggestions? Open an issue on 
