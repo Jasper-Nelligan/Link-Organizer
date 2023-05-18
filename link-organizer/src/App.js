@@ -19,12 +19,12 @@ function App() {
             <Modal onClose={() => setShowModal(false)} show={showModal} />
 
             <div id="grid-container">
-                <Course />
-                <Course />
-                <Course />
-                <Course />
-                <Course />
-                <Course />
+                <Course color = 'red'/>
+                <Course color = 'green'/>
+                <Course color = 'blue'/>
+                <Course color = 'yellow'/>
+                <Course color = 'orange'/>
+                <Course color = 'purple'/>
             </div>
 
             <p id="footer">
