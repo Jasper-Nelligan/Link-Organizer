@@ -24,7 +24,6 @@ function onAddCourseClicked(addCourse, formRef, courseGridRef) {
  * subarray.
  */
 function parseForm(formRef) {
-    console.log("Passed in form was: ", formRef);
     let i = 0;
     /* Apparently using querySelectorAll is bad practice, but for right now I
     can't figure out a better way to do this. Could also use destructuring here
@@ -40,8 +39,6 @@ function parseForm(formRef) {
       linkPairs.push(pair);
     }
 
-    console.log("Values were: ", [course, color, linkPairs])
-  
     return ([course, color, linkPairs]);
 }
 

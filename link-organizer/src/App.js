@@ -13,15 +13,7 @@ import getColorCode from "./HelperFunctions";
  * the second element the link.
  */
 function addCourse(courseGridRef, course, color, linkPairs) {
-    console.log("Function was called");
-    console.log("courseGridRef was: ", courseGridRef)
-    console.log("Course was: ", course);
-    console.log("Color was: ", color);
-    console.log("LinkPairs was: ", linkPairs);
-
     let htmlcode = Course(course, color, linkPairs);
-    console.log("htmlcode was: ", htmlcode);
-
     courseGridRef.current.appendChild(htmlcode);
 }
 

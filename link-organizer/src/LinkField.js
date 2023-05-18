@@ -1,7 +1,6 @@
 function LinkField(props) {
     let linkID = "link" + props.linkCount;
     if (props.isFirstLink) {
-        console.log("isFirstLink")
         return (
             <div className="form-links" id={linkID}>
                 <input className="link-name" type="text" name="link-name" placeholder="Title" />
