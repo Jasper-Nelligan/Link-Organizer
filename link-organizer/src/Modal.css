@@ -1,7 +1,7 @@
 h2 {
   margin: 0;
   display: inline-block;
-  border:black
+  border: black
 }
 
 .modal {
@@ -22,7 +22,7 @@ h2 {
   width: 50%;
 }
 
-.modal-content input, 
+.modal-content input,
 textarea {
   border: 1px solid #1c87c9;
   outline: none;
@@ -41,7 +41,7 @@ textarea {
   font-weight: bold;
   line-height: 1rem;
   background: #f44336;
-  color:#fff;
+  color: #fff;
   padding: 5px;
 }
 
@@ -70,7 +70,7 @@ textarea {
   width: 46%;
 }
 
-.remove-link-btn{
+.remove-link-btn {
   background: #f44336;
   border: none;
   color: #fff;
@@ -82,7 +82,7 @@ textarea {
   background: #961a12;
 }
 
-.add-new-link{
+.add-new-link {
   background: #4caf50;
   border: none;
   color: #fff;
@@ -132,4 +132,3 @@ textarea {
 #submit-course {
   width: 100%;
 }
-  

@@ -2,7 +2,7 @@ import "./Course.css";
 
 function Course(props) {
     return (
-        <div class="frame" id="Course-frame" style={{background : 'rgb(254, 123, 123)'}}>
+        <div class="frame" id="Course-frame" style={{ background: 'rgb(254, 123, 123)' }}>
             <p class="course-title">Course</p>
             <div class="links">
                 <a href="Link0" target="_blank">Link0</a>
@@ -20,7 +20,7 @@ function Course(props) {
                 <br></br>
             </div>
             <button type="button" class="edit-btn" id="edit-Course" data-modal="Course-modal">Edit</button>
-        </div> 
+        </div>
     )
 }
 

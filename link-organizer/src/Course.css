@@ -3,26 +3,26 @@
     display: inline-block;
     height: calc(100%em);
     position: relative;
-  }
-  
-  .course-title {
+}
+
+.course-title {
     margin-top: 5%;
     margin-left: 5%;
-  }
-  
-  .links {
+}
+
+.links {
     margin-left: 5%;
     margin-bottom: 5%;
     word-wrap: break-word;
-  }
-  
-  /* 
+}
+
+/* 
    * Positions edit button at bottom center of container 
    * The translate() adjusts for the edit button's width and height
    */
-  .edit-btn {
+.edit-btn {
     bottom: 0;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-  }
+}
