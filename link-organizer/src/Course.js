@@ -1,5 +1,5 @@
 import "./Course.css";
-import getColorCode from "./HelperFunctions";
+import { getColorCode } from "./HelperFunctions";
 
 /**
  * Creates a new course frame to be inserted into grid. Each frame contains

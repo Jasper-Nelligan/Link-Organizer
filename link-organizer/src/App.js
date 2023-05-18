@@ -1,21 +1,5 @@
 import { useState, useRef } from "react";
 import Modal from './Modal';
-import Course from "./Course";
-import getColorCode from "./HelperFunctions";
-
-/**
- * Creates a new course frame and associated modal and inserts into document
- * @param {courseGridRef} courseGridRef reference to grid to place course in
- * @param {String} course What the user input in the 'course' field
- * @param {String} color Color that the user chose
- * @param {Array} linkPairs an array of link pairs. Each link pair is a
- * sub-array of size two, with the first element being the link name and
- * the second element the link.
- */
-function addCourse(courseGridRef, course, color, linkPairs) {
-    let htmlcode = Course(course, color, linkPairs);
-    courseGridRef.current.appendChild(htmlcode);
-}
 
 function App() {
     const [showModal, setShowModal] = useState(false);
@@ -34,7 +18,6 @@ function App() {
 
             <Modal onClose={() => setShowModal(false)}
                 show={showModal}
-                addCourse={addCourse}
                 courseGridRef={courseGridRef}/>
 
             <div id="course-grid" ref={courseGridRef}>
