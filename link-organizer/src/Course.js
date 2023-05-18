@@ -1,52 +1,68 @@
 import "./Course.css";
+import getColorCode from "./HelperFunctions";
 
-/*
-* Returns a hex code for each course color option.
-* @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
-* @return {String} The hex code associated with each color according to the
-* color scheme of this web app.
-*/
-function getColorCode(color) {
- switch (color) {
-   case 'red':
-     return '#fe7b7b';
-   case 'green':
-     return '#75d073';
-   case 'blue':
-     return '#74a3ff';
-   case 'yellow':
-     return '#ffe977';
-   case 'orange':
-     return '#fbb143';
-   case 'purple':
-     return '#c17ed9';
-   default:
-     console.log(`${color} is not a valid color`);
- }
-}
+/**
+ * Creates a new course frame to be inserted into grid. Each frame contains
+ * the links that the user created.
+ * @param {String} course What the user input in the "course" field
+ * @param {String} color color that the user selected
+ * @param {Array} linkPairs an array of link pairs. Each link pair is a
+ * sub-array of size two, with the first element being the link name and
+ * the second element the link.
+ *
+ * @return {div} a div with className="frame" and id=courseId that contains
+ * all HTML for a new course frame.
+ */
+function Course(course, color, linkPairs) {
+    // remove whitespace in course and use it for it's id
+    const courseId = course.replace(/\s/g, '');
+    const frameId = `${courseId}-frame`;
 
-function Course(props) {
-    return (
-        <div class="frame" id="Course-frame" style={{ background: getColorCode(props.color) }}>
-            <p class="course-title">Course</p>
-            <div class="links">
-                <a href="Link0" target="_blank">Link0</a>
-                <br></br>
-                <br></br>
-                <a href="Link1" target="_blank">Link1</a>
-                <br></br>
-                <br></br>
-                <a href="Link2" target="_blank">Link2</a>
-                <br></br>
-                <br></br>
-                <a href="Link3" target="_blank">Link3</a>
-                <br></br>
-                <br></br>
-                <br></br>
-            </div>
-            <button type="button" class="edit-btn" id="edit-Course" data-modal="Course-modal">Edit</button>
-        </div>
-    )
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    frame.id = frameId;
+
+    const title = document.createElement('p');
+    title.className = 'course-title';
+    title.innerHTML = `${course}`;
+    frame.appendChild(title);
+
+    const links = document.createElement('div');
+    links.className = 'links';
+
+    let firstLink = true;
+    for (let i = 0; i < linkPairs.length; i++) {
+        if (firstLink) {
+            firstLink = false;
+        }
+        else {
+            links.insertAdjacentHTML('beforeend', '<br><br>');
+        }
+        const link = document.createElement('a');
+        link.href = linkPairs[i][1];
+        link.target = '_blank';
+        link.innerHTML = linkPairs[i][0];
+        links.appendChild(link);
+    }
+    // Add space between last link and edit button
+    links.insertAdjacentHTML('beforeend', '<br><br><br>');
+
+    frame.appendChild(links);
+
+    frame.insertAdjacentHTML('beforeend', `
+        <button type="button" className="edit-btn" id="edit-${courseId}"
+        data-modal="${courseId}-modal">Edit</button>
+    `);
+
+    // const editBtn = frame.querySelector('.edit-btn');
+    // editBtn.addEventListener('click', function () {
+    //     const modal = editBtn.getAttribute('data-modal');
+    //     document.getElementById(modal)
+    //         .style.display = 'block';
+    // });
+
+    frame.style.backgroundColor = getColorCode(color);
+    return frame;
 }
 
 export default Course;
