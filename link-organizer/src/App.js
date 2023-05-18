@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from './Modal';
+import Course from "./Course";
 
 function App() {
     const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,15 @@ function App() {
         </div>
 
         <Modal onClose={() => setShowModal(false)} show={showModal}/>
+
+        <div id="grid-container">
+            <Course />
+            <Course />
+            <Course />
+            <Course />
+            <Course />
+            <Course />
+        </div>
 
         <p id="footer">
             Questions, issues, or suggestions? Open an issue on 
