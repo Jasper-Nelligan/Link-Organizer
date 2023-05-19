@@ -5,12 +5,14 @@ import { parseForm, addCourse } from "./HelperFunctions"
 
 /**
  * Parses form data and creates new course
- * @param {form} form reference to the form with all the course info
- * @param {courseGridRef} courseGridRef reference to grid to place course in
+ * @param {Function} onClose a function to close the modal
+ * @param {Form} form reference to the form with all the course info
+ * @param {Grid} courseGridRef reference to grid to place course in
  */
-function onAddCourseClicked(formRef, courseGridRef) {
+function onAddCourseClicked(onClose, formRef, courseGridRef) {
    const [course, color, linkPairs] = parseForm(formRef);
    addCourse(courseGridRef, course, color, linkPairs);
+   onClose();
 }
 
 function Modal(props) {
@@ -55,7 +57,7 @@ function Modal(props) {
                         <button type="submit" className="submit-btn"
                             id="submit-course"
                             onClick={() =>
-                                onAddCourseClicked(formRef, props.courseGridRef)}>
+                                onAddCourseClicked(props.onClose, formRef, props.courseGridRef), props.onClose()}>
                             Create course
                         </button>
                     </div>
