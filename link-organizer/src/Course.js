@@ -50,7 +50,7 @@ function Course(course, color, linkPairs) {
     frame.appendChild(links);
 
     frame.insertAdjacentHTML('beforeend', `
-        <button type="button" className="edit-btn" id="edit-${courseId}"
+        <button type="button" class="edit-btn" id="edit-${courseId}"
         data-modal="${courseId}-modal">Edit</button>
     `);
 
