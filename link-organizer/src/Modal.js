@@ -57,7 +57,7 @@ function Modal(props) {
                         <button type="submit" className="submit-btn"
                             id="submit-course"
                             onClick={() =>
-                                onAddCourseClicked(props.onClose, formRef, props.courseGridRef), props.onClose()}>
+                                onAddCourseClicked(props.onClose, formRef, props.courseGridRef)}>
                             Create course
                         </button>
                     </div>
