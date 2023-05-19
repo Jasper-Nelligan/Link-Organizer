@@ -2,9 +2,8 @@ import "./Course.css";
 import { getColorCode } from "./HelperFunctions";
 
 /**
- * Creates a new course frame to be inserted into grid. Each frame contains
- * the links that the user created.
- * @param {String} course What the user input in the "course" field
+ * Creates a new course frame to be inserted into grid.
+ * @param {String} course User input for the "course" field
  * @param {String} color color that the user selected
  * @param {Array} linkPairs an array of link pairs. Each link pair is a
  * sub-array of size two, with the first element being the link name and
@@ -18,14 +17,14 @@ function Course(course, color, linkPairs) {
     const courseId = course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
 
-    const frame = document.createElement('div');
-    frame.className = 'frame';
-    frame.id = frameId;
+    const courseFrame = document.createElement('div');
+    courseFrame.className = 'frame';
+    courseFrame.id = frameId;
 
     const title = document.createElement('p');
     title.className = 'course-title';
     title.innerHTML = `${course}`;
-    frame.appendChild(title);
+    courseFrame.appendChild(title);
 
     const links = document.createElement('div');
     links.className = 'links';
@@ -47,9 +46,9 @@ function Course(course, color, linkPairs) {
     // Add space between last link and edit button
     links.insertAdjacentHTML('beforeend', '<br><br><br>');
 
-    frame.appendChild(links);
+    courseFrame.appendChild(links);
 
-    frame.insertAdjacentHTML('beforeend', `
+    courseFrame.insertAdjacentHTML('beforeend', `
         <button type="button" class="edit-btn" id="edit-${courseId}"
         data-modal="${courseId}-modal">Edit</button>
     `);
@@ -61,8 +60,8 @@ function Course(course, color, linkPairs) {
     //         .style.display = 'block';
     // });
 
-    frame.style.backgroundColor = getColorCode(color);
-    return frame;
+    courseFrame.style.backgroundColor = getColorCode(color);
+    return courseFrame;
 }
 
 export default Course;
