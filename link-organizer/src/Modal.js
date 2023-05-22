@@ -12,26 +12,32 @@ import { parseForm, addCourse, clearForm } from "./HelperFunctions"
 function onAddCourseClicked(onClose, formRef, courseGridRef) {
    const [course, color, linkPairs] = parseForm(formRef);
    addCourse(courseGridRef, course, color, linkPairs);
+   clearForm(formRef)
    onClose();
+}
+
+function onCloseBtnClicked(onClose, formRef) {
+    clearForm(formRef);
+    onClose();
 }
 
 function Modal(props) {
     const [linkCount, updateLinkCount] = useState(0);
     const formRef = useRef(null);
-
-    if (!props.show) {
-        return null;
-    }
+    
+    const modalDisplay = props.show ? 'block' : 'none';
 
     return (
-        <div className="modal" id="modal">
+        <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
                 <div className="form" ref={formRef}>
                     <input className="course-input" type="text" name="course"
                         placeholder="Course" />
 
                     <a className="close-button"
-                        onClick={() => clearForm(formRef)}>&times;</a>
+                        onClick={() =>
+                        onCloseBtnClicked(props.onClose, formRef)}
+                        >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
                     <select id="color-selector" name="colors">
@@ -62,7 +68,6 @@ function Modal(props) {
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     )
