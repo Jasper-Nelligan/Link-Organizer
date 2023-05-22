@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField"
-import { parseForm, addCourse } from "./HelperFunctions"
+import { parseForm, addCourse, clearForm } from "./HelperFunctions"
 
 /**
  * Parses form data and creates new course
@@ -31,7 +31,7 @@ function Modal(props) {
                         placeholder="Course" />
 
                     <a className="close-button"
-                        onClick={() => props.onClose()}>&times;</a>
+                        onClick={() => clearForm(formRef)}>&times;</a>
 
                     <label htmlFor="colors">Color : </label>
                     <select id="color-selector" name="colors">
