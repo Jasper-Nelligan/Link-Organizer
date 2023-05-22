@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {Int} props.linkCount total number of links used in Application. Used for ID
+ * @param {Bool} props.isFirstLink true if first link on the form
+ * @returns Link name field and link url field
+ */
 function LinkField(props) {
     let linkID = "link" + props.linkCount;
     if (props.isFirstLink) {
