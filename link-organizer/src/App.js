@@ -18,7 +18,7 @@ function App() {
 
             <Modal onClose={() => setShowModal(false)}
                 show={showModal}
-                courseGridRef={courseGridRef}/>
+                courseGrid={courseGridRef.current}/>
 
             <div id="course-grid" ref={courseGridRef}>
             </div>

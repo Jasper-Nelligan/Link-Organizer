@@ -59,29 +59,29 @@ export function getColorPos(color) {
 
 /**
  * Creates a new course frame and inserts into course grid
- * @param {courseGridRef} courseGridRef useRef reference to grid to place course in
+ * @param {HTML} courseGrid grid to place course in
  * @param {String} course What the user input in the 'course' field
  * @param {String} color Color that the user chose
  * @param {Array} linkPairs an array of link pairs. Each link pair is a
  * sub-array of size two, with the first element being the link name and
  * the second element the link.
  */
-export function addCourse(courseGridRef, course, color, linkPairs) {
-    courseGridRef.current.appendChild(Course(course, color, linkPairs));
+export function addCourse(courseGrid, course, color, linkPairs) {
+    courseGrid.appendChild(Course(course, color, linkPairs));
     // TODO maybe add Modal here as well
 }
 
 /**
- * Given a course form reference, returns all input values in the form as an array
- * @param {form} form useRef reference to the form that needs to be parsed
+ * Given a course form, returns all input values in the form as an array
+ * @param {HTML} form that needs to be parsed
  * @return {Array} an array with structure [course, color, linkPairs], where
  * linkPairs is an array of size two, with the first element being the link name
  * and the second element being the hyperlink. Each link pair is stored as a
  * subarray.
  */
-export function parseForm(formRef) {
+export function parseForm(form) {
     let i = 0;
-    const inputElements = formRef.current.querySelectorAll('input, select');
+    const inputElements = form.querySelectorAll('input, select');
     const course = inputElements[i++].value;
     const color = inputElements[i++].value;
   
@@ -96,14 +96,14 @@ export function parseForm(formRef) {
 }
 
 /**
- * Given a course form reference, clears all fields
- * @param {form} form useRef reference to the form that needs to be parsed
+ * Given a course form, clears all fields
+ * @param {HTML} form that needs to be parsed
  */
-export function clearForm(formRef) {
+export function clearForm(form) {
     // TODO should it be formRef.current that's passed in?
     let i = 0;
-    const inputElements = formRef.current.querySelectorAll('input, select');
-    const colorOptions = formRef.current.querySelectorAll('option');
+    const inputElements = form.querySelectorAll('input, select');
+    const colorOptions = form.querySelectorAll('option');
 
     // Clear course value
     inputElements[i++].value = '';

@@ -6,18 +6,22 @@ import { parseForm, addCourse, clearForm } from "./HelperFunctions"
 /**
  * Parses form data and creates new course
  * @param {Function} onClose a function to close the modal
- * @param {Form} form reference to the form with all the course info
- * @param {Grid} courseGridRef reference to grid to place course in
+ * @param {HTML} form with all the course info
+ * @param {Grid} courseGrid grid to place course in
  */
-function onAddCourseClicked(onClose, formRef, courseGridRef) {
-   const [course, color, linkPairs] = parseForm(formRef);
-   addCourse(courseGridRef, course, color, linkPairs);
-   clearForm(formRef)
-   onClose();
+function onAddCourseClicked(onClose, form, courseGrid) {
+   const [course, color, linkPairs] = parseForm(form);
+   addCourse(courseGrid, course, color, linkPairs);
+   onCloseBtnClicked(onClose, form);
 }
 
-function onCloseBtnClicked(onClose, formRef) {
-    clearForm(formRef);
+/**
+ * Clears the form and closes the modal
+ * @param {Function} onClose a function to close the modal
+ * @param {HTML} form with all the course info
+ */
+function onCloseBtnClicked(onClose, form) {
+    clearForm(form);
     onClose();
 }
 
@@ -36,7 +40,7 @@ function Modal(props) {
 
                     <a className="close-button"
                         onClick={() =>
-                        onCloseBtnClicked(props.onClose, formRef)}
+                        onCloseBtnClicked(props.onClose, formRef.current)}
                         >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
@@ -63,7 +67,10 @@ function Modal(props) {
                         <button type="submit" className="submit-btn"
                             id="submit-course"
                             onClick={() =>
-                                onAddCourseClicked(props.onClose, formRef, props.courseGridRef)}>
+                                onAddCourseClicked(
+                                    props.onClose,
+                                    formRef.current, 
+                                    props.courseGrid)}>
                             Create course
                         </button>
                     </div>
