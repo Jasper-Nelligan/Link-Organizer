@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import Modal from './Modal';
-import { clearForm } from "./HelperFunctions"
 
 function App() {
     const [showModal, setShowModal] = useState(false);
@@ -19,8 +18,7 @@ function App() {
 
             <Modal onClose={() => setShowModal(false)}
                 show={showModal}
-                courseGridRef={courseGridRef}
-                clearForm={true}/>
+                courseGridRef={courseGridRef}/>
 
             <div id="course-grid" ref={courseGridRef}>
             </div>

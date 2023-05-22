@@ -100,6 +100,7 @@ export function parseForm(formRef) {
  * @param {form} form useRef reference to the form that needs to be parsed
  */
 export function clearForm(formRef) {
+    // TODO should it be formRef.current that's passed in?
     let i = 0;
     const inputElements = formRef.current.querySelectorAll('input, select');
     const colorOptions = formRef.current.querySelectorAll('option');
