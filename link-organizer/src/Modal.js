@@ -53,10 +53,15 @@ function Modal(props) {
                         <option value="purple">Purple</option>
                     </select>
 
-                    <LinkField isFirstLink={true} />
-                    <LinkField isFirstLink={false} />
-                    <LinkField isFirstLink={false} />
-                    <LinkField isFirstLink={false} />
+                    {/* TODO change linkCount*/}
+                    <LinkField isFirstLink={true} linkCount={0}
+                        linkName={"testName"} linkURL={"testURL"}/>
+                    <LinkField isFirstLink={false} linkCount={0} 
+                        linkName={"testName"} linkURL={"testURL"}/>
+                    <LinkField isFirstLink={false} linkCount={0} 
+                        linkName={"testName"} linkURL={"testURL"}/>
+                    <LinkField isFirstLink={false} linkCount={0} 
+                        linkName={"testName"} linkURL={"testURL"}/>
 
                     <button className="add-new-link"
                         onClick={() => updateLinkCount(linkCount + 1)}>
