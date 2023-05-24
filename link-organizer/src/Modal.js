@@ -13,20 +13,20 @@ import { parseForm, clearForm } from "./HelperFunctions";
  * sub-array of size two, with the first element being the link name and
  * the second element the link.
  */
-function addCourse(courseGrid, course, color, linkPairs) {
-    courseGrid.appendChild(Course(course, color, linkPairs));
+function addCourse(courseGrid, props) {
+    courseGrid.appendChild(Course(props));
     // TODO add Modal here as well
 }
 
 /**
- * Parses form data and creates new course
+ * Parses form data and creates a new course
  * @param {Function} onClose a function to close the modal
  * @param {HTML} form with all the course info
  * @param {Grid} courseGrid grid to place course in
  */
 function onAddCourseClicked(onClose, form, courseGrid) {
-   const [course, color, linkPairs] = parseForm(form);
-   addCourse(courseGrid, course, color, linkPairs);
+   const props = parseForm(form);
+   addCourse(courseGrid, props);
    onCloseBtnClicked(onClose, form);
 }
 
@@ -43,11 +43,12 @@ function onCloseBtnClicked(onClose, form) {
 /**
  * Creates a Modal with passed in values for the course form 
  * @param {Bool} props.show true if modal should be shown immediately
- * @param {Function} onClose a function for closing the modal
- * @param {HTML} courseGrid div for storing courses
+ * @param {Function} props.onClose a function for closing the modal
+ * @param {HTML} props.courseGrid div for storing courses
  * @returns 
  */
 function Modal(props) {
+    console.log(props)
     const [linkCount, updateLinkCount] = useState(0);
     const formRef = useRef(null);
     

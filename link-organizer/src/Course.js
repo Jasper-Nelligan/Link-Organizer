@@ -3,18 +3,18 @@ import { getColorCode } from "./HelperFunctions";
 
 /**
  * Creates a new course frame to be inserted into grid.
- * @param {String} course User input for the "course" field
- * @param {String} color color that the user selected
- * @param {Array} linkPairs an array of link pairs. Each link pair is a
+ * @param {String} props.course User input for the "course" field
+ * @param {String} props.color color that the user selected
+ * @param {Array} props.linkPairs an array of link pairs. Each link pair is a
  * sub-array of size two, with the first element being the link name and
  * the second element the link.
  *
  * @return {div} a div with className="frame" and id=courseId that contains
  * all HTML for a new course frame.
  */
-function Course(course, color, linkPairs) {
+function Course(props) {
     // remove whitespace in course and use it for it's id
-    const courseId = course.replace(/\s/g, '');
+    const courseId = props.course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
 
     const courseFrame = document.createElement('div');
@@ -23,14 +23,14 @@ function Course(course, color, linkPairs) {
 
     const title = document.createElement('p');
     title.className = 'course-title';
-    title.innerHTML = `${course}`;
+    title.innerHTML = `${props.course}`;
     courseFrame.appendChild(title);
 
     const links = document.createElement('div');
     links.className = 'links';
 
     let firstLink = true;
-    for (let i = 0; i < linkPairs.length; i++) {
+    for (let i = 0; i < props.linkPairs.length; i++) {
         if (firstLink) {
             firstLink = false;
         }
@@ -38,9 +38,9 @@ function Course(course, color, linkPairs) {
             links.insertAdjacentHTML('beforeend', '<br><br>');
         }
         const link = document.createElement('a');
-        link.href = linkPairs[i][1];
+        link.href = props.linkPairs[i][1];
         link.target = '_blank';
-        link.innerHTML = linkPairs[i][0];
+        link.innerHTML = props.linkPairs[i][0];
         links.appendChild(link);
     }
     // Add space between last link and edit button
@@ -60,7 +60,7 @@ function Course(course, color, linkPairs) {
     //         .style.display = 'block';
     // });
 
-    courseFrame.style.backgroundColor = getColorCode(color);
+    courseFrame.style.backgroundColor = getColorCode(props.color);
     return courseFrame;
 }
 

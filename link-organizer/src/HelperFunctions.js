@@ -1,5 +1,3 @@
-import Course from "./Course";
-
 // Positions of colors in dropdown select element
 const RED_POS = 0;
 const GREEN_POS = 1;
@@ -78,7 +76,9 @@ export function parseForm(form) {
       linkPairs.push(pair);
     }
 
-    return ([course, color, linkPairs]);
+    console.log("Parsing");
+    console.log({course, color, linkPairs})
+    return ({course, color, linkPairs});
 }
 
 /**
