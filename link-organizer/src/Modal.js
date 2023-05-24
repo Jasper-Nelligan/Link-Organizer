@@ -25,6 +25,13 @@ function onCloseBtnClicked(onClose, form) {
     onClose();
 }
 
+/**
+ * Creates a Modal with passed in values for the course form 
+ * @param {Bool} props.show true if modal should be shown immediately
+ * @param {Function} onClose a function for closing the modal
+ * @param {HTML} courseGrid div for storing courses
+ * @returns 
+ */
 function Modal(props) {
     const [linkCount, updateLinkCount] = useState(0);
     const formRef = useRef(null);
