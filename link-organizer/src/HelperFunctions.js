@@ -58,20 +58,6 @@ export function getColorPos(color) {
 }
 
 /**
- * Creates a new course frame and inserts into course grid
- * @param {HTML} courseGrid grid to place course in
- * @param {String} course What the user input in the 'course' field
- * @param {String} color Color that the user chose
- * @param {Array} linkPairs an array of link pairs. Each link pair is a
- * sub-array of size two, with the first element being the link name and
- * the second element the link.
- */
-export function addCourse(courseGrid, course, color, linkPairs) {
-    courseGrid.appendChild(Course(course, color, linkPairs));
-    // TODO maybe add Modal here as well
-}
-
-/**
  * Given a course form, returns all input values in the form as an array
  * @param {HTML} form that needs to be parsed
  * @return {Array} an array with structure [course, color, linkPairs], where

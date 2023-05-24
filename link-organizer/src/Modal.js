@@ -1,7 +1,22 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
-import LinkField from "./LinkField"
-import { parseForm, addCourse, clearForm } from "./HelperFunctions"
+import LinkField from "./LinkField";
+import Course from "./Course";
+import { parseForm, clearForm } from "./HelperFunctions";
+
+/**
+ * Creates a new course frame and inserts into course grid
+ * @param {HTML} courseGrid grid to place course in
+ * @param {String} course What the user input in the 'course' field
+ * @param {String} color Color that the user chose
+ * @param {Array} linkPairs an array of link pairs. Each link pair is a
+ * sub-array of size two, with the first element being the link name and
+ * the second element the link.
+ */
+function addCourse(courseGrid, course, color, linkPairs) {
+    courseGrid.appendChild(Course(course, color, linkPairs));
+    // TODO add Modal here as well
+}
 
 /**
  * Parses form data and creates new course
