@@ -25,10 +25,10 @@ function addCourse(courseGrid, props) {
  * @param {Grid} courseGrid grid to place course in
  */
 function onAddCourseClicked(onClose, onAddCourse, form, courseGrid) {
-   const [course, color, linkPairs] = parseForm(form);
-   onAddCourse(course, color, linkPairs);
-   // addCourse(courseGrid, props);
-   onCloseBtnClicked(onClose, form);
+    const [course, color, linkPairs] = parseForm(form);
+    onAddCourse(course, color, linkPairs);
+    // addCourse(courseGrid, props);
+    onCloseBtnClicked(onClose, form);
 }
 
 /**
