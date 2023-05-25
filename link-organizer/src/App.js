@@ -8,7 +8,6 @@ function App() {
     // with the course name as it's key. The first element in each array is the
     // course color, and the second entry is the link pairs 
     const [courses, setCourses] = useState({});
-    const courseGridRef = useRef(null);
 
     const updateCourses = (course, color, linkPairs) => {
         setCourses({...courses, [course]: [color, linkPairs]});
@@ -28,10 +27,9 @@ function App() {
             <Modal onClose={() => setShowModal(false)}
                 onAddCourse={(course, color, linkPairs) =>
                     updateCourses(course, color, linkPairs)}
-                show={showModal}
-                courseGrid={courseGridRef.current}/>
+                show={showModal}/>
 
-            <div id="course-grid" ref={courseGridRef}>
+            <div id="course-grid">
                 {
                     Object.entries(courses).map(course => 
                         <Course course = {course[0]} color={course[1][0]} linkPairs={course[1][1]} />

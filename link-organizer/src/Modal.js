@@ -9,7 +9,7 @@ import { parseForm, clearForm } from "./HelperFunctions";
  * @param {HTML} form with all the course info
  * @param {Grid} courseGrid grid to place course in
  */
-function onAddCourseClicked(onClose, onAddCourse, form, courseGrid) {
+function onAddCourseClicked(onClose, onAddCourse, form) {
     const [course, color, linkPairs] = parseForm(form);
     onAddCourse(course, color, linkPairs);
     onCloseBtnClicked(onClose, form);
@@ -82,8 +82,7 @@ function Modal(props) {
                                 onAddCourseClicked(
                                     props.onClose,
                                     props.onAddCourse,
-                                    formRef.current, 
-                                    props.courseGrid)}>
+                                    formRef.current)}>
                             Create course
                         </button>
                     </div>
