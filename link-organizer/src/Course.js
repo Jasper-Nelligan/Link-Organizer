@@ -42,7 +42,6 @@ function Course(props) {
     let firstLink = true;
     let links = [];
     for (let i = 0; i < props.linkPairs.length; i++) {
-        // TODO convert this to ?
         if (firstLink) {
             firstLink = false;
         }
