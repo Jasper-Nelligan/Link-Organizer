@@ -4,16 +4,15 @@ import Course from './Course';
 
 function App() {
     const [showModal, setShowModal] = useState(false);
-    const [courses, setCourses] = useState([]);
+    // An object for storing course data. Each entry is an array of size two,
+    // with the course name as it's key. The first element in each array is the
+    // course color, and the second entry is the link pairs 
+    const [courses, setCourses] = useState({});
     const courseGridRef = useRef(null);
 
     const updateCourses = (course, color, linkPairs) => {
-        setCourses(courses.concat([
-            {"course": course,"color": color,"linkPairs": linkPairs}
-        ]))
+        setCourses({...courses, [course]: [color, linkPairs]});
     }
-
-    console.log("Courses was: ", courses);
 
     return (
         <>
@@ -34,9 +33,9 @@ function App() {
 
             <div id="course-grid" ref={courseGridRef}>
                 {
-                    courses.map((course) => (
-                        <Course course = {course.course} color={course.color} linkPairs={course.linkPairs} />
-                    ))
+                    Object.entries(courses).map(course => 
+                        <Course course = {course[0]} color={course[1][0]} linkPairs={course[1][1]} />
+                    )
                 }
             </div>
 
