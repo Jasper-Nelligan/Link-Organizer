@@ -9,7 +9,7 @@ function App() {
     // course color, and the second entry is the link pairs 
     const [courses, setCourses] = useState({});
 
-    const updateCourses = (course, color, linkPairs) => {
+    const addOrUpdateCourses = (course, color, linkPairs) => {
         setCourses({...courses, [course]: [color, linkPairs]});
     }
 
@@ -25,8 +25,8 @@ function App() {
             </div>
 
             <Modal onClose={() => setShowModal(false)}
-                onAddCourse={(course, color, linkPairs) =>
-                    updateCourses(course, color, linkPairs)}
+                onAddOrUpdateCourse={(course, color, linkPairs) =>
+                    addOrUpdateCourses(course, color, linkPairs)}
                 show={showModal}/>
 
             <div id="course-grid">

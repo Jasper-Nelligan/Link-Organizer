@@ -9,7 +9,7 @@ import { parseForm, clearForm } from "./HelperFunctions";
  * @param {HTML} form with all the course info
  * @param {Grid} courseGrid grid to place course in
  */
-function onAddCourseClicked(onClose, onAddCourse, form) {
+function onAddOrUpdateCourseClicked(onClose, onAddCourse, form) {
     const [course, color, linkPairs] = parseForm(form);
     onAddCourse(course, color, linkPairs);
     onCloseBtnClicked(onClose, form);
@@ -29,7 +29,7 @@ function onCloseBtnClicked(onClose, form) {
  * Creates a Modal with passed in values for the course form 
  * @param {Bool} props.show true if modal should be shown immediately
  * @param {Function} props.onClose a function for closing the modal
- * @param {HTML} props.courseGrid div for storing courses
+ * @param {Function} props.onAddOrUpdateCourse a function for adding or updating a course
  * @returns 
  */
 function Modal(props) {
@@ -79,9 +79,9 @@ function Modal(props) {
                         <button type="submit" className="submit-btn"
                             id="submit-course"
                             onClick={() =>
-                                onAddCourseClicked(
+                                onAddOrUpdateCourseClicked(
                                     props.onClose,
-                                    props.onAddCourse,
+                                    props.onAddOrUpdateCourse,
                                     formRef.current)}>
                             Create course
                         </button>
