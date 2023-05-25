@@ -27,7 +27,7 @@ export function getColorCode(color) {
         case 'purple':
             return '#c17ed9';
         default:
-            console.log(`${color} is not a valid color`);
+            console.log(`ERROR: ${color} is not a valid color`);
     }
 }
 
@@ -51,7 +51,7 @@ export function getColorPos(color) {
       case 'purple':
         return PURPLE_POS;
       default:
-        console.log(`${color} does not have a position`);
+        console.log(`ERROR: ${color} does not have a position`);
     }
 }
 
