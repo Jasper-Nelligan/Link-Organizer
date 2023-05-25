@@ -27,7 +27,8 @@ function App() {
             <Modal onClose={() => setShowModal(false)}
                 onAddOrUpdateCourse={(course, color, linkPairs) =>
                     addOrUpdateCourses(course, color, linkPairs)}
-                show={showModal}/>
+                show={showModal}
+                courses={courses} />
 
             <div id="course-grid">
                 {

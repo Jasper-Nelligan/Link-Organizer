@@ -80,6 +80,49 @@ export function parseForm(form) {
 }
 
 /**
+ * Validates form input
+ * @param {String} course The course name that the user input
+ * @param {Array} linkPairs an array of link pairs. Each link pair is a
+ * sub-array of size two, with the first element being the link name and
+ * the second element the link.
+ * @param {HTML} form form to be validated
+ *
+ * @return {String} an error message if form input is invalid,
+ * @return {null} otherwise
+ */
+export function validateForm(course, linkPairs, form, courses) {
+  if (course in courses) {
+    return ('Error: cannot have two courses with the same name'); 
+  }
+  // TODO update javadoc with courses
+  // TODO this is for updating course name
+  // const curForm = document.getElementById(formId);
+  // const newFormId = course.replace(/\s/g, '') + '-form';
+  // const newForm = document.getElementById(newFormId);
+
+  // if (form == 'new-course-form' && newForm != null) {
+  //   return ('Error: cannot have two courses with the same name');
+  // }
+
+  // if (form != 'new-course-form' && newForm != null && curForm != newForm) {
+  //   return ('Error: cannot have two courses with the same name');
+  // }
+
+  // if (course == '') {
+  //   return ('Error: course name cannot be empty');
+  // }
+
+  // // Check of link is present but has no link name
+  // for (let i = 0; i < linkPairs.length; i++) {
+  //   if (linkPairs[i][0] == '' && linkPairs[i][1] != '') {
+  //     return ('Error: link name cannot be empty');
+  //   }
+  // }
+
+  return (null);
+}
+
+/**
  * Given a course form, clears all fields
  * @param {HTML} form that needs to be parsed
  */

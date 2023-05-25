@@ -1,18 +1,24 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, clearForm } from "./HelperFunctions";
+import { parseForm, clearForm, validateForm } from "./HelperFunctions";
 
 /**
  * Parses form data and creates a new course
  * @param {Function} onClose a function to close the modal
+ * @param {Function} onAddOrUpdateCourse a function to add or update a course
  * @param {HTML} form with all the course info
- * @param {Grid} courseGrid grid to place course in
+ * @param {Grid} courses all course data
  */
-function onAddOrUpdateCourseClicked(onClose, onAddCourse, form) {
+function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form, courses) {
     const [course, color, linkPairs] = parseForm(form);
-    onAddCourse(course, color, linkPairs);
-    onCloseBtnClicked(onClose, form);
+    const errorMsg = validateForm(course, linkPairs, form, courses);
+    if (errorMsg != null) {
+        console.log(errorMsg);
+    } else {
+        onAddOrUpdateCourse(course, color, linkPairs);
+        onCloseBtnClicked(onClose, form); 
+    }
 }
 
 /**
@@ -82,7 +88,8 @@ function Modal(props) {
                                 onAddOrUpdateCourseClicked(
                                     props.onClose,
                                     props.onAddOrUpdateCourse,
-                                    formRef.current)}>
+                                    formRef.current,
+                                    props.courses)}>
                             Create course
                         </button>
                     </div>
