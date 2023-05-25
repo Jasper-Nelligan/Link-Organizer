@@ -24,9 +24,13 @@ function addCourse(courseGrid, props) {
  * @param {HTML} form with all the course info
  * @param {Grid} courseGrid grid to place course in
  */
-function onAddCourseClicked(onClose, form, courseGrid) {
-   const props = parseForm(form);
-   addCourse(courseGrid, props);
+function onAddCourseClicked(onClose, onAddCourse, form, courseGrid) {
+   const [course, color, linkPairs] = parseForm(form);
+   console.log("Course was ", course);
+   console.log("Color was ", color);
+   console.log("LinkPairs was", linkPairs);
+   onAddCourse(course, color, linkPairs);
+   // addCourse(courseGrid, props);
    onCloseBtnClicked(onClose, form);
 }
 
@@ -48,7 +52,6 @@ function onCloseBtnClicked(onClose, form) {
  * @returns 
  */
 function Modal(props) {
-    console.log(props)
     const [linkCount, updateLinkCount] = useState(0);
     const formRef = useRef(null);
     
@@ -97,6 +100,7 @@ function Modal(props) {
                             onClick={() =>
                                 onAddCourseClicked(
                                     props.onClose,
+                                    props.onAddCourse,
                                     formRef.current, 
                                     props.courseGrid)}>
                             Create course

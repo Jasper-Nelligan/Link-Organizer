@@ -76,9 +76,7 @@ export function parseForm(form) {
       linkPairs.push(pair);
     }
 
-    console.log("Parsing");
-    console.log({course, color, linkPairs})
-    return ({course, color, linkPairs});
+    return ([course, color, linkPairs]);
 }
 
 /**

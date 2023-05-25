@@ -1,9 +1,19 @@
 import { useState, useRef } from "react";
 import Modal from './Modal';
+import Course from './Course';
 
 function App() {
     const [showModal, setShowModal] = useState(false);
+    const [courses, setCourses] = useState([]);
     const courseGridRef = useRef(null);
+
+    const updateCourses = (course, color, linkPairs) => {
+        setCourses(courses.concat([
+            {"course": course,"color": color,"linkPairs": linkPairs}
+        ]))
+    }
+
+    console.log("Courses was: ", courses);
 
     return (
         <>
@@ -17,10 +27,17 @@ function App() {
             </div>
 
             <Modal onClose={() => setShowModal(false)}
+                onAddCourse={(course, color, linkPairs) =>
+                    updateCourses(course, color, linkPairs)}
                 show={showModal}
                 courseGrid={courseGridRef.current}/>
 
             <div id="course-grid" ref={courseGridRef}>
+                {
+                    courses.map((course) => (
+                        <Course course = {course.course} color={course.color} linkPairs={course.linkPairs} />
+                    ))
+                }
             </div>
 
             <p id="footer">

@@ -1,5 +1,7 @@
 import "./Course.css";
+import React from 'react';
 import { getColorCode } from "./HelperFunctions";
+import Container from "./Container";
 
 /**
  * Creates a new course frame to be inserted into grid.
@@ -17,50 +19,67 @@ function Course(props) {
     const courseId = props.course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
 
-    const courseFrame = document.createElement('div');
-    courseFrame.className = 'frame';
-    courseFrame.id = frameId;
+    let elements = [];
 
-    const title = document.createElement('p');
-    title.className = 'course-title';
-    title.innerHTML = `${props.course}`;
-    courseFrame.appendChild(title);
-
-    const links = document.createElement('div');
-    links.className = 'links';
+    const title = React.createElement(
+        'p',
+        { className:'course-title' },
+        props.course
+    );
+    elements.push(title);
 
     let firstLink = true;
+    let links = [];
     for (let i = 0; i < props.linkPairs.length; i++) {
+        // TODO convert this to ?
         if (firstLink) {
             firstLink = false;
         }
         else {
-            links.insertAdjacentHTML('beforeend', '<br><br>');
+            links.push(React.createElement('br'));
+            links.push(React.createElement('br'));
         }
-        const link = document.createElement('a');
-        link.href = props.linkPairs[i][1];
-        link.target = '_blank';
-        link.innerHTML = props.linkPairs[i][0];
-        links.appendChild(link);
+
+        const link = React.createElement(
+            'a',
+            { href: props.linkPairs[i][1], target: '_blank'},
+            props.linkPairs[i][0]);
+        links.push(link);
     }
+    
     // Add space between last link and edit button
-    links.insertAdjacentHTML('beforeend', '<br><br><br>');
+    links.push(React.createElement('br'));
+    links.push(React.createElement('br'));
+    links.push(React.createElement('br'));
 
-    courseFrame.appendChild(links);
+    const linksContainer = React.createElement(
+        'div',
+        { className: 'links' },
+        links
+    );
+    elements.push(linksContainer);
 
-    courseFrame.insertAdjacentHTML('beforeend', `
-        <button type="button" class="edit-btn" id="edit-${courseId}"
-        data-modal="${courseId}-modal">Edit</button>
-    `);
+    const editBtn = React.createElement(
+        'button',
+        { type: "button", class: "edit-btn", id: "edit-" + courseId, "data-modal": courseId + "-modal" },
+        "Edit"
+    )
+    elements.push(editBtn);
 
-    // const editBtn = frame.querySelector('.edit-btn');
-    // editBtn.addEventListener('click', function () {
-    //     const modal = editBtn.getAttribute('data-modal');
-    //     document.getElementById(modal)
-    //         .style.display = 'block';
-    // });
+    const colorCode = getColorCode(props.color);
+    const courseFrame = React.createElement(
+        'div',
+        { className:'frame', id: frameId, style: { backgroundColor: colorCode}},
+        elements
+    );
 
-    courseFrame.style.backgroundColor = getColorCode(props.color);
+    // // const editBtn = frame.querySelector('.edit-btn');
+    // // editBtn.addEventListener('click', function () {
+    // //     const modal = editBtn.getAttribute('data-modal');
+    // //     document.getElementById(modal)
+    // //         .style.display = 'block';
+    // // });
+
     return courseFrame;
 }
 
