@@ -1,7 +1,6 @@
 import "./Course.css";
 import React from 'react';
 import { getColorCode } from "./HelperFunctions";
-import Container from "./Container";
 
 /**
  * Creates a new course frame to be inserted into grid.
