@@ -3,6 +3,17 @@ import React from 'react';
 import { getColorCode } from "./HelperFunctions";
 
 /**
+ * 
+ * @param {Array} elements an array for the br elements to be pushed to
+ * @param {Int} numBrTags number of br tags to add to elements 
+ */
+function addBrTags(elements, numBrTags) {
+    for (let i = 0; i < numBrTags; i++) {
+        elements.push(React.createElement('br'));
+    }
+}
+
+/**
  * Creates a new course frame to be inserted into grid.
  * @param {String} props.course User input for the "course" field
  * @param {String} props.color color that the user selected
@@ -19,6 +30,7 @@ function Course(props) {
     const frameId = `${courseId}-frame`;
 
     let elements = [];
+    const brTag = React.createElement("br");
 
     const title = React.createElement(
         'p',
@@ -35,8 +47,7 @@ function Course(props) {
             firstLink = false;
         }
         else {
-            links.push(React.createElement('br'));
-            links.push(React.createElement('br'));
+            addBrTags(links, 2);
         }
 
         const link = React.createElement(
@@ -47,9 +58,7 @@ function Course(props) {
     }
     
     // Add space between last link and edit button
-    links.push(React.createElement('br'));
-    links.push(React.createElement('br'));
-    links.push(React.createElement('br'));
+    addBrTags(links, 3);
 
     const linksContainer = React.createElement(
         'div',
