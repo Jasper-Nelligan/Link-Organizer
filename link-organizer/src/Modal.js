@@ -26,9 +26,6 @@ function addCourse(courseGrid, props) {
  */
 function onAddCourseClicked(onClose, onAddCourse, form, courseGrid) {
    const [course, color, linkPairs] = parseForm(form);
-   console.log("Course was ", course);
-   console.log("Color was ", color);
-   console.log("LinkPairs was", linkPairs);
    onAddCourse(course, color, linkPairs);
    // addCourse(courseGrid, props);
    onCloseBtnClicked(onClose, form);
