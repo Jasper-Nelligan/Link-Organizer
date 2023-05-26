@@ -9,13 +9,14 @@ import { parseForm, clearForm, validateForm } from "./HelperFunctions";
  * @param {Function} onAddOrUpdateCourse a function to add or update a course
  * @param {HTML} form with all the course info
  * @param {Grid} courses all course data
+ * @param {Function} updateErrorMsg a function for updating errorMsg state when validating form
  */
-function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form, courses) {
+function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form,
+        courses, updateErrorMsg) {
     const [course, color, linkPairs] = parseForm(form);
     const errorMsg = validateForm(course, linkPairs, form, courses);
-    if (errorMsg != null) {
-        console.log(errorMsg);
-    } else {
+    updateErrorMsg(errorMsg);
+    if (errorMsg == null) {
         onAddOrUpdateCourse(course, color, linkPairs);
         onCloseBtnClicked(onClose, form); 
     }
@@ -40,9 +41,11 @@ function onCloseBtnClicked(onClose, form) {
  */
 function Modal(props) {
     const [linkCount, updateLinkCount] = useState(0);
+    const [errorMsg, updateErrorMsg] = useState(null);
     const formRef = useRef(null);
-    
+
     const modalDisplay = props.show ? 'block' : 'none';
+    const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
@@ -81,6 +84,8 @@ function Modal(props) {
                         Add link
                     </button>
 
+                    <p className="form-error-msg" display={errorMsgDisplay}>{errorMsg}</p>  
+
                     <div className="form-bottom">
                         <button type="submit" className="submit-btn"
                             id="submit-course"
@@ -89,7 +94,8 @@ function Modal(props) {
                                     props.onClose,
                                     props.onAddOrUpdateCourse,
                                     formRef.current,
-                                    props.courses)}>
+                                    props.courses,
+                                    updateErrorMsg)}>
                             Create course
                         </button>
                     </div>
