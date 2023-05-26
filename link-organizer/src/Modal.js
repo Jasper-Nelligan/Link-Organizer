@@ -32,6 +32,7 @@ function onCloseBtnClicked(onClose, form) {
     onClose();
 }
 
+// TODO add prop types documentation to all classes
 /**
  * Creates a Modal with passed in values for the course form 
  * @param {Bool} props.show true if modal should be shown immediately
@@ -89,16 +90,16 @@ function Modal(props) {
                     </select>
 
                     {
-                        linkData.map((linkData) =>
+                        linkData.map(([linkId, isFirstLink, linkName, linkURL]) =>
                             <LinkField
                                 // React needs the key property in order to
                                 // properly remove a link a re-render
-                                key={linkData[0]}
-                                linkId={linkData[0]}
+                                key={linkId}
+                                linkId={linkId}
                                 removeLink={removeLink}
-                                isFirstLink={linkData[1]} 
-                                linkName={linkData[2]}
-                                linkURL={linkData[3]}/>
+                                isFirstLink={isFirstLink} 
+                                linkName={linkName}
+                                linkURL={linkURL}/>
                         )
                     }
 
