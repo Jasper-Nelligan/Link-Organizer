@@ -13,18 +13,18 @@ function LinkField(props) {
         return (
             <div className="form-links">
                 <input className="link-name" type="text" name="link-name" 
-                    placeholder="Title" value={props.linkName}/>
+                    placeholder="Title" defaultValue={props.linkName}/>
                 <input className="link-input" type="text" name="link"
-                    placeholder="Link" value={props.linkURL}/>
+                    placeholder="Link" defaultValue={props.linkURL}/>
             </div>
         )
     }
     else return (
         <div className="form-links">
             <input className="link-name" type="text" name="link-name" 
-                placeholder="Title" value={props.linkName}/>
+                placeholder="Title" defaultValue={props.linkName}/>
             <input className="link-input" type="text" name="link"
-                placeholder="Link" value={props.linkURL}/>
+                placeholder="Link" defaultValue={props.linkURL}/>
             <button onClick={() => props.removeLink(props.linkId)}
                 type="button" className="remove-link-btn">
                 Remove
