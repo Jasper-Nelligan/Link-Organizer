@@ -91,6 +91,10 @@ export function parseForm(form) {
  * @return {null} otherwise
  */
 export function validateForm(course, linkPairs, form, courses) {
+  if (course == '') {
+    return ('Error: course must have a name'); 
+  }
+
   if (course in courses) {
     return ('Error: cannot have two courses with the same name'); 
   }
