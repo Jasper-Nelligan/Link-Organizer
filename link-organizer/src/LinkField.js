@@ -1,3 +1,4 @@
+import { useRef } from "react";
 /**
  * 
  * @param {Int} props.linkCount total number of links used in Application. Used for ID
@@ -7,6 +8,8 @@
  * @returns Link name field and link url field
  */
 function LinkField(props) {
+    const linkRef = useRef(null);
+
     // TODO refactor this using React.createElement()
     if (props.isFirstLink) {
         return (
@@ -24,7 +27,10 @@ function LinkField(props) {
                 placeholder="Title" value={props.linkName}/>
             <input className="link-input" type="text" name="link"
                 placeholder="Link" value={props.linkURL}/>
-            <button type="button" className="remove-link-btn">Remove</button>
+            <button onClick={() => props.removeLink(props.linkName)}
+                type="button" className="remove-link-btn">
+                Remove
+            </button>
         </div>
     )
 }

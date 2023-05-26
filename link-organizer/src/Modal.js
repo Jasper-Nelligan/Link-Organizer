@@ -40,12 +40,25 @@ function onCloseBtnClicked(onClose, form) {
  * @returns 
  */
 function Modal(props) {
+    const defaultLinkData = [
+        [true, '', ''],
+        [false, '', ''],
+        [false, '', ''],
+        [false, '', '']
+    ]
+
     const [errorMsg, updateErrorMsg] = useState(null);
-    // TODO add initial four links here
-    const [linkPairs, updateLinkPairs] = useState(
-        [[true, 'linkName','linkURL'], [false, 'linkName','linkURL'],
-        [false, 'linkName','linkURL'], [false, 'linkName','linkURL']]);
+    const [linkData, setLinkData] = useState(defaultLinkData);
     const formRef = useRef(null);
+
+    const addLink = (isFirstLink, linkName, linkURL) => {
+        setLinkData(linkData.concat([[isFirstLink, linkName, linkURL]]));
+    }
+
+    const removeLink = (linkName) => {
+        setLinkData(linkData.filter(item => item[1] !== linkName))
+        console.log(linkData)
+    } 
 
     const modalDisplay = props.show ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
@@ -59,7 +72,7 @@ function Modal(props) {
 
                     <a className="close-button"
                         onClick={() =>
-                        onCloseBtnClicked(props.onClose, formRef.current)}
+                            onCloseBtnClicked(props.onClose, formRef.current)}
                         >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
@@ -73,13 +86,15 @@ function Modal(props) {
                     </select>
 
                     {
-                        linkPairs.map((linkPair) =>
-                            <LinkField isFirstLink={linkPair[0]} 
-                                linkName={linkPair[1]} linkURL={linkPair[2]}/>
+                        linkData.map((linkData) =>
+                            <LinkField removeLink={removeLink} isFirstLink={linkData[0]} 
+                                linkName={linkData[1]} linkURL={linkData[2]}/>
                         )
                     }
 
-                    <button className="add-new-link">
+                    <button className="add-new-link"
+                        onClick={() =>
+                            addLink(false, 'testname', 'testurl')}>
                         Add link
                     </button>
 
