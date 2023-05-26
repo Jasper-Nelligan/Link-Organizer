@@ -42,6 +42,10 @@ function onCloseBtnClicked(onClose, form) {
 function Modal(props) {
     const [linkCount, updateLinkCount] = useState(0);
     const [errorMsg, updateErrorMsg] = useState(null);
+    // TODO add initial four links here
+    const [linkPairs, updateLinkPairs] = useState(
+        [[true, 'linkName','linkURL'], [false, 'linkName','linkURL'],
+        [false, 'linkName','linkURL'], [false, 'linkName','linkURL']]);
     const formRef = useRef(null);
 
     const modalDisplay = props.show ? 'block' : 'none';
@@ -70,14 +74,12 @@ function Modal(props) {
                     </select>
 
                     {/* TODO change linkCount*/}
-                    <LinkField isFirstLink={true} linkCount={0}
-                        linkName={"testName"} linkURL={"testURL"}/>
-                    <LinkField isFirstLink={false} linkCount={0} 
-                        linkName={"testName"} linkURL={"testURL"}/>
-                    <LinkField isFirstLink={false} linkCount={0} 
-                        linkName={"testName"} linkURL={"testURL"}/>
-                    <LinkField isFirstLink={false} linkCount={0} 
-                        linkName={"testName"} linkURL={"testURL"}/>
+                    {
+                        linkPairs.map((linkPair) =>
+                            <LinkField isFirstLink={linkPair[0]} linkCount={0} 
+                                linkName={linkPair[1]} linkURL={linkPair[2]}/>
+                        )
+                    }
 
                     <button className="add-new-link"
                         onClick={() => updateLinkCount(linkCount + 1)}>
