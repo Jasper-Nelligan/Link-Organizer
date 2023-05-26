@@ -8,8 +8,6 @@ import { useRef } from "react";
  * @returns Link name field and link url field
  */
 function LinkField(props) {
-    const linkRef = useRef(null);
-
     // TODO refactor this using React.createElement()
     if (props.isFirstLink) {
         return (
@@ -27,7 +25,7 @@ function LinkField(props) {
                 placeholder="Title" value={props.linkName}/>
             <input className="link-input" type="text" name="link"
                 placeholder="Link" value={props.linkURL}/>
-            <button onClick={() => props.removeLink(props.linkName)}
+            <button onClick={() => props.removeLink(props.linkId)}
                 type="button" className="remove-link-btn">
                 Remove
             </button>

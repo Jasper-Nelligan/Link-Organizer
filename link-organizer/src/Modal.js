@@ -40,23 +40,26 @@ function onCloseBtnClicked(onClose, form) {
  * @returns 
  */
 function Modal(props) {
+    let defaultLinkId = 0;
     const defaultLinkData = [
-        [true, '', ''],
-        [false, '', ''],
-        [false, '', ''],
-        [false, '', '']
+        [defaultLinkId++, true, '', ''],
+        [defaultLinkId++, false, '', ''],
+        [defaultLinkId++, false, '', ''],
+        [defaultLinkId++, false, '', '']
     ]
 
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(defaultLinkData);
+    const [linkId, setLinkId] = useState(defaultLinkId);
     const formRef = useRef(null);
 
-    const addLink = (isFirstLink, linkName, linkURL) => {
-        setLinkData(linkData.concat([[isFirstLink, linkName, linkURL]]));
+    const addLink = (linkId, isFirstLink, linkName, linkURL) => {
+        setLinkId(linkId + 1);
+        setLinkData(linkData.concat([[linkId, isFirstLink, linkName, linkURL]]));
     }
 
-    const removeLink = (linkName) => {
-        setLinkData(linkData.filter(item => item[1] !== linkName))
+    const removeLink = (linkId) => {
+        setLinkData(linkData.filter(item => item[0] !== linkId))
         console.log(linkData)
     } 
 
@@ -87,14 +90,18 @@ function Modal(props) {
 
                     {
                         linkData.map((linkData) =>
-                            <LinkField removeLink={removeLink} isFirstLink={linkData[0]} 
-                                linkName={linkData[1]} linkURL={linkData[2]}/>
+                            <LinkField 
+                                linkId={linkData[0]}
+                                removeLink={removeLink}
+                                isFirstLink={linkData[1]} 
+                                linkName={linkData[2]}
+                                linkURL={linkData[3]}/>
                         )
                     }
 
                     <button className="add-new-link"
                         onClick={() =>
-                            addLink(false, 'testname', 'testurl')}>
+                            addLink(linkId, false, '', '')}>
                         Add link
                     </button>
 
