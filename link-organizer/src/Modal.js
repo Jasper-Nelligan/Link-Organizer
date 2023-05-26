@@ -53,14 +53,14 @@ function Modal(props) {
     const [linkId, setLinkId] = useState(defaultLinkId);
     const formRef = useRef(null);
 
-    const addLink = (linkId, isFirstLink, linkName, linkURL) => {
-        setLinkId(linkId + 1);
+    const addLink = (isFirstLink, linkName, linkURL) => {
         setLinkData(linkData.concat([[linkId, isFirstLink, linkName, linkURL]]));
+        setLinkId(linkId + 1);
     }
 
-    const removeLink = (linkId) => {
-        setLinkData(linkData.filter(item => item[0] !== linkId))
-        console.log(linkData)
+    const removeLink = (id) => {
+        const newLinkData = linkData.filter(item => item[0] !== id);
+        setLinkData(newLinkData)
     } 
 
     const modalDisplay = props.show ? 'block' : 'none';
@@ -90,7 +90,10 @@ function Modal(props) {
 
                     {
                         linkData.map((linkData) =>
-                            <LinkField 
+                            <LinkField
+                                // React needs the key property in order to
+                                // properly remove a link a re-render
+                                key={linkData[0]}
                                 linkId={linkData[0]}
                                 removeLink={removeLink}
                                 isFirstLink={linkData[1]} 
@@ -101,7 +104,7 @@ function Modal(props) {
 
                     <button className="add-new-link"
                         onClick={() =>
-                            addLink(linkId, false, '', '')}>
+                            addLink(false, '', '')}>
                         Add link
                     </button>
 
