@@ -7,10 +7,10 @@
  * @returns Link name field and link url field
  */
 function LinkField(props) {
-    let linkID = "link" + props.linkCount;
+    // TODO refactor this using React.createElement()
     if (props.isFirstLink) {
         return (
-            <div className="form-links" id={linkID}>
+            <div className="form-links">
                 <input className="link-name" type="text" name="link-name" 
                     placeholder="Title" value={props.linkName}/>
                 <input className="link-input" type="text" name="link"
@@ -19,7 +19,7 @@ function LinkField(props) {
         )
     }
     else return (
-        <div className="form-links" id={linkID}>
+        <div className="form-links">
             <input className="link-name" type="text" name="link-name" 
                 placeholder="Title" value={props.linkName}/>
             <input className="link-input" type="text" name="link"

@@ -40,7 +40,6 @@ function onCloseBtnClicked(onClose, form) {
  * @returns 
  */
 function Modal(props) {
-    const [linkCount, updateLinkCount] = useState(0);
     const [errorMsg, updateErrorMsg] = useState(null);
     // TODO add initial four links here
     const [linkPairs, updateLinkPairs] = useState(
@@ -73,16 +72,14 @@ function Modal(props) {
                         <option value="purple">Purple</option>
                     </select>
 
-                    {/* TODO change linkCount*/}
                     {
                         linkPairs.map((linkPair) =>
-                            <LinkField isFirstLink={linkPair[0]} linkCount={0} 
+                            <LinkField isFirstLink={linkPair[0]} 
                                 linkName={linkPair[1]} linkURL={linkPair[2]}/>
                         )
                     }
 
-                    <button className="add-new-link"
-                        onClick={() => updateLinkCount(linkCount + 1)}>
+                    <button className="add-new-link">
                         Add link
                     </button>
 
