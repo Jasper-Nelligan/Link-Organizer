@@ -93,7 +93,7 @@ function Modal(props) {
                         linkData.map(([linkId, isFirstLink, linkName, linkURL]) =>
                             <LinkField
                                 // React needs the key property in order to
-                                // properly remove a link a re-render
+                                // properly remove a link when re-rendering
                                 key={linkId}
                                 linkId={linkId}
                                 removeLink={removeLink}

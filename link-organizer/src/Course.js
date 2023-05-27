@@ -13,6 +13,10 @@ function addBrTags(elements, numBrTags) {
     }
 }
 
+function onEditClicked() {
+    console.log("clicked");
+}
+
 /**
  * Creates a new course frame to be inserted into grid.
  * @param {String} props.course User input for the "course" field
@@ -68,9 +72,16 @@ function Course(props) {
 
     const editBtn = React.createElement(
         'button',
-        { type: "button", class: "edit-btn", id: "edit-" + courseId, "data-modal": courseId + "-modal" },
+        { type: "button", class: "edit-btn", id: "edit-" + courseId,
+        "data-modal": courseId + "-modal", onClick: () => {onEditClicked()}},
         "Edit"
     )
+
+    // // editBtn.addEventListener('click', function () {
+    // //     const modal = editBtn.getAttribute('data-modal');
+    // //     document.getElementById(modal)
+    // //         .style.display = 'block';
+    // // });
     elements.push(editBtn);
 
     const colorCode = getColorCode(props.color);
@@ -79,13 +90,6 @@ function Course(props) {
         { className:'frame', id: frameId, style: { backgroundColor: colorCode}},
         elements
     );
-
-    // // const editBtn = frame.querySelector('.edit-btn');
-    // // editBtn.addEventListener('click', function () {
-    // //     const modal = editBtn.getAttribute('data-modal');
-    // //     document.getElementById(modal)
-    // //         .style.display = 'block';
-    // // });
 
     return courseFrame;
 }
