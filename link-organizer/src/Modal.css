@@ -4,6 +4,10 @@ h2 {
   border: black
 }
 
+select {
+  outline-width: 0;
+}
+
 .modal {
   background-color: rgba(0, 0, 0, 0.4);
   height: 100%;

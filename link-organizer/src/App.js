@@ -28,7 +28,8 @@ function App() {
                 onAddOrUpdateCourse={(course, color, linkPairs) =>
                     addOrUpdateCourses(course, color, linkPairs)}
                 show={showModal}
-                courses={courses} />
+                courses={courses}
+                color={"blue"}/>
 
             <div id="course-grid">
                 {

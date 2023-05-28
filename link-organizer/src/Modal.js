@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, clearForm, validateForm } from "./HelperFunctions";
+import { parseForm, clearForm, validateForm, getColorCode, getColorPos } from "./HelperFunctions";
 
 /**
  * Parses form data and creates a new course
@@ -52,7 +52,13 @@ function Modal(props) {
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(defaultLinkData);
     const [linkId, setLinkId] = useState(defaultLinkId);
+    const [color, setColor] = useState(props.color);
     const formRef = useRef(null);
+    const selectColorRef = useRef(null);
+    
+    const onColorChanged = (color) => {
+        setColor(color);
+    }
 
     const addLink = (isFirstLink, linkName, linkURL) => {
         setLinkData(linkData.concat([[linkId, isFirstLink, linkName, linkURL]]));
@@ -70,7 +76,7 @@ function Modal(props) {
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
-                <div className="form" ref={formRef}>
+                <div className="form" ref={formRef} style={{ background: getColorCode(color) }}>
                     <input className="course-input" type="text" name="course"
                         placeholder="Course" />
 
@@ -80,7 +86,10 @@ function Modal(props) {
                         >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
-                    <select id="color-selector" name="colors">
+                    <select id="color-selector"
+                            name="colors"
+                            value={color}
+                            onChange={(e) => onColorChanged(e.target.value)}>
                         <option value="red">Red</option>
                         <option value="green">Green</option>
                         <option value="blue">Blue</option>
