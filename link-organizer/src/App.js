@@ -3,14 +3,19 @@ import Modal from './Modal';
 import Course from './Course';
 
 function App() {
+    const defaultCourseName = '';
+    const defaultColor = 'red';
+    const defaultLinkValues = [['',''], ['',''], ['',''], ['','']];
     const [showModal, setShowModal] = useState(false);
-    // An object for storing course data. Each entry is an array of size two,
-    // with the course name as it's key. The first element in each array is the
-    // course color, and the second entry is the link pairs 
     const [courses, setCourses] = useState({});
+    const [modals, setModals] = useState({[defaultCourseName]: [defaultColor, defaultLinkValues]})
 
-    const addOrUpdateCourses = (course, color, linkPairs) => {
+    const addOrUpdateCourse = (course, color, linkPairs) => {
         setCourses({...courses, [course]: [color, linkPairs]});
+    }
+
+    const addOrUpdateModal = (course, color, linkPairs) => {
+        setModals({...modals, [course]: [color, linkPairs]});
     }
 
     return (
@@ -24,14 +29,20 @@ function App() {
                 </button>
             </div>
 
-            <Modal onClose={() => setShowModal(false)}
-                onAddOrUpdateCourse={(course, color, linkPairs) =>
-                    addOrUpdateCourses(course, color, linkPairs)}
-                show={showModal}
-                courses={courses}
-                course={''}
-                color={"blue"}
-                linkPairs={[['',''], ['',''], ['',''], ['','']]}/>
+            {
+                Object.entries(modals).map(modal => 
+                    <Modal
+                        course={modal[0]}
+                        color={modal[1][0]}
+                        linkPairs={modal[1][1]}
+                        onClose={() => setShowModal(false)}
+                        onAddOrUpdateCourse={(course, color, linkPairs) =>
+                            addOrUpdateCourse(course, color, linkPairs)}
+                        show={showModal}
+                        courses={courses}
+                        />
+                )
+            }
 
             <div id="course-grid">
                 {
