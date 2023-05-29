@@ -13,10 +13,6 @@ function addBrTags(elements, numBrTags) {
     }
 }
 
-function onEditClicked() {
-    console.log("clicked");
-}
-
 /**
  * Creates a new course frame to be inserted into grid.
  * @param {String} props.course User input for the "course" field
@@ -73,7 +69,7 @@ function Course(props) {
     const editBtn = React.createElement(
         'button',
         { type: "button", class: "edit-btn", id: "edit-" + courseId,
-        "data-modal": courseId + "-modal", onClick: () => {onEditClicked()}},
+        "data-modal": courseId + "-modal", onClick: () => {props.onEdit()}},
         "Edit"
     )
 

@@ -67,9 +67,9 @@ function Modal(props) {
     const removeLink = (id) => {
         const newLinkData = linkData.filter(item => item[0] !== id);
         setLinkData(newLinkData)
-    } 
+    }
 
-    const modalDisplay = props.show ? 'block' : 'none';
+    const modalDisplay = props.show == props.course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
 
     return (
