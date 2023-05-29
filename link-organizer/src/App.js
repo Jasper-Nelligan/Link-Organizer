@@ -29,7 +29,9 @@ function App() {
                     addOrUpdateCourses(course, color, linkPairs)}
                 show={showModal}
                 courses={courses}
-                color={"blue"}/>
+                course={''}
+                color={"blue"}
+                linkPairs={[['',''], ['',''], ['',''], ['','']]}/>
 
             <div id="course-grid">
                 {

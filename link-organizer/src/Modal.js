@@ -54,7 +54,6 @@ function Modal(props) {
     const [linkId, setLinkId] = useState(defaultLinkId);
     const [color, setColor] = useState(props.color);
     const formRef = useRef(null);
-    const selectColorRef = useRef(null);
     
     const onColorChanged = (color) => {
         setColor(color);
@@ -78,7 +77,7 @@ function Modal(props) {
             <div className="modal-content">
                 <div className="form" ref={formRef} style={{ background: getColorCode(color) }}>
                     <input className="course-input" type="text" name="course"
-                        placeholder="Course" />
+                        placeholder="Course" defaultValue={props.course}/>
 
                     <a className="close-button"
                         onClick={() =>
