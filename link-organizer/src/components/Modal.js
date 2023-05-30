@@ -26,21 +26,20 @@ function onCloseBtnClicked(onClose) {
     onClose();
 }
 
-// TODO add prop types documentation to all classes and destructure props
-function Modal(props) {
-    console.log(props.linkPairs)
+// TODO add prop types documentation to all classes
+function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;
     const initialLinkData = [
-        [initialLinkId++, true, props.linkPairs[0][0], props.linkPairs[0][1]],
-        [initialLinkId++, false, props.linkPairs[1][0], props.linkPairs[1][1]],
-        [initialLinkId++, false, props.linkPairs[2][0], props.linkPairs[2][1]],
-        [initialLinkId++, false, props.linkPairs[3][0], props.linkPairs[3][1]]
+        [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
+        [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
+        [initialLinkId++, false, linkPairs[2][0], linkPairs[2][1]],
+        [initialLinkId++, false, linkPairs[3][0], linkPairs[3][1]]
     ]
 
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
     const [linkId, setLinkId] = useState(initialLinkId);
-    const [color, setColor] = useState(props.color);
+    const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
     
     const onColorChanged = (color) => {
@@ -57,7 +56,22 @@ function Modal(props) {
         setLinkData(newLinkData)
     }
 
-    const modalDisplay = props.show == props.course ? 'block' : 'none';
+    const renderLinks = () => {
+        return linkData.map(
+            ([linkId, isFirstLink, linkName, linkURL]) =>
+                // React needs the key property in order to
+                // properly remove a link when re-rendering
+                <LinkField
+                    key={linkId}
+                    linkId={linkId}
+                    removeLink={removeLink}
+                    isFirstLink={isFirstLink} 
+                    linkName={linkName}
+                    linkURL={linkURL}/>
+        )
+    }
+
+    const modalDisplay = show == course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
 
     return (
@@ -65,11 +79,11 @@ function Modal(props) {
             <div className="modal-content">
                 <div className="form" ref={formRef} style={{ background: getColorCode(color) }}>
                     <input className="course-input" type="text" name="course"
-                        placeholder="Course" defaultValue={props.course}/>
+                        placeholder="Course" defaultValue={course}/>
 
                     <a className="close-button"
                         onClick={() =>
-                            onCloseBtnClicked(props.onClose, props.courses)}
+                            onCloseBtnClicked(onClose, courses)}
                         >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
@@ -85,19 +99,7 @@ function Modal(props) {
                         <option value="purple">Purple</option>
                     </select>
 
-                    {
-                        linkData.map(([linkId, isFirstLink, linkName, linkURL]) =>
-                            <LinkField
-                                // React needs the key property in order to
-                                // properly remove a link when re-rendering
-                                key={linkId}
-                                linkId={linkId}
-                                removeLink={removeLink}
-                                isFirstLink={isFirstLink} 
-                                linkName={linkName}
-                                linkURL={linkURL}/>
-                        )
-                    }
+                    {renderLinks()}
 
                     <button className="add-new-link"
                         onClick={() =>
@@ -112,10 +114,10 @@ function Modal(props) {
                             id="submit-course"
                             onClick={() =>
                                 onAddOrUpdateCourseClicked(
-                                    props.onClose,
-                                    props.onAddOrUpdateCourse,
+                                    onClose,
+                                    onAddOrUpdateCourse,
                                     formRef.current,
-                                    props.courses,
+                                    courses,
                                     updateErrorMsg)}>
                             Create course
                         </button>

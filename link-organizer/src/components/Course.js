@@ -61,12 +61,6 @@ function Course(props) {
         "data-modal": courseId + "-modal", onClick: () => {props.onEdit()}},
         "Edit"
     )
-
-    // // editBtn.addEventListener('click', function () {
-    // //     const modal = editBtn.getAttribute('data-modal');
-    // //     document.getElementById(modal)
-    // //         .style.display = 'block';
-    // // });
     elements.push(editBtn);
 
     const colorCode = getColorCode(props.color);

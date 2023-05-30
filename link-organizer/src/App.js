@@ -19,12 +19,12 @@ function App() {
     }
 
     const renderModals = () => {
-        return Object.entries(modals).map((modal) => (
+        return Object.entries(modals).map(([course, [color, linkPairs]]) => (
             <Modal
-            key={modal[0]}
-            course={modal[0]}
-            color={modal[1][0]}
-            linkPairs={modal[1][1]}
+            key={course}
+            course={course}
+            initColor={color}
+            linkPairs={linkPairs}
             onClose={() => setShowModal(null)}
             onAddOrUpdateCourse={(course, color, linkPairs) =>
                 addOrUpdateCourse(course, color, linkPairs)}
@@ -35,13 +35,13 @@ function App() {
     }
     
     const renderCourses = () => {
-        return Object.entries(courses).map((course) => (
+        return Object.entries(courses).map(([course, [color, linkPairs]]) => (
           <Course
-            key={course[0]}
-            course={course[0]}
-            color={course[1][0]}
-            linkPairs={course[1][1]}
-            onEdit={() => setShowModal(course[0])}
+            key={course}
+            course={course}
+            color={color}
+            linkPairs={linkPairs}
+            onEdit={() => setShowModal(course)}
           />
         ));
     }
