@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, clearForm, validateForm, getColorCode, getColorPos } from "../HelperFunctions";
+import { parseForm, validateForm, getColorCode } from "../HelperFunctions";
 
 /**
  * Parses form data and creates a new course
@@ -22,24 +22,11 @@ function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form,
     }
 }
 
-/**
- * Clears the form and closes the modal
- * @param {Function} onClose a function to close the modal
- * @param {HTML} form with all the course info
- */
-// TODO only clear default Form
 function onCloseBtnClicked(onClose) {
     onClose();
 }
 
-// TODO add prop types documentation to all classes
-/**
- * Creates a Modal with passed in values for the course form 
- * @param {Bool} props.show true if modal should be shown immediately
- * @param {Function} props.onClose a function for closing the modal
- * @param {Function} props.onAddOrUpdateCourse a function for adding or updating a course
- * @returns 
- */
+// TODO add prop types documentation to all classes and destructure props
 function Modal(props) {
     console.log(props.linkPairs)
     let initialLinkId = 0;
