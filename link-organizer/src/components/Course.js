@@ -13,6 +13,17 @@ function addBrTags(elements, numBrTags) {
     }
 }
 
+/**
+ * Creates a new course frame to be inserted into grid.
+ * @param {String} props.course User input for the "course" field
+ * @param {String} props.color color that the user selected
+ * @param {Array} props.linkPairs an array of link pairs. Each link pair is a
+ * sub-array of size two, with the first element being the link name and
+ * the second element the link.
+ *
+ * @return {div} a div with className="frame" and id=courseId that contains
+ * all HTML for a new course frame.
+ */
 function Course(props) {
     // remove whitespace in course and use it for it's id
     const courseId = props.course.replace(/\s/g, '');
