@@ -23,7 +23,7 @@ function App() {
             <Modal
             key={modal[0]}
             course={modal[0]}
-            initColor={modal[1][0]}
+            color={modal[1][0]}
             linkPairs={modal[1][1]}
             onClose={() => setShowModal(null)}
             onAddOrUpdateCourse={(course, color, linkPairs) =>
