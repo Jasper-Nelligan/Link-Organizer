@@ -114,28 +114,3 @@ export function validateForm(course, linkPairs, form, courses) {
   return (null);
 }
 
-/**
- * Given a course form, clears all fields
- * @param {HTML} form that needs to be parsed
- */
-export function clearForm(form) {
-    // TODO should it be formRef.current that's passed in?
-    let i = 0;
-    const inputElements = form.querySelectorAll('input, select');
-    const colorOptions = form.querySelectorAll('option');
-
-    // Clear course value
-    inputElements[i++].value = '';
-
-    // TODO change color to unused color
-    // const color = inputElements[i++].value;
-    i++;
-    const pos = getColorPos('red');
-    colorOptions[pos].selected = 'selected';
-  
-    // parse links
-    while (inputElements[i] != null) {
-      inputElements[i++].value = '';
-    }
-}
-
