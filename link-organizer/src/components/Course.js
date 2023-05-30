@@ -1,6 +1,6 @@
 import "./Course.css";
 import React from 'react';
-import { getColorCode } from "./HelperFunctions";
+import { getColorCode } from "../HelperFunctions";
 
 /**
  * 

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import Modal from './Modal';
-import Course from './Course';
+import Modal from './components/Modal';
+import Course from './components/Course';
 
 function App() {
     const defaultCourseName = '';

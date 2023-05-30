@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, clearForm, validateForm, getColorCode, getColorPos } from "./HelperFunctions";
+import { parseForm, clearForm, validateForm, getColorCode, getColorPos } from "../HelperFunctions";
 
 /**
  * Parses form data and creates a new course
@@ -27,8 +27,8 @@ function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form,
  * @param {Function} onClose a function to close the modal
  * @param {HTML} form with all the course info
  */
-function onCloseBtnClicked(onClose, form) {
-    clearForm(form);
+// TODO only clear default Form
+function onCloseBtnClicked(onClose) {
     onClose();
 }
 
@@ -41,17 +41,18 @@ function onCloseBtnClicked(onClose, form) {
  * @returns 
  */
 function Modal(props) {
-    let defaultLinkId = 0;
-    const defaultLinkData = [
-        [defaultLinkId++, true, '', ''],
-        [defaultLinkId++, false, '', ''],
-        [defaultLinkId++, false, '', ''],
-        [defaultLinkId++, false, '', '']
+    console.log(props.linkPairs)
+    let initialLinkId = 0;
+    const initialLinkData = [
+        [initialLinkId++, true, props.linkPairs[0][0], props.linkPairs[0][1]],
+        [initialLinkId++, false, props.linkPairs[1][0], props.linkPairs[1][1]],
+        [initialLinkId++, false, props.linkPairs[2][0], props.linkPairs[2][1]],
+        [initialLinkId++, false, props.linkPairs[3][0], props.linkPairs[3][1]]
     ]
 
     const [errorMsg, updateErrorMsg] = useState(null);
-    const [linkData, setLinkData] = useState(defaultLinkData);
-    const [linkId, setLinkId] = useState(defaultLinkId);
+    const [linkData, setLinkData] = useState(initialLinkData);
+    const [linkId, setLinkId] = useState(initialLinkId);
     const [color, setColor] = useState(props.color);
     const formRef = useRef(null);
     
@@ -81,7 +82,7 @@ function Modal(props) {
 
                     <a className="close-button"
                         onClick={() =>
-                            onCloseBtnClicked(props.onClose, formRef.current)}
+                            onCloseBtnClicked(props.onClose, props.courses)}
                         >&times;</a>
 
                     <label htmlFor="colors">Color : </label>
