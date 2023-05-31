@@ -2,9 +2,9 @@ import "./Course.css";
 import React from 'react';
 import { getColorHex, addBrTags } from "../HelperFunctions";
 
-function Course(props) {
+function Course({ course, color, linkPairs, onEdit }) {
     // remove whitespace in course and use it for it's id
-    const courseId = props.course.replace(/\s/g, '');
+    const courseId = course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
 
     let elements = [];
@@ -13,13 +13,13 @@ function Course(props) {
     const title = React.createElement(
         'p',
         { className:'course-title' },
-        props.course
+        course
     );
     elements.push(title);
 
     let firstLink = true;
     let links = [];
-    for (let i = 0; i < props.linkPairs.length; i++) {
+    for (let i = 0; i < linkPairs.length; i++) {
         if (firstLink) {
             firstLink = false;
         }
@@ -29,8 +29,8 @@ function Course(props) {
 
         const link = React.createElement(
             'a',
-            { href: props.linkPairs[i][1], target: '_blank'},
-            props.linkPairs[i][0]);
+            { href: linkPairs[i][1], target: '_blank'},
+            linkPairs[i][0]);
         links.push(link);
     }
     
@@ -47,12 +47,12 @@ function Course(props) {
     const editBtn = React.createElement(
         'button',
         { type: "button", class: "edit-btn", id: "edit-" + courseId,
-        "data-modal": courseId + "-modal", onClick: () => {props.onEdit()}},
+        "data-modal": courseId + "-modal", onClick: () => {onEdit()}},
         "Edit"
     )
     elements.push(editBtn);
 
-    const colorCode = getColorHex(props.color);
+    const colorCode = getColorHex(color);
     const courseFrame = React.createElement(
         'div',
         { className:'frame', id: frameId, style: { backgroundColor: colorCode}},

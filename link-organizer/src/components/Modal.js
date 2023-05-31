@@ -4,7 +4,6 @@ import LinkField from "./LinkField";
 import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctions";
 import { Messages, FormConstants, Color } from "../Constants.js";
 
-// TODO rename to main form/modal
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;

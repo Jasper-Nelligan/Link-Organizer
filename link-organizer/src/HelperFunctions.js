@@ -27,30 +27,6 @@ export function getColorHex(color) {
 }
 
 /**
- * Returns the position of each color in the dropdown select menu.
- * @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
- * @return {Number} The position of the color in the dropdown select menu
- */
-export function getColorPos(color) {
-    switch (color) {
-      case Color.RED:
-        return 0;
-      case Color.GREEN:
-        return 1;
-      case Color.BLUE:
-        return 2;
-      case Color.YELLOW:
-        return 3;
-      case Color.ORANGE:
-        return 4;
-      case Color.PURPLE:
-        return 5;
-      default:
-        console.log(`ERROR: ${color} does not have a position in dropdown`);
-    }
-}
-
-/**
  * Given a course form, returns all input values in the form as an array
  * @param {HTML} form that needs to be parsed
  * @return {Array} an array with structure [course, color, linkPairs], where
