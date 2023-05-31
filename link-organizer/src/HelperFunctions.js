@@ -114,3 +114,21 @@ export function addBrTags(elements, numBrTags) {
       elements.push(React.createElement('br'));
   }
 }
+
+/**
+ * Given a course form, clears all fields
+ * @param {HTML} form form that needs to be cleared
+ */
+export function clearForm(form) {
+  let i = 0;
+  const inputElements = form.querySelectorAll('input, select');
+
+  // Clear course value
+  inputElements[i++].value = '';
+  i++;
+
+  // parse links
+  while (inputElements[i] != null) {
+    inputElements[i++].value = '';
+  }
+}
