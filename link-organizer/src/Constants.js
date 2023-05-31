@@ -30,3 +30,12 @@ export const Messages = {
     REMOVE_LINK: 'Remove',
     SAVE_CHANGES: 'Save changes'
 }
+
+export const FormConstants = {
+    EMPTY_LINK_PAIRS: [
+        [0, true, '', ''],
+        [1, false, '', ''],
+        [2, false, '', ''],
+        [3, false, '', '']
+    ]
+}

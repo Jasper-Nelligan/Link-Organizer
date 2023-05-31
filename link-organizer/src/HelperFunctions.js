@@ -116,18 +116,17 @@ export function addBrTags(elements, numBrTags) {
 }
 
 /**
- * Given a course form, clears all fields
+ * Given a course form, clears all input field
  * @param {HTML} form form that needs to be cleared
  */
 export function clearForm(form) {
   let i = 0;
-  const inputElements = form.querySelectorAll('input, select');
+  const inputElements = form.querySelectorAll('input');
 
   // Clear course value
   inputElements[i++].value = '';
-  i++;
 
-  // parse links
+  // Clear links
   while (inputElements[i] != null) {
     inputElements[i++].value = '';
   }

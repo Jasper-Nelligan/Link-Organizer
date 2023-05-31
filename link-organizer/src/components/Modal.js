@@ -2,48 +2,12 @@ import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
 import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctions";
-import { Messages } from "../Constants.js";
- 
-/**
- * Parses form data and creates a new course
- * @param {Function} onClose a function to close the modal
- * @param {Function} onAddOrUpdateCourse a function to add or update a course
- * @param {HTML} form with all the course info
- * @param {Grid} courses all course data
- * @param {Function} updateErrorMsg a function for updating errorMsg state when validating form
- */
-function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form,
-        courses, updateErrorMsg, initCourseName, setColor, setLinkData) {
-    const [course, color, linkPairs] = parseForm(form);
-    const errorMsg = validateForm(course, initCourseName, linkPairs, courses);
-    updateErrorMsg(errorMsg);
-    if (errorMsg == null) {
-        onAddOrUpdateCourse(course, color, linkPairs);
-        onCloseBtnClicked(onClose, form, initCourseName, setColor, setLinkData); 
-    }
-}
-
-function onCloseBtnClicked(onClose, form, initCourseName, setColor, setLinkData) {
-    if (initCourseName == '') {
-        setColor("red")
-        clearForm(form)
-        let initialLinkId = 0;
-        const initialLinkData = [
-            [initialLinkId++, true, '', ''],
-            [initialLinkId++, false, '', ''],
-            [initialLinkId++, false, '', ''],
-            [initialLinkId++, false, '', '']
-        ]
-        setLinkData(initialLinkData)
-    }
-    onClose();
-}
+import { Messages, FormConstants } from "../Constants.js";
 
 // TODO rename to main form/modal
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;
-    console.log("LinkPairs was: ", linkPairs)
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
         [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
@@ -56,7 +20,6 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
     const [linkId, setLinkId] = useState(initialLinkId);
     const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
-    console.log(linkData)
     
     const onColorChanged = (color) => {
         setColor(color);
@@ -85,6 +48,26 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
                     linkName={linkName}
                     linkURL={linkURL}/>
         )
+    }
+
+    const onAddOrUpdateCourseClicked = () => {
+        const [course, color, linkPairs] = parseForm(formRef.current);
+        const errorMsg = validateForm(course, course, linkPairs, courses);
+        updateErrorMsg(errorMsg);
+        if (errorMsg == null) {
+            onAddOrUpdateCourse(course, color, linkPairs);
+            onCloseBtnClicked(formRef.current, course, setColor, setLinkData); 
+        }
+    }
+    // TODO remove all extra functions in all files
+
+    const onCloseBtnClicked = () => {
+        if (course == '') {
+            setColor("red")
+            clearForm(formRef.current);
+            setLinkData(FormConstants.EMPTY_LINK_PAIRS)
+        }
+        onClose();
     }
 
     const modalDisplay = showCourse == course ? 'block' : 'none';
