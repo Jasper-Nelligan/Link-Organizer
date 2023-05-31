@@ -13,9 +13,9 @@ import { Messages } from "../Constants.js";
  * @param {Function} updateErrorMsg a function for updating errorMsg state when validating form
  */
 function onAddOrUpdateCourseClicked(onClose, onAddOrUpdateCourse, form,
-        courses, updateErrorMsg) {
+        courses, updateErrorMsg, initCourseName) {
     const [course, color, linkPairs] = parseForm(form);
-    const errorMsg = validateForm(course, linkPairs, form, courses);
+    const errorMsg = validateForm(course, initCourseName, linkPairs, courses);
     updateErrorMsg(errorMsg);
     if (errorMsg == null) {
         onAddOrUpdateCourse(course, color, linkPairs);
@@ -28,7 +28,7 @@ function onCloseBtnClicked(onClose) {
 }
 
 // TODO add prop types documentation to all classes
-function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUpdateCourse}) {
+function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
@@ -72,8 +72,9 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
         )
     }
 
-    const modalDisplay = show == course ? 'block' : 'none';
+    const modalDisplay = showCourse == course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
+    const saveCourseMsg = course == '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
@@ -119,8 +120,9 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
                                     onAddOrUpdateCourse,
                                     formRef.current,
                                     courses,
-                                    updateErrorMsg)}>
-                            {Messages.CREATE_COURSE}
+                                    updateErrorMsg,
+                                    course)}>
+                            {saveCourseMsg}
                         </button>
                     </div>
                 </div>

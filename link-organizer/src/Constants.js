@@ -21,12 +21,12 @@ export const Messages = {
     TITLE_PHRASE: 'All your class links - One page',
     ADD_COURSE: 'Add Course',
     CREATE_COURSE: 'Create Course',
-    UPDATE_COURSE: 'Update Course',
     FOOTER_QUESTIONS: 'Questions, issues, or suggestions? Open an issue on',
     FOOTER_GITHUB: 'github',
     FOOTER_GITHUB_LINK: 'https://github.com/Jasper-Nelligan/Link-Organizer/issues',
     FOOTER_EMAIL: 'or email me at jnelligan@protonmail.com',
     SELECT_COLOR: 'Color : ',
     ADD_LINK: 'Add link',
-    REMOVE_LINK: 'Remove'
+    REMOVE_LINK: 'Remove',
+    SAVE_CHANGES: 'Save changes'
 }

@@ -85,17 +85,12 @@ export function parseForm(form) {
  * @return {String} an error message if form input is invalid,
  * @return {null} otherwise
  */
-export function validateForm(course, linkPairs, form, courses) {
-  // TODO this is for updating course name
-  // const curForm = document.getElementById(formId);
-  // const newFormId = course.replace(/\s/g, '') + '-form';
-  // const newForm = document.getElementById(newFormId);
-
+export function validateForm(course, initCourseName, linkPairs, courses) {
   if (course == '') {
     return ('Error: course name cannot be empty'); 
   }
 
-  if (course in courses) {
+  if (initCourseName != course && course in courses) {
     return ('Error: cannot have two courses with the same name'); 
   }
 

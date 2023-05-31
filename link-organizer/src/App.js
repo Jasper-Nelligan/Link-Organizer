@@ -30,7 +30,7 @@ function App() {
             onClose={() => setShowModal(null)}
             onAddOrUpdateCourse={(course, color, linkPairs) =>
                 addOrUpdateCourse(course, color, linkPairs)}
-            show={showModal}
+            showCourse={showModal}
             courses={courses}
             />
         ));
