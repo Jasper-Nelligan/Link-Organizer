@@ -2,18 +2,17 @@ import { useState } from "react";
 import Modal from './components/Modal';
 import Course from './components/Course';
 import './App.css';
-import { Color, Messages } from "./Constants";
+import { Messages, ModalConstants } from "./Constants";
 
 function App() {
-    // TODO move these to constant values?
-    const initialModalCourseName = '';
     // TODO I wonder if I could just directly use the hex colors?
-    const initialModalColor = Color.RED;
-    const initialModalLinkPairs = [['',''], ['',''], ['',''], ['','']];
     const [showModal, setShowModal] = useState(null);
     const [courses, setCourses] = useState({});
     const [modals, setModals] =
-        useState({[initialModalCourseName]: [initialModalColor, initialModalLinkPairs]})
+        useState({
+            [ModalConstants.EMPTY_COURSE_NAME]:
+                [ModalConstants.DEFAULT_COLOR, ModalConstants.EMPTY_LINK_PAIRS]
+        })
 
     const addOrUpdateCourse = (course, color, linkPairs) => {
         setCourses({...courses, [course]: [color, linkPairs]});
@@ -54,7 +53,7 @@ function App() {
             <h3 className="center">{Messages.TITLE_PHRASE}</h3>
             <div className="btn-container">
                 <button id="add-course-btn" data-modal="new-course-modal"
-                    onClick={() => setShowModal(initialModalCourseName)}>
+                    onClick={() => setShowModal(ModalConstants.EMPTY_COURSE_NAME)}>
                     {Messages.ADD_COURSE}
                 </button>
             </div>

@@ -2,12 +2,13 @@ import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
 import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctions";
-import { Messages, FormConstants } from "../Constants.js";
+import { Messages, FormConstants, Color } from "../Constants.js";
 
 // TODO rename to main form/modal
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;
+    console.log(linkPairs)
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
         [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
@@ -59,11 +60,10 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
             onCloseBtnClicked(formRef.current, course, setColor, setLinkData); 
         }
     }
-    // TODO remove all extra functions in all files
 
     const onCloseBtnClicked = () => {
         if (course == '') {
-            setColor("red")
+            setColor(Color.RED)
             clearForm(formRef.current);
             setLinkData(FormConstants.EMPTY_LINK_PAIRS)
         }

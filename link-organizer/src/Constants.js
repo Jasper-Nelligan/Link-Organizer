@@ -39,3 +39,9 @@ export const FormConstants = {
         [3, false, '', '']
     ]
 }
+
+export const ModalConstants = {
+    EMPTY_COURSE_NAME: '',
+    DEFAULT_COLOR: Color.RED,
+    EMPTY_LINK_PAIRS: [['',''], ['',''], ['',''], ['','']]
+}
