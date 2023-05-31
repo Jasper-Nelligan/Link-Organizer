@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, validateForm, getColorCode } from "../HelperFunctions";
+import { parseForm, validateForm, getColorHex } from "../HelperFunctions";
 
 /**
  * Parses form data and creates a new course
@@ -77,7 +77,7 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
-                <div className="form" ref={formRef} style={{ background: getColorCode(color) }}>
+                <div className="form" ref={formRef} style={{ background: getColorHex(color) }}>
                     <input className="course-input" type="text" name="course"
                         placeholder="Course" defaultValue={course}/>
 

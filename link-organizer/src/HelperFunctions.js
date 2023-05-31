@@ -1,31 +1,24 @@
-// Positions of colors in dropdown select element
-const RED_POS = 0;
-const GREEN_POS = 1;
-const BLUE_POS = 2;
-const YELLOW_POS = 3;
-const ORANGE_POS = 4;
-const PURPLE_POS = 5;
-
+import { Color, ColorHex } from "./Constants";
 /**
 * Returns a hex code for each course color option.
 * @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
 * @return {String} The hex code associated with each color according to the
 * color scheme of this web app.
 */
-export function getColorCode(color) {
+export function getColorHex(color) {
     switch (color) {
-        case 'red':
-            return '#fe7b7b';
-        case 'green':
-            return '#75d073';
-        case 'blue':
-            return '#74a3ff';
-        case 'yellow':
-            return '#ffe977';
-        case 'orange':
-            return '#fbb143';
-        case 'purple':
-            return '#c17ed9';
+        case Color.RED:
+            return ColorHex.RED;
+        case Color.GREEN:
+            return ColorHex.GREEN;
+        case Color.BLUE:
+            return ColorHex.BLUE;
+        case Color.YELLOW:
+            return ColorHex.YELLOW;
+        case Color.ORANGE:
+            return ColorHex.ORANGE;
+        case Color.PURPLE:
+            return ColorHex.PURPLE;
         default:
             console.log(`ERROR: ${color} is not a valid color`);
     }
@@ -38,20 +31,20 @@ export function getColorCode(color) {
  */
 export function getColorPos(color) {
     switch (color) {
-      case 'red':
-        return RED_POS;
-      case 'green':
-        return GREEN_POS;
-      case 'blue':
-        return BLUE_POS;
-      case 'yellow':
-        return YELLOW_POS;
-      case 'orange':
-        return ORANGE_POS;
-      case 'purple':
-        return PURPLE_POS;
+      case Color.RED:
+        return 0;
+      case Color.GREEN:
+        return 1;
+      case Color.BLUE:
+        return 2;
+      case Color.YELLOW:
+        return 3;
+      case Color.ORANGE:
+        return 4;
+      case Color.PURPLE:
+        return 5;
       default:
-        console.log(`ERROR: ${color} does not have a position`);
+        console.log(`ERROR: ${color} does not have a position in dropdown`);
     }
 }
 

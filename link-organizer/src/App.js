@@ -2,11 +2,13 @@ import { useState } from "react";
 import Modal from './components/Modal';
 import Course from './components/Course';
 import './App.css';
+import { Color } from "./Constants";
 
 function App() {
     // TODO move these to constant values?
     const initialModalCourseName = '';
-    const initialModalColor = 'red';
+    // TODO I wonder if I could just directly use the hex colors?
+    const initialModalColor = Color.RED;
     const initialModalLinkPairs = [['',''], ['',''], ['',''], ['','']];
     const [showModal, setShowModal] = useState(null);
     const [courses, setCourses] = useState({});
