@@ -2,7 +2,8 @@ import { useState, useRef } from "react";
 import "./Modal.css";
 import LinkField from "./LinkField";
 import { parseForm, validateForm, getColorHex } from "../HelperFunctions";
-
+import { Messages } from "../Constants.js";
+ 
 /**
  * Parses form data and creates a new course
  * @param {Function} onClose a function to close the modal
@@ -86,7 +87,7 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
                             onCloseBtnClicked(onClose, courses)}
                         >&times;</a>
 
-                    <label htmlFor="colors">Color : </label>
+                    <label htmlFor="colors">{Messages.SELECT_COLOR}</label>
                     <select id="color-selector"
                             name="colors"
                             value={color}
@@ -104,7 +105,7 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
                     <button className="add-new-link"
                         onClick={() =>
                             addLink(false, '', '')}>
-                        Add link
+                        {Messages.ADD_LINK}
                     </button>
 
                     <p className="form-error-msg" display={errorMsgDisplay}>{errorMsg}</p>  
@@ -119,7 +120,7 @@ function Modal({ linkPairs, initColor, show, course, courses, onClose, onAddOrUp
                                     formRef.current,
                                     courses,
                                     updateErrorMsg)}>
-                            Create course
+                            {Messages.CREATE_COURSE}
                         </button>
                     </div>
                 </div>

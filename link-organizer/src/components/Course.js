@@ -1,17 +1,6 @@
 import "./Course.css";
 import React from 'react';
-import { getColorCode } from "../HelperFunctions";
-
-/**
- * 
- * @param {Array} elements an array for the br elements to be pushed to
- * @param {Int} numBrTags number of br tags to add to elements 
- */
-function addBrTags(elements, numBrTags) {
-    for (let i = 0; i < numBrTags; i++) {
-        elements.push(React.createElement('br'));
-    }
-}
+import { getColorHex, addBrTags } from "../HelperFunctions";
 
 function Course(props) {
     // remove whitespace in course and use it for it's id
@@ -63,7 +52,7 @@ function Course(props) {
     )
     elements.push(editBtn);
 
-    const colorCode = getColorCode(props.color);
+    const colorCode = getColorHex(props.color);
     const courseFrame = React.createElement(
         'div',
         { className:'frame', id: frameId, style: { backgroundColor: colorCode}},

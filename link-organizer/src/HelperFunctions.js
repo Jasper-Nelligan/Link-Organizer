@@ -1,4 +1,6 @@
 import { Color, ColorHex } from "./Constants";
+import React from 'react';
+
 /**
 * Returns a hex code for each course color option.
 * @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
@@ -107,3 +109,13 @@ export function validateForm(course, linkPairs, form, courses) {
   return (null);
 }
 
+/**
+ * 
+ * @param {Array} elements an array for the br elements to be pushed to
+ * @param {Int} numBrTags number of br tags to add to elements 
+ */
+export function addBrTags(elements, numBrTags) {
+  for (let i = 0; i < numBrTags; i++) {
+      elements.push(React.createElement('br'));
+  }
+}

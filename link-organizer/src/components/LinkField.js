@@ -1,4 +1,5 @@
 import "./LinkField.css";
+import { Messages } from "../Constants.js";
 
 function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
     if (isFirstLink) {
@@ -17,9 +18,9 @@ function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
                 placeholder="Title" defaultValue={linkName}/>
             <input className="link-input" type="text" name="link"
                 placeholder="Link" defaultValue={linkURL}/>
-            <button onClick={() => removeLink(props.linkId)}
+            <button onClick={() => removeLink(linkId)}
                 type="button" className="remove-link-btn">
-                Remove
+                {Messages.REMOVE_LINK}
             </button>
         </div>
     )

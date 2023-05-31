@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from './components/Modal';
 import Course from './components/Course';
 import './App.css';
-import { Color } from "./Constants";
+import { Color, Messages } from "./Constants";
 
 function App() {
     // TODO move these to constant values?
@@ -50,12 +50,12 @@ function App() {
 
     return (
         <>
-            <h1 className="center">Course Link Organizer</h1>
-            <h3 className="center">All your class links - One page</h3>
+            <h1 className="center">{Messages.TITLE}</h1>
+            <h3 className="center">{Messages.TITLE_PHRASE}</h3>
             <div className="btn-container">
                 <button id="add-course-btn" data-modal="new-course-modal"
                     onClick={() => setShowModal(initialModalCourseName)}>
-                    Add course
+                    {Messages.ADD_COURSE}
                 </button>
             </div>
 
@@ -63,10 +63,10 @@ function App() {
             <div id="course-grid">{renderCourses()}</div>
 
             <p id="footer">
-                Questions, issues, or suggestions? Open an issue on
-                <a href="https://github.com/Jasper-Nelligan/Link-Organizer"
-                    target="_blank"> github </a>
-                or email me at jnelligan@protonmail.com</p>
+                {Messages.FOOTER_QUESTIONS}
+                <a href={Messages.FOOTER_GITHUB_LINK}
+                    target="_blank"> {Messages.FOOTER_GITHUB} </a>
+                {Messages.FOOTER_EMAIL}</p>
         </>
     )
 }
