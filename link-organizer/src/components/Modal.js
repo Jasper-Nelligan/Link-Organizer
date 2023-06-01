@@ -7,7 +7,6 @@ import { Messages, FormConstants, Color } from "../Constants.js";
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
     let initialLinkId = 0;
-    console.log(linkPairs)
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
         [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
