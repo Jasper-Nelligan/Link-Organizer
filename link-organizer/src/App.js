@@ -12,7 +12,8 @@ function App() {
             [ModalConstants.EMPTY_COURSE_NAME]:
                 [ModalConstants.DEFAULT_COLOR, ModalConstants.EMPTY_LINK_PAIRS]
         })
-    // Retrieve the courses data from localStorage. Run only once per session
+        
+    // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
         console.log(Object.assign(modals, storedCourses))

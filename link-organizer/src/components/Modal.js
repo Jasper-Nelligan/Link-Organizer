@@ -6,7 +6,7 @@ import { Messages, FormConstants, Color } from "../Constants.js";
 
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
-    let initialLinkId = 0;
+     let initialLinkId = 0;
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
         [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
@@ -34,21 +34,6 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
         setLinkData(newLinkData)
     }
 
-    const renderLinks = () => {
-        return linkData.map(
-            ([linkId, isFirstLink, linkName, linkURL]) =>
-                // React needs the key property in order to
-                // properly remove a link when re-rendering
-                <LinkField
-                    key={linkId}
-                    linkId={linkId}
-                    removeLink={removeLink}
-                    isFirstLink={isFirstLink} 
-                    linkName={linkName}
-                    linkURL={linkURL}/>
-        )
-    }
-
     const onAddOrUpdateCourseClicked = () => {
         const [course, color, linkPairs] = parseForm(formRef.current);
         const errorMsg = validateForm(course, course, linkPairs, courses);
@@ -68,8 +53,24 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
         onClose();
     }
 
+    const renderLinks = () => {
+        return linkData.map(
+            ([linkId, isFirstLink, linkName, linkURL]) =>
+                // React needs the key property in order to
+                // properly remove a link when re-rendering
+                <LinkField
+                    key={linkId}
+                    linkId={linkId}
+                    removeLink={removeLink}
+                    isFirstLink={isFirstLink} 
+                    linkName={linkName}
+                    linkURL={linkURL}/>
+        )
+    }
+
     const modalDisplay = showCourse == course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
+    const deleteCourseDisplay = course != '' ? 'inline' : 'none';
     const saveCourseMsg = course == '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
 
     return (
@@ -105,11 +106,15 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
                         {Messages.ADD_LINK}
                     </button>
 
-                    <p className="form-error-msg" display={errorMsgDisplay}>{errorMsg}</p>  
+                    <p className="form-error-msg" style={{ display: errorMsgDisplay }}>{errorMsg}</p>
+
 
                     <div className="form-bottom">
-                        <button type="submit" className="submit-btn"
-                            id="submit-course"
+                        <button class="delete-course-btn" style={{ display: deleteCourseDisplay }}>
+                            Delete Course
+                        </button>
+                        <button
+                            className={`submit-course-btn ${course == '' ? 'full-width' : ''}`}
                             onClick={() =>
                                 onAddOrUpdateCourseClicked(
                                     onClose,

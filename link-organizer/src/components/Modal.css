@@ -106,6 +106,12 @@ textarea {
   display: inline;
 }
 
+.form-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .form-bottom button {
   border: none;
   color: #fff;
@@ -124,15 +130,15 @@ textarea {
   background: #961a12;
 }
 
-.submit-btn {
+.submit-course-btn {
   background: #1c87c9;
   width: 67%;
 }
 
-.submit-btn:hover {
+.submit-course-btn:hover {
   background: #2371a0;
 }
 
-#submit-course {
+.submit-course-btn.full-width {
   width: 100%;
 }
