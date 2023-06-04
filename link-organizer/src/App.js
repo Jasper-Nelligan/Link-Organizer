@@ -16,7 +16,6 @@ function App() {
     // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
-        console.log(Object.assign(modals, storedCourses))
     
         if (storedCourses) {
             setCourses(storedCourses);
@@ -28,15 +27,17 @@ function App() {
 
     const addOrUpdateCourse = (course, color, linkPairs) => {
         const updatedCourses = { ...courses, [course]: [color, linkPairs] };
+        const updatedModals = { ...modals, [course]: [color, linkPairs] };
         setCourses(updatedCourses);
-        setModals(updatedCourses);
+        setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
     const deleteCourse = (course) => {
-        const { [course]: foo, ...updatedCourses} = courses;
+        const { [course]: unused1, ...updatedCourses} = courses;
+        const { [course]: unused2, ...updatedModals} = modals;
         setCourses(updatedCourses);
-        setModals(updatedCourses)
+        setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 

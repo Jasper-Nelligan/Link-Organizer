@@ -46,7 +46,7 @@ function Course({ course, color, linkPairs, onEdit }) {
 
     const editBtn = React.createElement(
         'button',
-        { type: "button", class: "edit-btn", id: "edit-" + courseId,
+        { type: "button", className: "edit-btn", id: "edit-" + courseId,
         "data-modal": courseId + "-modal", onClick: () => {onEdit()}},
         "Edit"
     )

@@ -7,17 +7,20 @@ import { Messages, FormConstants, Color } from "../Constants.js";
 // TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course,
         courses, onClose, onAddOrUpdateCourse, onDeleteCourse}) {
-    let initialLinkId = 0;
-    const initialLinkData = [
-        [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
-        [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
-        [initialLinkId++, false, linkPairs[2][0], linkPairs[2][1]],
-        [initialLinkId++, false, linkPairs[3][0], linkPairs[3][1]]
-    ]
-    
+            console.log(course)
+    const initialLinkData = [];
+    let firstLink = true;
+    let id = 0;
+    for (id; id < linkPairs.length; id++) {
+        initialLinkData.push([id, firstLink, linkPairs[id][0], linkPairs[id][1]])
+        if (firstLink) {
+            firstLink = false;
+        }
+    }
+
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
-    const [linkId, setLinkId] = useState(initialLinkId);
+    const [linkId, setLinkId] = useState(id);
     const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
     
@@ -111,7 +114,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
 
                     <div className="form-bottom">
-                        <button class="delete-course-btn"
+                        <button className="delete-course-btn"
                             style={{ display: deleteCourseDisplay }}
                             onClick={() =>
                                 onDeleteCourse(course)}>
