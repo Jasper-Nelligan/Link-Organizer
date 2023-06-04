@@ -1,6 +1,7 @@
-import "./Course.css";
+import PropTypes from "prop-types";
 import React from 'react';
 import { getColorHex, addBrTags } from "../HelperFunctions";
+import "./Course.css";
 
 function Course({ course, color, linkPairs, onEdit }) {
     // remove whitespace in course and use it for it's id
@@ -60,6 +61,13 @@ function Course({ course, color, linkPairs, onEdit }) {
     );
 
     return courseFrame;
+}
+
+Course.propTypes = {
+    course: PropTypes.string,
+    color: PropTypes.string,
+    linkPairs: PropTypes.arrayOf(PropTypes.array),
+    onEdit: PropTypes.func
 }
 
 export default Course;

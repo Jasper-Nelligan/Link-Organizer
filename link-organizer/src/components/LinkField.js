@@ -1,5 +1,7 @@
 import "./LinkField.css";
 import { Messages } from "../Constants.js";
+import PropTypes from "prop-types";
+
 
 function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
     if (isFirstLink) {
@@ -24,6 +26,14 @@ function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
             </button>
         </div>
     )
+}
+
+LinkField.propType = {
+    isFirstLink: PropTypes.bool,
+    linkName: PropTypes.string,
+    linkURL: PropTypes.string,
+    removeLink: PropTypes.func,
+    linkId: PropTypes.number,
 }
 
 export default LinkField;

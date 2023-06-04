@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import "./Modal.css";
 import LinkField from "./LinkField";
 import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctions";
 import { Messages, FormConstants, Color } from "../Constants.js";
 
-// TODO add prop types documentation to all classes
 function Modal({ linkPairs, initColor, showCourse, course,
         courses, onClose, onAddOrUpdateCourse, onDeleteCourse}) {
             console.log(course)
@@ -137,6 +137,17 @@ function Modal({ linkPairs, initColor, showCourse, course,
             </div>
         </div>
     )
+}
+
+Modal.propTypes = {
+    linkPairs: PropTypes.arrayOf(PropTypes.array),
+    initColor: PropTypes.string,
+    showCourse: PropTypes.string,
+    course: PropTypes.string,
+    courses: PropTypes.arrayOf(PropTypes.object),
+    onClose: PropTypes.func,
+    onAddOrUpdateCourse: PropTypes.func,
+    onDeleteCourse: PropTypes.func
 }
 
 export default Modal;
