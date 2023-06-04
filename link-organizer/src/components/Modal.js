@@ -5,8 +5,9 @@ import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctio
 import { Messages, FormConstants, Color } from "../Constants.js";
 
 // TODO add prop types documentation to all classes
-function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onAddOrUpdateCourse}) {
-     let initialLinkId = 0;
+function Modal({ linkPairs, initColor, showCourse, course,
+        courses, onClose, onAddOrUpdateCourse, onDeleteCourse}) {
+    let initialLinkId = 0;
     const initialLinkData = [
         [initialLinkId++, true, linkPairs[0][0], linkPairs[0][1]],
         [initialLinkId++, false, linkPairs[1][0], linkPairs[1][1]],
@@ -110,7 +111,10 @@ function Modal({ linkPairs, initColor, showCourse, course, courses, onClose, onA
 
 
                     <div className="form-bottom">
-                        <button class="delete-course-btn" style={{ display: deleteCourseDisplay }}>
+                        <button class="delete-course-btn"
+                            style={{ display: deleteCourseDisplay }}
+                            onClick={() =>
+                                onDeleteCourse(course)}>
                             Delete Course
                         </button>
                         <button

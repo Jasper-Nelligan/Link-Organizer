@@ -12,7 +12,7 @@ function App() {
             [ModalConstants.EMPTY_COURSE_NAME]:
                 [ModalConstants.DEFAULT_COLOR, ModalConstants.EMPTY_LINK_PAIRS]
         })
-        
+
     // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
@@ -28,11 +28,15 @@ function App() {
 
     const addOrUpdateCourse = (course, color, linkPairs) => {
         const updatedCourses = { ...courses, [course]: [color, linkPairs] };
-        console.log(updatedCourses)
         setCourses(updatedCourses);
         setModals(updatedCourses);
+        localStorage.setItem('courses', JSON.stringify(updatedCourses));
+    }
 
-        // Store the updated courses in localStorage
+    const deleteCourse = (course) => {
+        const { [course]: foo, ...updatedCourses} = courses;
+        setCourses(updatedCourses);
+        setModals(updatedCourses)
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
@@ -48,6 +52,8 @@ function App() {
                 addOrUpdateCourse(course, color, linkPairs)}
             showCourse={showModal}
             courses={courses}
+            onDeleteCourse={(course) => 
+                deleteCourse(course)}
             />
         ));
     }
