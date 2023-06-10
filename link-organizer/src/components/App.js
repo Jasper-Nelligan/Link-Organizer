@@ -16,7 +16,7 @@ function App() {
     // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
-    
+
         if (storedCourses) {
             setCourses(storedCourses);
             setModals(Object.assign(modals, storedCourses));
@@ -34,8 +34,8 @@ function App() {
     }
 
     const deleteCourse = (course) => {
-        const { [course]: unused1, ...updatedCourses} = courses;
-        const { [course]: unused2, ...updatedModals} = modals;
+        const { [course]: unused1, ...updatedCourses } = courses;
+        const { [course]: unused2, ...updatedModals } = modals;
         setCourses(updatedCourses);
         setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
@@ -44,35 +44,35 @@ function App() {
     const renderModals = () => {
         return Object.entries(modals).map(([course, [color, linkPairs]]) => (
             <Modal
-            key={course}
-            course={course}
-            initColor={color}
-            linkPairs={linkPairs}
-            onClose={() => setShowModal(null)}
-            onAddOrUpdateCourse={(course, color, linkPairs) =>
-                addOrUpdateCourse(course, color, linkPairs)}
-            showCourse={showModal}
-            courses={courses}
-            onDeleteCourse={(course) => 
-                deleteCourse(course)}
+                key={course}
+                course={course}
+                initColor={color}
+                linkPairs={linkPairs}
+                onClose={() => setShowModal(null)}
+                onAddOrUpdateCourse={(course, color, linkPairs) =>
+                    addOrUpdateCourse(course, color, linkPairs)}
+                showCourse={showModal}
+                courses={courses}
+                onDeleteCourse={(course) =>
+                    deleteCourse(course)}
             />
         ));
     }
-    
+
     const renderCourses = () => {
         return Object.entries(courses).map(([course, [color, linkPairs]]) => (
-          <Course
-            key={course}
-            course={course}
-            color={color}
-            linkPairs={linkPairs}
-            onEdit={() => setShowModal(course)}
-          />
+            <Course
+                key={course}
+                course={course}
+                color={color}
+                linkPairs={linkPairs}
+                onEdit={() => setShowModal(course)}
+            />
         ));
     }
 
     return (
-        <>
+        <div className="app-container">
             <h1 className="center">{Messages.TITLE}</h1>
             <h3 className="center">{Messages.TITLE_PHRASE}</h3>
             <div className="btn-container">
@@ -90,7 +90,7 @@ function App() {
                 <a href={Messages.FOOTER_GITHUB_LINK}
                     target="_blank"> {Messages.FOOTER_GITHUB} </a>
                 {Messages.FOOTER_EMAIL}</p>
-        </>
+        </div>
     )
 }
 
