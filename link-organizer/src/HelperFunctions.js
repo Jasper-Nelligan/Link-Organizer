@@ -62,17 +62,17 @@ export function parseForm(form) {
  * @return {null} otherwise
  */
 export function validateForm(course, initCourseName, linkPairs, courses) {
-  if (course == '') {
+  if (course === '') {
     return ('Error: course name cannot be empty'); 
   }
 
-  if (initCourseName != course && course in courses) {
+  if (initCourseName !== course && course in courses) {
     return ('Error: cannot have two courses with the same name'); 
   }
 
   // Check of link is present but has no link name
   for (let i = 0; i < linkPairs.length; i++) {
-    if (linkPairs[i][0] == '' && linkPairs[i][1] != '') {
+    if (linkPairs[i][0] === '' && linkPairs[i][1] !== '') {
       return ('Error: link name cannot be empty');
     }
   }

@@ -49,7 +49,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
     }
 
     const onCloseBtnClicked = () => {
-        if (course == '') {
+        if (course === '') {
             setColor(Color.RED)
             clearForm(formRef.current);
             setLinkData(FormConstants.EMPTY_LINK_PAIRS)
@@ -72,10 +72,10 @@ function Modal({ linkPairs, initColor, showCourse, course,
         )
     }
 
-    const modalDisplay = showCourse == course ? 'block' : 'none';
+    const modalDisplay = showCourse === course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
-    const deleteCourseDisplay = course != '' ? 'inline' : 'none';
-    const saveCourseMsg = course == '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
+    const deleteCourseDisplay = course !== '' ? 'inline' : 'none';
+    const saveCourseMsg = course === '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>

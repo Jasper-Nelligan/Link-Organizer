@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Modal from './components/Modal';
-import Course from './components/Course';
+import Modal from './Modal';
+import Course from './Course';
 import './App.css';
-import { Messages, ModalConstants } from "./Constants";
+import { Messages, ModalConstants } from "../Constants";
 
 function App() {
     const [showModal, setShowModal] = useState(null);

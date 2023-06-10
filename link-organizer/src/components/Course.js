@@ -9,7 +9,6 @@ function Course({ course, color, linkPairs, onEdit }) {
     const frameId = `${courseId}-frame`;
 
     let elements = [];
-    const brTag = React.createElement("br");
 
     const title = React.createElement(
         'p',
