@@ -72,7 +72,7 @@ function App() {
     }
 
     return (
-        <div className="app-container">
+        <div className="app-container" data-testid="app-container">
             <h1 className="center">{Messages.TITLE}</h1>
             <h3 className="center">{Messages.TITLE_PHRASE}</h3>
             <div className="btn-container">
