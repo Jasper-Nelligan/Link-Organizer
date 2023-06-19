@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event';
 import App from './App';
-import { TestConstants } from "../Constants.js";
+import { Messages, TestConstants, Color } from "../Constants.js";
 
 afterEach(() => {
     localStorage.clear();
@@ -27,34 +26,34 @@ test("Page loads succesfully - course in localStorage", () => {
 test("Add course", () => {
     render(<App/>);
 
-    // Assert modal is not shown
     // TODO should add this to the other tests
-    let createCourseBtn = screen.queryByRole('button', { name: "Create Course"});
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
     expect(createCourseBtn).toBeNull();
 
-    const addCourseBtn = screen.getByRole('button', { name: "Add Course"});
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
 
-    const courseInput = screen.getByPlaceholderText('Course');
+    const courseInput = screen.getByPlaceholderText(Messages.COURSE);
     expect(courseInput).toBeInTheDocument();
-    fireEvent.change(courseInput, {target: {value: 'Course 1'}})
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: "green" } });
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.GREEN } });
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(6);
     expect(options[1].selected).toBeTruthy();
 
     // TODO change Title to "Link Name" and "Link" to "URL"
-    const linkNameInputs = screen.getAllByPlaceholderText('Title');
+    const linkNameInputs = screen.getAllByPlaceholderText(Messages.TITLE);
     expect(linkNameInputs).toHaveLength(4);
-    fireEvent.change(linkNameInputs[0], {target: {value: 'Title 1'}})
+    fireEvent.change(linkNameInputs[0], {target: {value: TestConstants.TITLE_1}})
 
-    const linkURLInputs = screen.getAllByPlaceholderText('Link');
+    const linkURLInputs = screen.getAllByPlaceholderText(Messages.LINK);
     expect(linkURLInputs).toHaveLength(4);
-    fireEvent.change(linkURLInputs[0], {target: {value: 'Link 1'}})
+    fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
 
-    createCourseBtn = screen.queryByRole('button', { name: "Create Course"});
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 

@@ -73,8 +73,8 @@ function App() {
 
     return (
         <div className="app-container" data-testid="app-container">
-            <h1 className="center">{Messages.TITLE}</h1>
-            <h3 className="center">{Messages.TITLE_PHRASE}</h3>
+            <h1 className="center">{Messages.PAGE_TITLE}</h1>
+            <h3 className="center">{Messages.PAGE_TITLE_PHRASE}</h3>
             <div className="btn-container">
                 <button id="add-course-btn" data-modal="new-course-modal"
                     onClick={() => setShowModal(ModalConstants.EMPTY_COURSE_NAME)}>

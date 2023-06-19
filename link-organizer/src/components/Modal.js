@@ -82,7 +82,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
             <div className="modal-content">
                 <div className="form" ref={formRef} style={{ background: getColorHex(color) }}>
                     <input className="course-input" type="text" name="course"
-                        placeholder="Course" defaultValue={course}/>
+                        placeholder={Messages.COURSE} defaultValue={course}/>
 
                     <a className="close-button"
                         onClick={() =>
