@@ -30,8 +30,9 @@ export const Messages = {
     REMOVE_LINK: 'Remove',
     SAVE_CHANGES: 'Save changes',
     COURSE: 'Course',
-    LINK: 'Link',
-    TITLE: 'Title'
+    // TODO: "URL" or "http://" better for placeholder?
+    URL: 'URL',
+    LINK_NAME: 'Link Name'
 }
 
 export const FormConstants = {

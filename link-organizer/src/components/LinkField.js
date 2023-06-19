@@ -8,18 +8,18 @@ function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
         return (
             <div className="form-links">
                 <input className="link-name" type="text"
-                    placeholder={Messages.TITLE} defaultValue={linkName}/>
+                    placeholder={Messages.LINK_NAME} defaultValue={linkName}/>
                 <input className="link-input" type="text" name="link"
-                    placeholder={Messages.LINK} defaultValue={linkURL}/>
+                    placeholder={Messages.URL} defaultValue={linkURL}/>
             </div>
         )
     }
     else return (
         <div className="form-links">
             <input className="link-name" type="text" 
-                placeholder={Messages.TITLE} defaultValue={linkName}/>
+                placeholder={Messages.LINK_NAME} defaultValue={linkName}/>
             <input className="link-input" type="text" name="link"
-                placeholder={Messages.LINK} defaultValue={linkURL}/>
+                placeholder={Messages.URL} defaultValue={linkURL}/>
             <button onClick={() => removeLink(linkId)}
                 type="button" className="remove-link-btn">
                 {Messages.REMOVE_LINK}

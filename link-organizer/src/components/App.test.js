@@ -41,12 +41,11 @@ test("Add course", () => {
     expect(options).toHaveLength(6);
     expect(options[1].selected).toBeTruthy();
 
-    // TODO change Title to "Link Name" and "Link" to "URL"
-    const linkNameInputs = screen.getAllByPlaceholderText(Messages.TITLE);
+    const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
     expect(linkNameInputs).toHaveLength(4);
     fireEvent.change(linkNameInputs[0], {target: {value: TestConstants.TITLE_1}})
 
-    const linkURLInputs = screen.getAllByPlaceholderText(Messages.LINK);
+    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
     expect(linkURLInputs).toHaveLength(4);
     fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
 
@@ -54,7 +53,6 @@ test("Add course", () => {
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
-    console.log(localStorage.getItem('courses'));
     expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE);
 
     const appContainer = screen.getByTestId('app-container');
