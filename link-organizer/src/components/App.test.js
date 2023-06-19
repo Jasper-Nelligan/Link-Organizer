@@ -6,12 +6,11 @@ afterEach(() => {
     localStorage.clear();
 });
 
-// https://testing-library.com/docs/queries/about
 test("Page loads succesfully - no localStorage data", () => {
     render(<App/>);
 
-    const appContainer = screen.getByTestId('app-container');
-    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_NO_LOCAL_STORAGE)
+    expect(screen.getByTestId('app-container').outerHTML)
+        .toBe(TestConstants.LOAD_PAGE_NO_LOCAL_STORAGE)
 })
 
 test("Page loads succesfully - course in localStorage", () => {
@@ -22,11 +21,9 @@ test("Page loads succesfully - course in localStorage", () => {
         .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE);
 })
 
-// https://testing-library.com/docs/queries/about
 test("Add course", () => {
     render(<App/>);
 
-    // TODO should add this to the other tests
     // Assert modal is not shown
     let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
     expect(createCourseBtn).toBeNull();
