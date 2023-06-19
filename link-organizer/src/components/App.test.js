@@ -2,6 +2,9 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App';
 import { Messages, TestConstants, Color } from "../Constants.js";
 
+/*
+ * I'm probably going to computer science hell for writing my tests like this
+ */
 afterEach(() => {
     localStorage.clear();
 });
@@ -43,7 +46,7 @@ test("Add course", () => {
 
     const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
     expect(linkNameInputs).toHaveLength(4);
-    fireEvent.change(linkNameInputs[0], {target: {value: TestConstants.TITLE_1}})
+    fireEvent.change(linkNameInputs[0], {target: {value: TestConstants.LINK_NAME_1}})
 
     const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
     expect(linkURLInputs).toHaveLength(4);
