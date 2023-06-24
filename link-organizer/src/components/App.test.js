@@ -61,3 +61,26 @@ test("Add course", () => {
     const appContainer = screen.getByTestId('app-container');
     expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE)
 })
+
+test("Add empty course", () => {
+    render(<App/>);
+
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    expect(createCourseBtn).toBeNull();
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+    fireEvent.click(createCourseBtn);
+
+    let errorMsg = screen.queryByText(Messages.ERROR_COURSE_NAME_EMPTY);
+    expect(errorMsg).not.toBeNull;
+
+    // Assert modal is still showing
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+})
