@@ -163,23 +163,24 @@ test("Edit course", () => {
     fireEvent.click(editCourseBtn)
 
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
     expect(courseInput).toBeInTheDocument();
-    fireEvent.change(courseInput, {target: { value: TestConstants.COURSE_NAME_2 }})
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_2}})
 
     fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
 
     // Add link
     const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
-    fireEvent.change(linkNameInputs[1], {target: {value: TestConstants.LINK_NAME_2}})
+    fireEvent.change(linkNameInputs[5], {target: {value: TestConstants.LINK_NAME_2}})
     const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
-    fireEvent.change(linkURLInputs[1], {target: {value: TestConstants.LINK_2}})
+    fireEvent.change(linkURLInputs[5], {target: {value: TestConstants.LINK_2}})
 
     let saveChangesBtn = screen.queryByRole('button', { name: Messages.SAVE_CHANGES });
+    expect(saveChangesBtn).toBeInTheDocument();
     fireEvent.click(saveChangesBtn);
 
     expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_2);
 
     const appContainer = screen.getByTestId('app-container');
-    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML)
+    expect(appContainer.outerHTML).toBe(TestConstants.EDIT_COURSE_HTML)
 })
