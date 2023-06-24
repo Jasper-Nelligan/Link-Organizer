@@ -38,12 +38,12 @@ function Modal({ linkPairs, initColor, showCourse, course,
     }
 
     const onAddOrUpdateCourseClicked = () => {
-        const [course, color, linkPairs] = parseForm(formRef.current);
-        const newErrorMessage = validateForm(course, course, linkPairs, courses);
+        const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
+        const newErrorMessage = validateForm(formCourse, course, formLinkPairs, courses);
         updateErrorMsg(newErrorMessage);
         if (newErrorMessage == null) {
-            onAddOrUpdateCourse(course, color, linkPairs);
-            onCloseBtnClicked(formRef.current, course, setColor, setLinkData); 
+            onAddOrUpdateCourse(formCourse, formColor, formLinkPairs);
+            onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
         }
     }
 
