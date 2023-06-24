@@ -118,3 +118,35 @@ test("Add duplicate course", () => {
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
 })
+
+test("Add course empty link name", () => {
+    render(<App/>);
+
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    expect(createCourseBtn).toBeNull();
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    expect(courseInput).toBeInTheDocument();
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
+
+    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(4);
+    fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
+
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+    fireEvent.click(createCourseBtn);
+
+    let errorMsg = screen.queryByText(Messages.ERROR_LINK_NAME_EMPTY);
+    expect(errorMsg).not.toBeNull;
+
+    // Assert modal is still showing
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+})
