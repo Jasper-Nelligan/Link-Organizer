@@ -7,7 +7,6 @@ import { Messages, FormConstants, Color } from "../Constants.js";
 
 function Modal({ linkPairs, initColor, showCourse, course,
         courses, onClose, onAddOrUpdateCourse, onDeleteCourse}) {
-            console.log(course)
     const initialLinkData = [];
     let firstLink = true;
     let id = 0;
@@ -40,9 +39,9 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
     const onAddOrUpdateCourseClicked = () => {
         const [course, color, linkPairs] = parseForm(formRef.current);
-        const errorMsg = validateForm(course, course, linkPairs, courses);
-        updateErrorMsg(errorMsg);
-        if (errorMsg == null) {
+        const newErrorMessage = validateForm(course, course, linkPairs, courses);
+        updateErrorMsg(newErrorMessage);
+        if (newErrorMessage == null) {
             onAddOrUpdateCourse(course, color, linkPairs);
             onCloseBtnClicked(formRef.current, course, setColor, setLinkData); 
         }
@@ -73,7 +72,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
     }
 
     const modalDisplay = showCourse === course ? 'block' : 'none';
-    const errorMsgDisplay = errorMsg == null ? 'inline' : 'none';
+    const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
     const deleteCourseDisplay = course !== '' ? 'inline' : 'none';
     const saveCourseMsg = course === '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
 
@@ -111,7 +110,6 @@ function Modal({ linkPairs, initColor, showCourse, course,
                     </button>
 
                     <p className="form-error-msg" style={{ display: errorMsgDisplay }}>{errorMsg}</p>
-
 
                     <div className="form-bottom">
                         <button className="delete-course-btn"

@@ -1,4 +1,4 @@
-import { Color, ColorHex } from "./Constants";
+import { Color, ColorHex, Messages } from "./Constants";
 import React from 'react';
 
 /**
@@ -63,17 +63,17 @@ export function parseForm(form) {
  */
 export function validateForm(course, initCourseName, linkPairs, courses) {
   if (course === '') {
-    return ('Error: course name cannot be empty'); 
+    return Messages.ERROR_COURSE_NAME_EMPTY; 
   }
 
   if (initCourseName !== course && course in courses) {
-    return ('Error: cannot have two courses with the same name'); 
+    return Messages.ERROR_TWO_COURSES_SAME_NAME; 
   }
 
   // Check of link is present but has no link name
   for (let i = 0; i < linkPairs.length; i++) {
     if (linkPairs[i][0] === '' && linkPairs[i][1] !== '') {
-      return ('Error: link name cannot be empty');
+      return Messages.ERROR_LINK_NAME_EMPTY;
     }
   }
 
