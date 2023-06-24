@@ -35,7 +35,8 @@ test("Add course", () => {
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
 
-    const courseInput = screen.getByPlaceholderText(Messages.COURSE);
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
@@ -73,11 +74,44 @@ test("Add empty course", () => {
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
 
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    expect(courseInput).toBeInTheDocument();
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
+
+    let errorMsg = screen.queryByText(Messages.ERROR_COURSE_NAME_EMPTY);
+    expect(errorMsg).not.toBeNull;
+
+    // Assert modal is still showing
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+})
+
+test("Add duplicate course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE);
+    render(<App/>);
+
+    expect(screen.getByTestId('app-container').outerHTML)
+        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE);
+
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    expect(createCourseBtn).toBeNull();
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    expect(courseInput).toBeInTheDocument();
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
+
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
-    let errorMsg = screen.queryByText(Messages.ERROR_COURSE_NAME_EMPTY);
+    let errorMsg = screen.queryByText(Messages.ERROR_TWO_COURSES_SAME_NAME);
     expect(errorMsg).not.toBeNull;
 
     // Assert modal is still showing
