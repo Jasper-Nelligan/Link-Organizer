@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from 'react';
 import { getColorHex, addBrTags } from "../HelperFunctions";
+import { Messages } from "../Constants";
 import "./Course.css";
 
 function Course({ course, color, linkPairs, onEdit }) {
@@ -48,7 +49,7 @@ function Course({ course, color, linkPairs, onEdit }) {
         'button',
         { type: "button", className: "edit-btn", id: "edit-" + courseId,
         "data-modal": courseId + "-modal", onClick: () => {onEdit()}},
-        "Edit"
+        Messages.EDIT
     )
     elements.push(editBtn);
 

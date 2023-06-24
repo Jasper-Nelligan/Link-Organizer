@@ -9,19 +9,19 @@ afterEach(() => {
     localStorage.clear();
 });
 
-test("Page loads succesfully - no localStorage data", () => {
+test("Page loads successfully - no localStorage data", () => {
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_NO_LOCAL_STORAGE)
+        .toBe(TestConstants.LOAD_PAGE_NO_LOCAL_STORAGE_HTML)
 })
 
-test("Page loads succesfully - course in localStorage", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE);
+test("Page loads successfully - course in localStorage", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE);
+        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
 })
 
 test("Add course", () => {
@@ -57,10 +57,10 @@ test("Add course", () => {
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE);
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_1);
 
     const appContainer = screen.getByTestId('app-container');
-    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE)
+    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML)
 })
 
 test("Add empty course", () => {
@@ -88,11 +88,11 @@ test("Add empty course", () => {
 })
 
 test("Add duplicate course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE);
+        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
 
     // Assert modal is not shown
     let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
@@ -149,4 +149,37 @@ test("Add course empty link name", () => {
     // Assert modal is still showing
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
+})
+
+test("Edit course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
+    render(<App/>);
+
+    expect(screen.getByTestId('app-container').outerHTML)
+        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
+
+    const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
+    expect(editCourseBtn).toBeInTheDocument();
+    fireEvent.click(editCourseBtn)
+
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    expect(courseInput).toBeInTheDocument();
+    fireEvent.change(courseInput, {target: { value: TestConstants.COURSE_NAME_2 }})
+
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
+
+    // Add link
+    const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    fireEvent.change(linkNameInputs[1], {target: {value: TestConstants.LINK_NAME_2}})
+    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    fireEvent.change(linkURLInputs[1], {target: {value: TestConstants.LINK_2}})
+
+    let saveChangesBtn = screen.queryByRole('button', { name: Messages.SAVE_CHANGES });
+    fireEvent.click(saveChangesBtn);
+
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_2);
+
+    const appContainer = screen.getByTestId('app-container');
+    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML)
 })
