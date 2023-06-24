@@ -119,7 +119,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                             Delete Course
                         </button>
                         <button
-                            className={`submit-course-btn ${course == '' ? 'full-width' : ''}`}
+                            className={`submit-course-btn ${course === '' ? 'full-width' : ''}`}
                             onClick={() =>
                                 onAddOrUpdateCourseClicked(
                                     onClose,
