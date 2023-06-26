@@ -184,3 +184,55 @@ test("Edit course", () => {
     const appContainer = screen.getByTestId('app-container');
     expect(appContainer.outerHTML).toBe(TestConstants.EDIT_COURSE_HTML)
 })
+
+test("Add link", () => {
+    render(<App/>);
+
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    expect(createCourseBtn).toBeNull();
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    let linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    expect(linkNameInputs).toHaveLength(4);
+    let linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(4);
+
+    let addLinkBtn = screen.queryByRole('button', { name: Messages.ADD_LINK });
+    expect(addLinkBtn).toBeInTheDocument();
+    fireEvent.click(addLinkBtn);
+
+    linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    expect(linkNameInputs).toHaveLength(5);
+    linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(5);
+})
+
+test("Add link", () => {
+    render(<App/>);
+
+    // Assert modal is not shown
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    expect(createCourseBtn).toBeNull();
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    let linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    expect(linkNameInputs).toHaveLength(4);
+    let linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(4);
+
+    let addLinkBtns = screen.queryAllByRole('button', { name: Messages.REMOVE_LINK });
+    expect(addLinkBtns[0]).toBeInTheDocument();
+    fireEvent.click(addLinkBtns[0]);
+
+    linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    expect(linkNameInputs).toHaveLength(3);
+    linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(3);
+})
