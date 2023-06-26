@@ -49,6 +49,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
     const onCloseBtnClicked = () => {
         if (course === '') {
+            updateErrorMsg(null)
             setColor(Color.RED)
             clearForm(formRef.current);
             setLinkData(FormConstants.EMPTY_LINK_PAIRS)
