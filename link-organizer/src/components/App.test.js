@@ -169,7 +169,7 @@ test("Edit course", () => {
 
     fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
 
-    // Add link
+    // Input second link
     const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
     fireEvent.change(linkNameInputs[5], {target: {value: TestConstants.LINK_NAME_2}})
     const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);

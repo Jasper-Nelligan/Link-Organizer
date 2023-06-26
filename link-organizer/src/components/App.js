@@ -27,21 +27,20 @@ function App() {
 
     const addOrUpdateCourse = (initCourseName, course, color, linkPairs) => {
         // TODO refactor this
+        let updatedCourses;
+        let updatedModals;
         if (initCourseName === '') {
-            const updatedCourses = { ...courses, [course]: [color, linkPairs] };
-            const updatedModals = { ...modals, [course]: [color, linkPairs] };
-            setCourses(updatedCourses);
-            setModals(updatedModals);
-            localStorage.setItem('courses', JSON.stringify(updatedCourses));
+            updatedCourses = { ...courses, [course]: [color, linkPairs] };
+            updatedModals = { ...modals, [course]: [color, linkPairs] };
         } else {
-            const { [initCourseName]: unused1, ...updatedCourses } = courses;
-            const { [initCourseName]: unused2, ...updatedModals } = modals;
-            const updatedCourses2 = { ...updatedCourses, [course]: [color, linkPairs] };
-            const updatedModals2 = { ...updatedModals, [course]: [color, linkPairs] };
-            setCourses(updatedCourses2);
-            setModals(updatedModals2);
-            localStorage.setItem('courses', JSON.stringify(updatedCourses2));
+            const { [initCourseName]: unused1, ...tempUpdatedCourses } = courses;
+            const { [initCourseName]: unused2, ...tempUpdatedModals } = modals;
+            updatedCourses = { ...tempUpdatedCourses, [course]: [color, linkPairs] };
+            updatedModals = { ...tempUpdatedModals, [course]: [color, linkPairs] };
         }
+        setCourses(updatedCourses);
+        setModals(updatedModals);
+        localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
     const deleteCourse = (course) => {
