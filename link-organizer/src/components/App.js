@@ -99,7 +99,7 @@ function App() {
                 {Messages.FOOTER_QUESTIONS}
                 <a href={Messages.FOOTER_GITHUB_LINK}
                     target="_blank"> {Messages.FOOTER_GITHUB} </a>
-                {Messages.FOOTER_EMAIL}</p>
+            </p>
         </div>
     )
 }
