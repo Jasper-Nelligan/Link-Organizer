@@ -20,8 +20,17 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
     const [linkId, setLinkId] = useState(id);
+    const [colorCount, setColorCount] = useState({
+        [Color.RED]: 0,
+        [Color.GREEN]: 0,
+        [Color.BLUE]: 0,
+        [Color.YELLOW]: 0,
+        [Color.ORANGE]: 0,
+        [Color.PURPLE]: 0,
+    })
     const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
+
     
     const onColorChanged = (color) => {
         setColor(color);
@@ -41,6 +50,13 @@ function Modal({ linkPairs, initColor, showCourse, course,
         const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
         const newErrorMessage = validateForm(formCourse, course, formLinkPairs, courses);
         updateErrorMsg(newErrorMessage);
+        setColorCount((prevColorCount) => {
+            const updatedColorCount = { ...prevColorCount };
+            updatedColorCount[color] = (updatedColorCount[color]) + 1;
+            return updatedColorCount;
+        });
+        console.log(colorCount);
+        console.log(getLeastUsedColor())
         if (newErrorMessage == null) {
             onAddOrUpdateCourse(course, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
@@ -50,7 +66,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const onCloseBtnClicked = () => {
         if (course === '') {
             updateErrorMsg(null)
-            setColor(Color.RED)
+            setColor(getLeastUsedColor())
             clearForm(formRef.current);
             setLinkData(FormConstants.EMPTY_LINK_PAIRS)
         }
@@ -71,6 +87,20 @@ function Modal({ linkPairs, initColor, showCourse, course,
                     linkURL={linkURL}/>
         )
     }
+
+    const getLeastUsedColor = () => {
+        let leastUsedColor = null;
+        let leastCount = Infinity;
+      
+        for (const [color, count] of Object.entries(colorCount)) {
+          if (count < leastCount) {
+            leastUsedColor = color;
+            leastCount = count;
+          }
+        }
+      
+        return leastUsedColor;
+    };
 
     const modalDisplay = showCourse === course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';

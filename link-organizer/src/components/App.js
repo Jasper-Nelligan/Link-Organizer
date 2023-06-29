@@ -10,7 +10,7 @@ function App() {
     const [modals, setModals] =
         useState({
             [ModalConstants.EMPTY_COURSE_NAME]:
-                [ModalConstants.DEFAULT_COLOR, ModalConstants.EMPTY_LINK_PAIRS]
+                [null, ModalConstants.EMPTY_LINK_PAIRS]
         })
 
     // Retrieve the courses data from localStorage. Runs only once per session
