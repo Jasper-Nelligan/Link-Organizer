@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Modal.css";
 import LinkField from "./LinkField";
@@ -30,6 +30,9 @@ function Modal({ linkPairs, initColor, showCourse, course,
     })
     const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
+    useEffect(() => {
+        setColor(getLeastUsedColor());
+    }, [colorCount])
 
     
     const onColorChanged = (color) => {
@@ -50,14 +53,11 @@ function Modal({ linkPairs, initColor, showCourse, course,
         const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
         const newErrorMessage = validateForm(formCourse, course, formLinkPairs, courses);
         updateErrorMsg(newErrorMessage);
-        setColorCount((prevColorCount) => {
+        if (newErrorMessage == null) {setColorCount((prevColorCount) => {
             const updatedColorCount = { ...prevColorCount };
-            updatedColorCount[color] = (updatedColorCount[color]) + 1;
-            return updatedColorCount;
-        });
-        console.log(colorCount);
-        console.log(getLeastUsedColor())
-        if (newErrorMessage == null) {
+                updatedColorCount[color] = (updatedColorCount[color]) + 1;
+                return updatedColorCount;
+            });
             onAddOrUpdateCourse(course, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
         }
