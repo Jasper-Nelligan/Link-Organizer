@@ -211,7 +211,7 @@ test("Add link", () => {
     expect(linkURLInputs).toHaveLength(5);
 })
 
-test("Add link", () => {
+test("Remove link", () => {
     render(<App/>);
 
     // Assert modal is not shown
