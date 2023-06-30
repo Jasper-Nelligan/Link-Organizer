@@ -17,7 +17,7 @@ test("Page loads successfully - no localStorage data", () => {
 })
 
 test("Page loads successfully - course in localStorage", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
@@ -57,7 +57,7 @@ test("Add course", () => {
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_1);
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_GREEN_COURSE);
 
     const appContainer = screen.getByTestId('app-container');
     expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML)
@@ -88,7 +88,7 @@ test("Add empty course", () => {
 })
 
 test("Add duplicate course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
@@ -152,7 +152,7 @@ test("Add course empty link name", () => {
 })
 
 test("Edit course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_1);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
     render(<App/>);
 
     expect(screen.getByTestId('app-container').outerHTML)
@@ -179,7 +179,7 @@ test("Edit course", () => {
     expect(saveChangesBtn).toBeInTheDocument();
     fireEvent.click(saveChangesBtn);
 
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_2);
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
 
     const appContainer = screen.getByTestId('app-container');
     expect(appContainer.outerHTML).toBe(TestConstants.EDIT_COURSE_HTML)
@@ -235,4 +235,16 @@ test("Remove link", () => {
     expect(linkNameInputs).toHaveLength(3);
     linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
     expect(linkURLInputs).toHaveLength(3);
+})
+
+test("Correct color is suggested - after red course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_RED_COURSE);
+    render(<App/>);
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    const options = screen.getAllByRole('option');
+    expect(options[1].selected).toBeTruthy();
 })
