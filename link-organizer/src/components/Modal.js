@@ -114,15 +114,17 @@ function Modal({ linkPairs, initColor, showCourse, course,
         return leastUsedColor;
     };
 
+    // TODO use EMPTY_COURSE instead of ''
     const modalDisplay = showCourse === course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
     const deleteCourseDisplay = course !== '' ? 'inline' : 'none';
     const saveCourseMsg = course === '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
+    const courseColor = course === '' ? getLeastUsedColor() : initColor;
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
-                <div className="form" ref={formRef} style={{ background: getColorHex(color) }}>
+                <div className="form" ref={formRef} style={{ background: getColorHex(courseColor) }}>
                     <input className="course-input" type="text" name="course"
                         placeholder={Messages.COURSE} defaultValue={course}/>
 
@@ -134,7 +136,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                     <label htmlFor="colors">{Messages.SELECT_COLOR}</label>
                     <select id="color-selector"
                             name="colors"
-                            value={color}
+                            value={courseColor}
                             onChange={(e) => onColorChanged(e.target.value)}>
                         <option value="red">Red</option>
                         <option value="green">Green</option>
