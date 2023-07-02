@@ -17,6 +17,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
         }
     }
 
+    
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
     const [linkId, setLinkId] = useState(id);
@@ -33,7 +34,17 @@ function Modal({ linkPairs, initColor, showCourse, course,
     useEffect(() => {
         setColor(getLeastUsedColor());
     }, [colorCount])
-
+    // TODO pull courses variable out of modal
+    useEffect(() => {
+        for (const course in courses) {
+            const courseColor = courses[course][0];
+            setColorCount((prevColorCount) => {
+                const updatedColorCount = { ...prevColorCount };
+                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
+                return updatedColorCount;
+            });
+        }
+    }, [courses])
     
     const onColorChanged = (color) => {
         setColor(color);
@@ -53,10 +64,11 @@ function Modal({ linkPairs, initColor, showCourse, course,
         const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
         const newErrorMessage = validateForm(formCourse, course, formLinkPairs, courses);
         updateErrorMsg(newErrorMessage);
-        if (newErrorMessage == null) {setColorCount((prevColorCount) => {
-            const updatedColorCount = { ...prevColorCount };
-                updatedColorCount[color] = (updatedColorCount[color]) + 1;
-                return updatedColorCount;
+        if (newErrorMessage == null) {
+            setColorCount((prevColorCount) => {
+                const updatedColorCount = { ...prevColorCount };
+                    updatedColorCount[color] = updatedColorCount[color] + 1;
+                    return updatedColorCount;
             });
             onAddOrUpdateCourse(course, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
