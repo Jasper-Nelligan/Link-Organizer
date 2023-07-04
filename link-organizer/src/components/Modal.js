@@ -17,7 +17,6 @@ function Modal({ linkPairs, initColor, showCourse, course,
         }
     }
 
-    
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
     const [linkId, setLinkId] = useState(id);
@@ -32,7 +31,9 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const [color, setColor] = useState(initColor);
     const formRef = useRef(null);
     useEffect(() => {
-        setColor(getLeastUsedColor());
+        if (course === '') {
+            setColor(getLeastUsedColor());
+        }
     }, [colorCount])
     // TODO pull courses variable out of modal
     useEffect(() => {
@@ -119,12 +120,11 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
     const deleteCourseDisplay = course !== '' ? 'inline' : 'none';
     const saveCourseMsg = course === '' ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
-    const courseColor = course === '' ? getLeastUsedColor() : initColor;
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
-                <div className="form" ref={formRef} style={{ background: getColorHex(courseColor) }}>
+                <div className="form" ref={formRef} style={{ background: getColorHex(color) }}>
                     <input className="course-input" type="text" name="course"
                         placeholder={Messages.COURSE} defaultValue={course}/>
 
@@ -136,7 +136,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                     <label htmlFor="colors">{Messages.SELECT_COLOR}</label>
                     <select id="color-selector"
                             name="colors"
-                            value={courseColor}
+                            value={color}
                             onChange={(e) => onColorChanged(e.target.value)}>
                         <option value="red">Red</option>
                         <option value="green">Green</option>
