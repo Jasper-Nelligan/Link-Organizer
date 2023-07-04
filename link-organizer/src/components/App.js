@@ -81,6 +81,7 @@ function App() {
         ));
     }
 
+    // TODO remove app container once tests are changed
     return (
         <div className="app-container" data-testid="app-container">
             <h1 className="center">{Messages.PAGE_TITLE}</h1>

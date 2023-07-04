@@ -56,7 +56,7 @@ function Course({ course, color, linkPairs, onEdit }) {
     const colorCode = getColorHex(color);
     const courseFrame = React.createElement(
         'div',
-        { className:'frame', id: frameId, style: { backgroundColor: colorCode}},
+        { className:'frame', id: frameId, "data-testid":"course", style: { backgroundColor: colorCode}},
         elements
     );
 

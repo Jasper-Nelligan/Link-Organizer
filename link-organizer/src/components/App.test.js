@@ -1,10 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App';
-import { Messages, TestConstants, Color } from "../Constants.js";
+import { Messages, TestConstants, Color, ColorRGB } from "../Constants.js";
+import Modal from './Modal';
 
-/*
- * I'm probably going to computer science hell for writing my tests like this
- */
 afterEach(() => {
     localStorage.clear();
 });
@@ -12,19 +10,19 @@ afterEach(() => {
 test("Page loads successfully - no localStorage data", () => {
     render(<App/>);
 
-    expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_NO_LOCAL_STORAGE_HTML)
+    assertStaticElementsExist();
+    expect(screen.queryAllByTestId("course")).toHaveLength(0);
 })
 
 test("Page loads successfully - course in localStorage", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);
 
-    expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
+    assertStaticElementsExist();
+    assertCourseOneExists();
 })
 
-test("Add course", () => {
+test("Add first course", () => {
     render(<App/>);
 
     // Assert modal is not shown
@@ -40,10 +38,10 @@ test("Add course", () => {
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.GREEN } });
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.RED } });
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(6);
-    expect(options[1].selected).toBeTruthy();
+    expect(options[0].selected).toBeTruthy();
 
     const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
     expect(linkNameInputs).toHaveLength(4);
@@ -57,10 +55,9 @@ test("Add course", () => {
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_GREEN_COURSE);
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_COURSE_ONE);
 
-    const appContainer = screen.getByTestId('app-container');
-    expect(appContainer.outerHTML).toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML)
+    assertCourseOneExists();
 })
 
 test("Add empty course", () => {
@@ -74,13 +71,12 @@ test("Add empty course", () => {
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
 
-    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
-    expect(courseInput).toBeInTheDocument();
-    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
+    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    expect(createCourseBtn).toBeInTheDocument();
+    fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_COURSE_NAME_EMPTY);
-    expect(errorMsg).not.toBeNull;
+    expect(errorMsg).toBeInTheDocument();
 
     // Assert modal is still showing
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
@@ -88,11 +84,8 @@ test("Add empty course", () => {
 })
 
 test("Add duplicate course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);
-
-    expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
 
     // Assert modal is not shown
     let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
@@ -112,7 +105,7 @@ test("Add duplicate course", () => {
     fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_TWO_COURSES_SAME_NAME);
-    expect(errorMsg).not.toBeNull;
+    expect(errorMsg).toBeInTheDocument();
 
     // Assert modal is still showing
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
@@ -144,19 +137,17 @@ test("Add course empty link name", () => {
     fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_LINK_NAME_EMPTY);
-    expect(errorMsg).not.toBeNull;
+    expect(errorMsg).toBeInTheDocument();
 
     // Assert modal is still showing
     createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
 })
 
+// TODO fix behaviour for this test
 test("Edit course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_GREEN_COURSE);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);
-
-    expect(screen.getByTestId('app-container').outerHTML)
-        .toBe(TestConstants.LOAD_PAGE_WITH_LOCAL_STORAGE_HTML);
 
     const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
     expect(editCourseBtn).toBeInTheDocument();
@@ -181,8 +172,7 @@ test("Edit course", () => {
 
     expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
 
-    const appContainer = screen.getByTestId('app-container');
-    expect(appContainer.outerHTML).toBe(TestConstants.EDIT_COURSE_HTML)
+    assertCourseTwoExists();
 })
 
 test("Add link", () => {
@@ -248,3 +238,32 @@ test("Correct color is suggested - after red course", () => {
     const options = screen.getAllByRole('option');
     expect(options[1].selected).toBeTruthy();
 })
+
+
+function assertStaticElementsExist() {
+    expect(screen.getByText(Messages.PAGE_TITLE)).toBeInTheDocument();
+    expect(screen.getByText(Messages.PAGE_TITLE_PHRASE)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: Messages.ADD_COURSE })).toBeInTheDocument();
+    expect(screen.getByText(Messages.FOOTER_QUESTIONS)).toBeInTheDocument();
+    expect(screen.getByText(Messages.FOOTER_GITHUB)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: Messages.FOOTER_GITHUB }))
+        .toHaveAttribute('href', Messages.FOOTER_GITHUB_LINK)
+}
+
+function assertCourseOneExists() {
+    const courses = screen.queryAllByTestId("course");
+    expect(courses).toHaveLength(1);
+    expect(courses[0]).toHaveStyle(`background: rgb(${ColorRGB.RED})`);
+    expect(screen.getByText("Course 1")).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: TestConstants.LINK_NAME_1 }))
+        .toHaveAttribute('href', TestConstants.LINK_1)
+}
+
+function assertCourseTwoExists() {
+    const courses = screen.queryAllByTestId("course");
+    expect(courses).toHaveLength(1);
+    expect(courses[0]).toHaveStyle(`background: rgb(${ColorRGB.BLUE})`);
+    expect(screen.getByText("Course 2")).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: TestConstants.LINK_NAME_2 }))
+        .toHaveAttribute('href', TestConstants.LINK_2)
+}
