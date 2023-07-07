@@ -60,6 +60,44 @@ test("Add first course", () => {
     assertCourseOneExists();
 })
 
+test("Delete course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
+    render(<App/>);
+
+    // Assert suggested color is different from Course 1 color
+    let addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    let options = screen.getAllByRole('option');
+    expect(options[1].selected).toBeTruthy();
+
+    // Close modal
+    let closeBtn = screen.getAllByLabelText("Close")[0];
+    expect(closeBtn).toBeInTheDocument();
+    fireEvent.click(closeBtn);
+
+    const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
+    expect(editCourseBtn).toBeInTheDocument();
+    fireEvent.click(editCourseBtn);
+
+    let delCourseBtn = screen.getByRole('button', { name: Messages.DELETE_COURSE });
+    expect(delCourseBtn).toBeInTheDocument();
+    fireEvent.click(delCourseBtn);
+
+    delCourseBtn = screen.queryByRole('button', { name: Messages.DELETE_COURSE });
+    expect(delCourseBtn).not.toBeInTheDocument();
+
+    const course1 = screen.queryByText(TestConstants.COURSE_NAME_1);
+    expect(course1).not.toBeInTheDocument();
+
+    // Assert suggested color has gone back to default
+    fireEvent.click(addCourseBtn)
+    options = screen.getAllByRole('option');
+    expect(options[0
+    ].selected).toBeTruthy();
+})
+
 test("Add empty course", () => {
     render(<App/>);
 
@@ -151,7 +189,7 @@ test("Edit course", () => {
 
     const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
     expect(editCourseBtn).toBeInTheDocument();
-    fireEvent.click(editCourseBtn)
+    fireEvent.click(editCourseBtn);
 
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
     const courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
@@ -227,6 +265,7 @@ test("Remove link", () => {
     expect(linkURLInputs).toHaveLength(3);
 })
 
+// TODO remove this test
 test("Correct color is suggested - after red course", () => {
     localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_RED_COURSE);
     render(<App/>);

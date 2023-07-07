@@ -37,6 +37,7 @@ export const Messages = {
     ADD_LINK: 'Add link',
     REMOVE_LINK: 'Remove',
     SAVE_CHANGES: 'Save changes',
+    DELETE_COURSE: 'Delete Course',
     COURSE: 'Course',
     // TODO: "URL" or "http://" better for placeholder?
     URL: 'URL',

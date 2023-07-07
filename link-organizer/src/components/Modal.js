@@ -128,7 +128,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                     <input className="course-input" type="text" name="course"
                         placeholder={Messages.COURSE} defaultValue={course}/>
 
-                    <a className="close-button"
+                    <a className="close-button" aria-label="Close"
                         onClick={() =>
                             onCloseBtnClicked(onClose, formRef.current, course, setColor, setLinkData)}
                         >&times;</a>
@@ -161,7 +161,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                             style={{ display: deleteCourseDisplay }}
                             onClick={() =>
                                 onDeleteCourse(course)}>
-                            Delete Course
+                            {Messages.DELETE_COURSE}
                         </button>
                         <button
                             className={`submit-course-btn ${course === '' ? 'full-width' : ''}`}
