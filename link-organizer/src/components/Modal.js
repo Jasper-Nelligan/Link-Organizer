@@ -2,11 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, validateForm, getColorHex, clearForm} from "../HelperFunctions";
-import { Messages, FormConstants, Color } from "../Constants.js";
+import { parseForm, getColorHex, clearForm} from "../HelperFunctions";
+import { Messages, FormConstants} from "../Constants.js";
 
 function Modal({ linkPairs, initColor, showCourse, course,
-        courses, onClose, onAddOrUpdateCourse, onDeleteCourse}) {
+        onClose, onAddOrUpdateCourse, onDeleteCourse, onValidateForm}) {
     const initialLinkData = [];
     let firstLink = true;
     let id = 0;
@@ -20,36 +20,12 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(initialLinkData);
     const [linkId, setLinkId] = useState(id);
-    const [colorCount, setColorCount] = useState({
-        [Color.RED]: 0,
-        [Color.GREEN]: 0,
-        [Color.BLUE]: 0,
-        [Color.YELLOW]: 0,
-        [Color.ORANGE]: 0,
-        [Color.PURPLE]: 0,
-    })
-    const [color, setColor] = useState(initColor);
+    const [color, setColor] = useState(null);
     const formRef = useRef(null);
     useEffect(() => {
-        if (course === '') {
-            setColor(getLeastUsedColor());
-        }
-    }, [colorCount])
-    // TODO pull courses variable out of modal
-    useEffect(() => {
-        for (const course in courses) {
-            const courseColor = courses[course][0];
-            setColorCount((prevColorCount) => {
-                const updatedColorCount = { ...prevColorCount };
-                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
-                return updatedColorCount;
-            });
-        }
-    }, [courses])
-    
-    const onColorChanged = (color) => {
-        setColor(color);
-    }
+        console.log("ran")
+        setColor(initColor)
+    }, [initColor])
 
     const addLink = (isFirstLink, linkName, linkURL) => {
         setLinkData(linkData.concat([[linkId, isFirstLink, linkName, linkURL]]));
@@ -63,14 +39,9 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
     const onAddOrUpdateCourseClicked = () => {
         const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
-        const newErrorMessage = validateForm(formCourse, course, formLinkPairs, courses);
+        const newErrorMessage = onValidateForm(formCourse, course, formLinkPairs);
         updateErrorMsg(newErrorMessage);
         if (newErrorMessage == null) {
-            setColorCount((prevColorCount) => {
-                const updatedColorCount = { ...prevColorCount };
-                    updatedColorCount[color] = updatedColorCount[color] + 1;
-                    return updatedColorCount;
-            });
             onAddOrUpdateCourse(course, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
         }
@@ -79,7 +50,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const onCloseBtnClicked = () => {
         if (course === '') {
             updateErrorMsg(null)
-            setColor(getLeastUsedColor())
+            //setColor(initColor)
             clearForm(formRef.current);
             setLinkData(FormConstants.EMPTY_LINK_PAIRS)
         }
@@ -101,20 +72,6 @@ function Modal({ linkPairs, initColor, showCourse, course,
         )
     }
 
-    const getLeastUsedColor = () => {
-        let leastUsedColor = null;
-        let leastCount = Infinity;
-      
-        for (const [color, count] of Object.entries(colorCount)) {
-          if (count < leastCount) {
-            leastUsedColor = color;
-            leastCount = count;
-          }
-        }
-      
-        return leastUsedColor;
-    };
-
     // TODO use EMPTY_COURSE instead of ''
     const modalDisplay = showCourse === course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
@@ -130,14 +87,14 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
                     <a className="close-button" aria-label="Close"
                         onClick={() =>
-                            onCloseBtnClicked(onClose, formRef.current, course, setColor, setLinkData)}
+                            onCloseBtnClicked()}
                         >&times;</a>
 
                     <label htmlFor="colors">{Messages.SELECT_COLOR}</label>
                     <select id="color-selector"
                             name="colors"
                             value={color}
-                            onChange={(e) => onColorChanged(e.target.value)}>
+                            onChange={(e) => setColor(e.target.value)}>
                         <option value="red">Red</option>
                         <option value="green">Green</option>
                         <option value="blue">Blue</option>
@@ -170,7 +127,6 @@ function Modal({ linkPairs, initColor, showCourse, course,
                                     onClose,
                                     onAddOrUpdateCourse,
                                     formRef.current,
-                                    courses,
                                     updateErrorMsg,
                                     course, setColor, setLinkData)}>
                             {saveCourseMsg}
@@ -187,10 +143,10 @@ Modal.propTypes = {
     initColor: PropTypes.string,
     showCourse: PropTypes.string,
     course: PropTypes.string,
-    courses: PropTypes.arrayOf(PropTypes.object),
     onClose: PropTypes.func,
     onAddOrUpdateCourse: PropTypes.func,
-    onDeleteCourse: PropTypes.func
+    onDeleteCourse: PropTypes.func,
+    onValidateForm: PropTypes.func
 }
 
 export default Modal;

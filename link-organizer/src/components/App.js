@@ -2,16 +2,57 @@ import { useState, useEffect } from "react";
 import Modal from './Modal';
 import Course from './Course';
 import './App.css';
-import { Messages, ModalConstants } from "../Constants";
+import { Messages, ModalConstants, Color } from "../Constants";
+import { validateForm } from "../HelperFunctions";
 
 function App() {
+    const [colorCount, setColorCount] = useState({
+        [Color.RED]: 0,
+        [Color.GREEN]: 0,
+        [Color.BLUE]: 0,
+        [Color.YELLOW]: 0,
+        [Color.ORANGE]: 0,
+        [Color.PURPLE]: 0,
+    })
+
+    const getLeastUsedColor = () => {
+        let leastUsedColor = null;
+        let leastCount = Infinity;
+      
+        for (const [color, count] of Object.entries(colorCount)) {
+          if (count < leastCount) {
+            leastUsedColor = color;
+            leastCount = count;
+          }
+        }
+      
+        return leastUsedColor;
+    };
+    
     const [showModal, setShowModal] = useState(null);
     const [courses, setCourses] = useState({});
     const [modals, setModals] =
         useState({
             [ModalConstants.EMPTY_COURSE_NAME]:
-                [null, ModalConstants.EMPTY_LINK_PAIRS]
+                [getLeastUsedColor(), ModalConstants.EMPTY_LINK_PAIRS]
         })
+
+    useEffect(() => {
+        for (const course in courses) {
+            const courseColor = courses[course][0];
+            setColorCount((prevColorCount) => {
+                const updatedColorCount = { ...prevColorCount };
+                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
+                return updatedColorCount;
+            });
+        }
+    }, [courses])
+
+    useEffect(() => {
+        const updatedModals = { ...modals, [ModalConstants.EMPTY_COURSE_NAME]:
+                [getLeastUsedColor(), ModalConstants.EMPTY_LINK_PAIRS] };
+        setModals(updatedModals);
+    }, [colorCount])
 
     // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
@@ -26,6 +67,12 @@ function App() {
     }, []);
 
     const addOrUpdateCourse = (initCourseName, course, color, linkPairs) => {
+        setColorCount((prevColorCount) => {
+            const updatedColorCount = { ...prevColorCount };
+                updatedColorCount[color] = updatedColorCount[color] + 1;
+                return updatedColorCount;
+        });
+
         // TODO refactor this
         let updatedCourses;
         let updatedModals;
@@ -62,9 +109,10 @@ function App() {
                 onAddOrUpdateCourse={(initCourseName, course, color, linkPairs) =>
                     addOrUpdateCourse(initCourseName, course, color, linkPairs)}
                 showCourse={showModal}
-                courses={courses}
                 onDeleteCourse={(course) =>
                     deleteCourse(course)}
+                onValidateForm={(formCourse, course, formLinkPairs) =>
+                    validateForm(formCourse, course, formLinkPairs, courses)}
             />
         ));
     }
