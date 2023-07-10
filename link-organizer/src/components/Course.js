@@ -5,7 +5,7 @@ import { Messages } from "../Constants";
 import "./Course.css";
 
 function Course({ course, color, linkPairs, onEdit }) {
-    // remove whitespace in course and use it for it's id
+    // remove whitespace in course and use for id
     const courseId = course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
 

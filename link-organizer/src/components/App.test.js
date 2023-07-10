@@ -68,7 +68,6 @@ test("Delete course", () => {
     let addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
-
     let options = screen.getAllByRole('option');
     expect(options[1].selected).toBeTruthy();
 
@@ -94,8 +93,50 @@ test("Delete course", () => {
     // Assert suggested color has gone back to default
     fireEvent.click(addCourseBtn)
     options = screen.getAllByRole('option');
-    expect(options[0
-    ].selected).toBeTruthy();
+    expect(options[0].selected).toBeTruthy();
+})
+
+// TODO fix behaviour for this test
+test("Edit course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
+    render(<App/>);
+
+    // Assert suggested color is different from Course 1 color
+    let addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn);
+    let options = screen.getAllByRole('option');
+    expect(options[1].selected).toBeTruthy();
+
+    const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
+    expect(editCourseBtn).toBeInTheDocument();
+    fireEvent.click(editCourseBtn);
+
+    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    const courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
+    expect(courseInput).toBeInTheDocument();
+    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_2}})
+
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
+
+    // Input second link
+    const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    fireEvent.change(linkNameInputs[5], {target: {value: TestConstants.LINK_NAME_2}})
+    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    fireEvent.change(linkURLInputs[5], {target: {value: TestConstants.LINK_2}})
+
+    let saveChangesBtn = screen.queryByRole('button', { name: Messages.SAVE_CHANGES });
+    expect(saveChangesBtn).toBeInTheDocument();
+    fireEvent.click(saveChangesBtn);
+
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
+
+    assertCourseTwoExists();
+
+    // Assert suggested color has gone back to default
+    fireEvent.click(addCourseBtn)
+    options = screen.getAllByRole('option');
+    expect(options[0].selected).toBeTruthy();
 })
 
 test("Add empty course", () => {
@@ -182,37 +223,7 @@ test("Add course empty link name", () => {
     expect(createCourseBtn).toBeInTheDocument();
 })
 
-// TODO fix behaviour for this test
-test("Edit course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
-    render(<App/>);
-
-    const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
-    expect(editCourseBtn).toBeInTheDocument();
-    fireEvent.click(editCourseBtn);
-
-    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
-    expect(courseInput).toBeInTheDocument();
-    fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_2}})
-
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
-
-    // Input second link
-    const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
-    fireEvent.change(linkNameInputs[5], {target: {value: TestConstants.LINK_NAME_2}})
-    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
-    fireEvent.change(linkURLInputs[5], {target: {value: TestConstants.LINK_2}})
-
-    let saveChangesBtn = screen.queryByRole('button', { name: Messages.SAVE_CHANGES });
-    expect(saveChangesBtn).toBeInTheDocument();
-    fireEvent.click(saveChangesBtn);
-
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
-
-    assertCourseTwoExists();
-})
-
+// TODO add modal tests to seperate file
 test("Add link", () => {
     render(<App/>);
 
