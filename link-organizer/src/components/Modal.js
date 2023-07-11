@@ -2,24 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, getColorHex, clearForm} from "../HelperFunctions";
+import { parseForm, getColorHex, clearForm, createLinkData } from "../HelperFunctions";
 import { Messages, Constants } from "../Constants.js";
 
 function Modal({ linkPairs, initColor, showCourse, course,
         onClose, onAddOrUpdateCourse, onDeleteCourse, onValidateForm}) {
-    const initialLinkData = [];
-    let firstLink = true;
-    let id = 0;
-    for (id; id < linkPairs.length; id++) {
-        initialLinkData.push([id, firstLink, linkPairs[id][0], linkPairs[id][1]])
-        if (firstLink) {
-            firstLink = false;
-        }
-    }
-
     const [errorMsg, updateErrorMsg] = useState(null);
-    const [linkData, setLinkData] = useState(initialLinkData);
-    const [linkId, setLinkId] = useState(id);
+    const [linkData, setLinkData] = useState(createLinkData(linkPairs));
+    const [linkId, setLinkId] = useState(linkPairs.length - 1);
     const [color, setColor] = useState(null);
     const formRef = useRef(null);
     useEffect(() => {
@@ -49,7 +39,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
     const onCloseBtnClicked = () => {
         if (course === Constants.EMPTY_COURSE_NAME) {
             updateErrorMsg(null)
-            //setColor(initColor)
+            setColor(initColor)
             clearForm(formRef.current);
             setLinkData(Constants.DEFAULT_LINK_PAIRS)
         }
@@ -71,7 +61,6 @@ function Modal({ linkPairs, initColor, showCourse, course,
         )
     }
 
-    // TODO use EMPTY_COURSE instead of ModalConstants.EMPTY_COURSE_NAME
     const modalDisplay = showCourse === course ? 'block' : 'none';
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
     const deleteCourseDisplay = course !== Constants.EMPTY_COURSE_NAME ? 'inline' : 'none';

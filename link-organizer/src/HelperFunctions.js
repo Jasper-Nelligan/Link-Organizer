@@ -1,4 +1,4 @@
-import { Color, ColorHex, Messages } from "./Constants";
+import { Color, ColorHex, Messages, Constants } from "./Constants";
 import React from 'react';
 
 /**
@@ -62,7 +62,7 @@ export function parseForm(form) {
  * @return {null} otherwise
  */
 export function validateForm(course, initCourseName, linkPairs, courses) {
-  if (course === '') {
+  if (course === Constants.EMPTY_COURSE_NAME) {
     return Messages.ERROR_COURSE_NAME_EMPTY; 
   }
 
@@ -108,6 +108,11 @@ export function clearForm(form) {
   }
 }
 
+/**
+ * Parses the coloCount object and returns the color that has the lowest count
+ * @param {Object} colorCount 
+ * @returns least used color
+ */
 export function getLeastUsedColor(colorCount) {
   let leastUsedColor = null;
   let leastCount = Infinity;
@@ -121,3 +126,21 @@ export function getLeastUsedColor(colorCount) {
 
   return leastUsedColor;
 };
+
+/**
+ * Creates link data for modal link pairs
+ * @param {Array} linkPairs 
+ * @returns link data for modal
+ */
+export function createLinkData(linkPairs) {
+  const initialLinkData = [];
+  let firstLink = true;
+  let id = 0;
+  for (id; id < linkPairs.length; id++) {
+      initialLinkData.push([id, firstLink, linkPairs[id][0], linkPairs[id][1]])
+      if (firstLink) {
+          firstLink = false;
+      }
+  }
+  return initialLinkData;
+}

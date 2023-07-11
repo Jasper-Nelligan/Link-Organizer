@@ -57,10 +57,9 @@ function App() {
             return updatedColorCount;
         });
 
-        // TODO refactor this
         let updatedCourses;
         let updatedModals;
-        if (initCourseName === '') {
+        if (initCourseName === Constants.EMPTY_COURSE_NAME) {
             updatedCourses = { ...courses, [course]: [color, linkPairs] };
             updatedModals = { ...modals, [course]: [color, linkPairs] };
         } else {
@@ -125,9 +124,8 @@ function App() {
         ));
     }
 
-    // TODO remove app container once tests are changed
     return (
-        <div className="app-container" data-testid="app-container">
+        <>
             <h1 className="center">{Messages.PAGE_TITLE}</h1>
             <h3 className="center">{Messages.PAGE_TITLE_PHRASE}</h3>
             <div className="btn-container">
@@ -145,7 +143,7 @@ function App() {
                 <a href={Messages.FOOTER_GITHUB_LINK}
                     target="_blank"> {Messages.FOOTER_GITHUB} </a>
             </p>
-        </div>
+        </>
     )
 }
 
