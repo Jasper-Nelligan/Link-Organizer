@@ -107,3 +107,17 @@ export function clearForm(form) {
     inputElements[i++].value = '';
   }
 }
+
+export function getLeastUsedColor(colorCount) {
+  let leastUsedColor = null;
+  let leastCount = Infinity;
+
+  for (const [color, count] of Object.entries(colorCount)) {
+    if (count < leastCount) {
+      leastUsedColor = color;
+      leastCount = count;
+    }
+  }
+
+  return leastUsedColor;
+};

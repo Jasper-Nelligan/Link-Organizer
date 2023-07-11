@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App';
-import { Messages, TestConstants, Color, ColorRGB } from "../Constants.js";
-import Modal from './Modal';
+import { Messages, TestConstants, Color, ColorRGB, Constants } from "../Constants.js";
 
 afterEach(() => {
     localStorage.clear();
@@ -34,7 +33,8 @@ test("Add first course", () => {
     fireEvent.click(addCourseBtn)
 
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    const courseInput = courseInputs.filter(courseInput =>
+        courseInput.value == Constants.EMPTY_COURSE_NAME)[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
@@ -175,7 +175,8 @@ test("Add duplicate course", () => {
     fireEvent.click(addCourseBtn)
 
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    const courseInput = courseInputs.filter(courseInput =>
+        courseInput.value === Constants.EMPTY_COURSE_NAME)[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
@@ -203,7 +204,8 @@ test("Add course empty link name", () => {
     fireEvent.click(addCourseBtn)
 
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == '')[0];
+    const courseInput = courseInputs.filter(courseInput =>
+        courseInput.value == Constants.EMPTY_COURSE_NAME)[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 

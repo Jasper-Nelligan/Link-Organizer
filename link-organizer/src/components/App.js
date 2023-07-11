@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Modal from './Modal';
 import Course from './Course';
 import './App.css';
-import { Messages, ModalConstants, Color } from "../Constants";
-import { validateForm } from "../HelperFunctions";
+import { Constants, Messages, Color } from "../Constants";
+import { validateForm, getLeastUsedColor } from "../HelperFunctions";
 
 function App() {
     const [colorCount, setColorCount] = useState({
@@ -14,29 +14,15 @@ function App() {
         [Color.ORANGE]: 0,
         [Color.PURPLE]: 0,
     })
-
-    const getLeastUsedColor = () => {
-        let leastUsedColor = null;
-        let leastCount = Infinity;
-      
-        for (const [color, count] of Object.entries(colorCount)) {
-          if (count < leastCount) {
-            leastUsedColor = color;
-            leastCount = count;
-          }
-        }
-      
-        return leastUsedColor;
-    };
-    
     const [showModal, setShowModal] = useState(null);
     const [courses, setCourses] = useState({});
     const [modals, setModals] =
         useState({
-            [ModalConstants.EMPTY_COURSE_NAME]:
-                [getLeastUsedColor(), ModalConstants.EMPTY_LINK_PAIRS]
+            [Constants.EMPTY_COURSE_NAME]:
+                [getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS]
         })
 
+    // TODO what is this for?
     useEffect(() => {
         for (const course in courses) {
             const courseColor = courses[course][0];
@@ -48,9 +34,10 @@ function App() {
         }
     }, [courses])
 
+    // Update color of main modal
     useEffect(() => {
-        const updatedModals = { ...modals, [ModalConstants.EMPTY_COURSE_NAME]:
-                [getLeastUsedColor(), ModalConstants.EMPTY_LINK_PAIRS] };
+        const updatedModals = { ...modals, [Constants.EMPTY_COURSE_NAME]:
+                [getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS] };
         setModals(updatedModals);
     }, [colorCount])
 
@@ -136,7 +123,7 @@ function App() {
             <h3 className="center">{Messages.PAGE_TITLE_PHRASE}</h3>
             <div className="btn-container">
                 <button id="add-course-btn" data-modal="new-course-modal"
-                    onClick={() => setShowModal(ModalConstants.EMPTY_COURSE_NAME)}>
+                    onClick={() => setShowModal(Constants.EMPTY_COURSE_NAME)}>
                     {Messages.ADD_COURSE}
                 </button>
             </div>

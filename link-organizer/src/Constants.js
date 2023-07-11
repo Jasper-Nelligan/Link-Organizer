@@ -1,3 +1,14 @@
+export const Constants = {
+    DEFAULT_LINK_PAIRS: [
+        [0, true, '', ''],
+        [1, false, '', ''],
+        [2, false, '', ''],
+        [3, false, '', '']
+    ],
+    EMPTY_COURSE_NAME: '',
+    EMPTY_LINK_PAIRS: [['',''], ['',''], ['',''], ['','']]
+}
+
 export const Color = {
     RED: 'red',
     GREEN: 'green',
@@ -16,6 +27,7 @@ export const ColorHex = {
     PURPLE: '#c17ed9',
 }
 
+// TODO complete this or remove
 export const ColorRGB = {
     RED: '254, 123, 123',
     GREEN: '117, 208, 115',
@@ -46,21 +58,6 @@ export const Messages = {
     ERROR_TWO_COURSES_SAME_NAME: 'Error: cannot have two courses with the same name',
     ERROR_LINK_NAME_EMPTY: 'Error: link name cannot be empty',
     EDIT: "Edit"
-}
-
-export const FormConstants = {
-    EMPTY_LINK_PAIRS: [
-        [0, true, '', ''],
-        [1, false, '', ''],
-        [2, false, '', ''],
-        [3, false, '', '']
-    ]
-}
-
-// TODO rename this or put these constants in a different object
-export const ModalConstants = {
-    EMPTY_COURSE_NAME: '',
-    EMPTY_LINK_PAIRS: [['',''], ['',''], ['',''], ['','']]
 }
 
 export const TestConstants = {

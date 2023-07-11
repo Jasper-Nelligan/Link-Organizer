@@ -2,7 +2,6 @@ import "./LinkField.css";
 import { Messages } from "../Constants.js";
 import PropTypes from "prop-types";
 
-
 function LinkField({ isFirstLink, linkName, linkURL, removeLink, linkId }) {
     if (isFirstLink) {
         return (
