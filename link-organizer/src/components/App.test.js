@@ -224,7 +224,6 @@ test("Add course empty link name", () => {
     expect(createCourseBtn).toBeInTheDocument();
 })
 
-// TODO add modal tests to seperate file
 test("Add link", () => {
     render(<App/>);
 
@@ -275,6 +274,30 @@ test("Remove link", () => {
     expect(linkNameInputs).toHaveLength(3);
     linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
     expect(linkURLInputs).toHaveLength(3);
+})
+
+test("Correct color is suggested - after red course", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_RED_COURSE);
+    render(<App/>);
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    const options = screen.getAllByRole('option');
+    expect(options[1].selected).toBeTruthy();
+})
+
+test("Default color is suggested after all colors used", () => {
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_ALL_COLORS);
+    render(<App/>);
+
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
+    const options = screen.getAllByRole('option');
+    expect(options[0].selected).toBeTruthy();
 })
 
 function assertStaticElementsExist() {
