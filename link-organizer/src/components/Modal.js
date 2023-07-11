@@ -116,7 +116,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
                         <button className="delete-course-btn"
                             style={{ display: deleteCourseDisplay }}
                             onClick={() =>
-                                onDeleteCourse(course)}>
+                                onDeleteCourse(course, color)}>
                             {Messages.DELETE_COURSE}
                         </button>
                         <button

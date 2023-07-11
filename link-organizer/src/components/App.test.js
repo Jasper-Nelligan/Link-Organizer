@@ -21,7 +21,7 @@ test("Page loads successfully - course in localStorage", () => {
     assertCourseOneExists();
 })
 
-test("Add first course", () => {
+test("Add course", () => {
     render(<App/>);
 
     // Assert modal is not shown
@@ -96,7 +96,6 @@ test("Delete course", () => {
     expect(options[0].selected).toBeTruthy();
 })
 
-// TODO fix behaviour for this test
 test("Edit course", () => {
     localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);

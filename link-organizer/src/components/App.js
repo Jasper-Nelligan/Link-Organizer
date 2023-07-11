@@ -22,18 +22,6 @@ function App() {
                 [getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS]
         })
 
-    // TODO what is this for?
-    useEffect(() => {
-        for (const course in courses) {
-            const courseColor = courses[course][0];
-            setColorCount((prevColorCount) => {
-                const updatedColorCount = { ...prevColorCount };
-                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
-                return updatedColorCount;
-            });
-        }
-    }, [courses])
-
     // Update color of main modal
     useEffect(() => {
         const updatedModals = { ...modals, [Constants.EMPTY_COURSE_NAME]:
@@ -44,6 +32,15 @@ function App() {
     // Retrieve the courses data from localStorage. Runs only once per session
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
+
+        for (const course in storedCourses) {
+            const courseColor = storedCourses[course][0];
+            setColorCount((prevColorCount) => {
+                const updatedColorCount = { ...prevColorCount };
+                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
+                return updatedColorCount;
+            });
+        }
 
         if (storedCourses) {
             setCourses(storedCourses);
@@ -56,8 +53,8 @@ function App() {
     const addOrUpdateCourse = (initCourseName, course, color, linkPairs) => {
         setColorCount((prevColorCount) => {
             const updatedColorCount = { ...prevColorCount };
-                updatedColorCount[color] = updatedColorCount[color] + 1;
-                return updatedColorCount;
+            updatedColorCount[color] = updatedColorCount[color] + 1;
+            return updatedColorCount;
         });
 
         // TODO refactor this
@@ -77,7 +74,13 @@ function App() {
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
-    const deleteCourse = (course) => {
+    const deleteCourse = (course, color) => {
+        setColorCount((prevColorCount) => {
+            const updatedColorCount = { ...prevColorCount };
+            updatedColorCount[color] = updatedColorCount[color] - 1;
+            return updatedColorCount;
+        });
+
         const { [course]: unused1, ...updatedCourses } = courses;
         const { [course]: unused2, ...updatedModals } = modals;
         setCourses(updatedCourses);
@@ -96,8 +99,8 @@ function App() {
                 onAddOrUpdateCourse={(initCourseName, course, color, linkPairs) =>
                     addOrUpdateCourse(initCourseName, course, color, linkPairs)}
                 showCourse={showModal}
-                onDeleteCourse={(course) =>
-                    deleteCourse(course)}
+                onDeleteCourse={(course, color) =>
+                    deleteCourse(course, color)}
                 onValidateForm={(formCourse, course, formLinkPairs) =>
                     validateForm(formCourse, course, formLinkPairs, courses)}
             />
