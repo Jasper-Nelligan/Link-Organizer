@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App';
-import { Messages, TestConstants, Color, ColorRGB, Constants } from "../Constants.js";
+import { Messages, TestConstants, Color, Constants } from "../Constants.js";
 
 afterEach(() => {
     localStorage.clear();
@@ -116,7 +116,7 @@ test("Edit course", () => {
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_2}})
 
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.BLUE } });
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.GREEN } });
 
     // Input second link
     const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
@@ -313,7 +313,7 @@ function assertStaticElementsExist() {
 function assertCourseOneExists() {
     const courses = screen.queryAllByTestId("course");
     expect(courses).toHaveLength(1);
-    expect(courses[0]).toHaveStyle(`background: rgb(${ColorRGB.RED})`);
+    expect(courses[0]).toHaveStyle(`background: rgb(${TestConstants.RED})`);
     expect(screen.getByText("Course 1")).toBeInTheDocument();
     expect(screen.getByRole('link', { name: TestConstants.LINK_NAME_1 }))
         .toHaveAttribute('href', TestConstants.LINK_1)
@@ -322,7 +322,7 @@ function assertCourseOneExists() {
 function assertCourseTwoExists() {
     const courses = screen.queryAllByTestId("course");
     expect(courses).toHaveLength(1);
-    expect(courses[0]).toHaveStyle(`background: rgb(${ColorRGB.BLUE})`);
+    expect(courses[0]).toHaveStyle(`background: rgb(${TestConstants.GREEN})`);
     expect(screen.getByText("Course 2")).toBeInTheDocument();
     expect(screen.getByRole('link', { name: TestConstants.LINK_NAME_2 }))
         .toHaveAttribute('href', TestConstants.LINK_2)

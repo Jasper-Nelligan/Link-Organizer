@@ -27,16 +27,6 @@ export const ColorHex = {
     PURPLE: '#c17ed9',
 }
 
-// TODO complete this or remove
-export const ColorRGB = {
-    RED: '254, 123, 123',
-    GREEN: '117, 208, 115',
-    BLUE: '',
-    YELLOW: '',
-    ORANGE: '',
-    PURPLE: '',
-}
-
 export const Messages = {
     PAGE_TITLE: 'Course Link Organizer',
     PAGE_TITLE_PHRASE: 'All your class links - One page',
@@ -61,6 +51,8 @@ export const Messages = {
 }
 
 export const TestConstants = {
+    RED: '254, 123, 123',
+    GREEN: '117, 208, 115',
     COURSE_NAME_1: "Course 1",
     COURSE_NAME_2: "Course 2",
     LINK_NAME_1: "Link Name 1",
@@ -68,7 +60,7 @@ export const TestConstants = {
     LINK_1: "Link 1",
     LINK_2: "Link 2",
     LOCAL_STORAGE_COURSE_ONE: '{"Course 1":["red",[["Link Name 1","Link 1"],["",""],["",""],["",""]]]}',
-    LOCAL_STORAGE_TWO_LINKS: '{"Course 2":["blue",[["Link Name 1","Link 1"],["Link Name 2","Link 2"],["",""],["",""]]]}',
+    LOCAL_STORAGE_TWO_LINKS: '{"Course 2":["green",[["Link Name 1","Link 1"],["Link Name 2","Link 2"],["",""],["",""]]]}',
     LOCAL_STORAGE_RED_COURSE: '{"Course 1":["red",[["Link Name 1","Link 1"],["",""],["",""],["",""]]]}',
     LOCAL_STORAGE_ALL_COLORS: '{"Course 1":["red",[["",""],["",""],["",""],["",""]]],"Course 2":["green",[["",""],["",""],["",""],["",""]]],"Course 3":["blue",[["",""],["",""],["",""],["",""]]],"Course 4":["yellow",[["",""],["",""],["",""],["",""]]],"Course 5":["orange",[["",""],["",""],["",""],["",""]]],"Course 6":["purple",[["",""],["",""],["",""],["",""]]]}'
 }
