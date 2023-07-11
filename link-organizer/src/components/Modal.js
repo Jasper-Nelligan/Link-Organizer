@@ -41,7 +41,7 @@ function Modal({ linkPairs, initColor, showCourse, course,
         const newErrorMessage = onValidateForm(formCourse, course, formLinkPairs);
         updateErrorMsg(newErrorMessage);
         if (newErrorMessage == null) {
-            onAddOrUpdateCourse(course, formCourse, formColor, formLinkPairs);
+            onAddOrUpdateCourse(course, initColor, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
         }
     }

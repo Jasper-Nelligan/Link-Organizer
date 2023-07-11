@@ -50,7 +50,7 @@ function App() {
         }
     }, []);
 
-    const addOrUpdateCourse = (initCourseName, course, color, linkPairs) => {
+    const addOrUpdateCourse = (initCourseName, initColor, course, color, linkPairs) => {
         setColorCount((prevColorCount) => {
             const updatedColorCount = { ...prevColorCount };
             updatedColorCount[color] = updatedColorCount[color] + 1;
@@ -68,7 +68,13 @@ function App() {
             const { [initCourseName]: unused2, ...tempUpdatedModals } = modals;
             updatedCourses = { ...tempUpdatedCourses, [course]: [color, linkPairs] };
             updatedModals = { ...tempUpdatedModals, [course]: [color, linkPairs] };
+            setColorCount((prevColorCount) => {
+                const updatedColorCount = { ...prevColorCount };
+                updatedColorCount[initColor] = updatedColorCount[initColor] - 1;
+                return updatedColorCount;
+            });
         }
+        console.log(colorCount)
         setCourses(updatedCourses);
         setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
@@ -96,8 +102,8 @@ function App() {
                 initColor={color}
                 linkPairs={linkPairs}
                 onClose={() => setShowModal(null)}
-                onAddOrUpdateCourse={(initCourseName, course, color, linkPairs) =>
-                    addOrUpdateCourse(initCourseName, course, color, linkPairs)}
+                onAddOrUpdateCourse={(initCourseName, initColor, course, color, linkPairs) =>
+                    addOrUpdateCourse(initCourseName, initColor, course, color, linkPairs)}
                 showCourse={showModal}
                 onDeleteCourse={(course, color) =>
                     deleteCourse(course, color)}
