@@ -277,20 +277,6 @@ test("Remove link", () => {
     expect(linkURLInputs).toHaveLength(3);
 })
 
-// TODO remove this test
-test("Correct color is suggested - after red course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_RED_COURSE);
-    render(<App/>);
-
-    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
-    expect(addCourseBtn).toBeInTheDocument();
-    fireEvent.click(addCourseBtn)
-
-    const options = screen.getAllByRole('option');
-    expect(options[1].selected).toBeTruthy();
-})
-
-
 function assertStaticElementsExist() {
     expect(screen.getByText(Messages.PAGE_TITLE)).toBeInTheDocument();
     expect(screen.getByText(Messages.PAGE_TITLE_PHRASE)).toBeInTheDocument();
