@@ -41,8 +41,7 @@ export const Messages = {
     SAVE_CHANGES: 'Save changes',
     DELETE_COURSE: 'Delete Course',
     COURSE: 'Course',
-    // TODO: "URL" or "http://" better for placeholder?
-    URL: 'URL',
+    URL: 'https://',
     LINK_NAME: 'Link Name',
     ERROR_COURSE_NAME_EMPTY: 'Error: course name cannot be empty',
     ERROR_TWO_COURSES_SAME_NAME: 'Error: cannot have two courses with the same name',
