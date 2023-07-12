@@ -125,7 +125,7 @@ function App() {
     }
 
     return (
-        <>
+        <div className="app-container">
             <h1 className="center">{Messages.PAGE_TITLE}</h1>
             <h3 className="center">{Messages.PAGE_TITLE_PHRASE}</h3>
             <div className="btn-container">
@@ -143,7 +143,7 @@ function App() {
                 <a href={Messages.FOOTER_GITHUB_LINK}
                     target="_blank"> {Messages.FOOTER_GITHUB} </a>
             </p>
-        </>
+        </div>
     )
 }
 
