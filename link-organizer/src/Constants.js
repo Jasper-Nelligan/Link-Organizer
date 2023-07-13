@@ -58,8 +58,7 @@ export const TestConstants = {
     LINK_NAME_2: "Link Name 2",
     LINK_1: "Link 1",
     LINK_2: "Link 2",
-    LOCAL_STORAGE_COURSE_ONE: '{"Course 1":["red",[["Link Name 1","Link 1"],["",""],["",""],["",""]]]}',
-    LOCAL_STORAGE_TWO_LINKS: '{"Course 2":["green",[["Link Name 1","Link 1"],["Link Name 2","Link 2"],["",""],["",""]]]}',
-    LOCAL_STORAGE_RED_COURSE: '{"Course 1":["red",[["Link Name 1","Link 1"],["",""],["",""],["",""]]]}',
-    LOCAL_STORAGE_ALL_COLORS: '{"Course 1":["red",[["",""],["",""],["",""],["",""]]],"Course 2":["green",[["",""],["",""],["",""],["",""]]],"Course 3":["blue",[["",""],["",""],["",""],["",""]]],"Course 4":["yellow",[["",""],["",""],["",""],["",""]]],"Course 5":["orange",[["",""],["",""],["",""],["",""]]],"Course 6":["purple",[["",""],["",""],["",""],["",""]]]}'
+    LOCAL_STORAGE_COURSE_ONE: '[["Course 1","red",[["Link Name 1","Link 1"],["",""],["",""],["",""]]]]',
+    LOCAL_STORAGE_TWO_LINKS: '[["Course 2","green",[["Link Name 1","Link 1"],["Link Name 2","Link 2"],["",""],["",""]]]]',
+    LOCAL_STORAGE_ALL_COLORS: '[["Course 1","red",[["",""],["",""],["",""],["",""]]],["Course 2","green",[["",""],["",""],["",""],["",""]]],["Course 3","blue",[["",""],["",""],["",""],["",""]]],["Course 4","yellow",[["",""],["",""],["",""],["",""]]],["Course 5","orange",[["",""],["",""],["",""],["",""]]],["Course 6","purple",[["",""],["",""],["",""],["",""]]]]'
 }

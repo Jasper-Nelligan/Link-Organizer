@@ -15,65 +15,77 @@ function App() {
         [Color.PURPLE]: 0,
     })
     const [showModal, setShowModal] = useState(null);
-    const [courses, setCourses] = useState({});
-    const [modals, setModals] =
-        useState({
-            [Constants.EMPTY_COURSE_NAME]:
-                [getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS]
-        })
+    const [courses, setCourses] = useState([]);
+    const [modals, setModals] = useState([
+        [Constants.EMPTY_COURSE_NAME, getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS]
+    ])
 
-    // Update color of main modal
+    // Update color of main modal to least used color
+    // TODO i'm resetting the link pairs and course name here, so is it necessary to do
+    // in the modal file?
     useEffect(() => {
-        const updatedModals = { ...modals, [Constants.EMPTY_COURSE_NAME]:
-                [getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS] };
+        let updatedModals = modals;
+        let courseIndex = updatedModals.findIndex(el => el[0] === Constants.EMPTY_COURSE_NAME);
+        updatedModals.splice(courseIndex, 1,
+            [Constants.EMPTY_COURSE_NAME, getLeastUsedColor(colorCount), Constants.EMPTY_LINK_PAIRS]);
         setModals(updatedModals);
     }, [colorCount])
 
-    // Retrieve the courses data from localStorage. Runs only once per session
+    // Retrieve the courses data from localStorage
     useEffect(() => {
         const storedCourses = JSON.parse(localStorage.getItem('courses'));
 
-        for (const course in storedCourses) {
-            const courseColor = storedCourses[course][0];
-            setColorCount((prevColorCount) => {
-                const updatedColorCount = { ...prevColorCount };
-                updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
-                return updatedColorCount;
-            });
-        }
-
         if (storedCourses) {
-            setCourses(storedCourses);
-            setModals(Object.assign(modals, storedCourses));
+            for (const course in storedCourses) {
+                // TODO instead of using 1, use constant that represents COLOR
+                const courseColor = storedCourses[course][1];
+                setColorCount((prevColorCount) => {
+                    const updatedColorCount = { ...prevColorCount };
+                    updatedColorCount[courseColor] = updatedColorCount[courseColor] + 1;
+                    return updatedColorCount;
+                });
+            }
+    
+            let modalArr = [[
+                Constants.EMPTY_COURSE_NAME,
+                getLeastUsedColor(colorCount),
+                Constants.EMPTY_LINK_PAIRS
+            ]]
+            let coursesArr = Object.keys(storedCourses).map(course => 
+                [storedCourses[course][0],
+                storedCourses[course][1],
+                storedCourses[course][2]])
+
+            setCourses(coursesArr);
+            setModals(modalArr.concat(coursesArr));
         } else {
             console.log("Error: course data from localStorage could not be fetched")
         }
     }, []);
 
-    const addOrUpdateCourse = (initCourseName, initColor, course, color, linkPairs) => {
+    const addOrUpdateCourse = (initCourseName, initColor, newCourse, newColor, newLinkPairs) => {
         setColorCount((prevColorCount) => {
             const updatedColorCount = { ...prevColorCount };
-            updatedColorCount[color] = updatedColorCount[color] + 1;
+            updatedColorCount[newColor] = updatedColorCount[newColor] + 1;
             return updatedColorCount;
         });
 
-        let updatedCourses;
-        let updatedModals;
+        let updatedCourses = courses;
+        let updatedModals = modals;
         if (initCourseName === Constants.EMPTY_COURSE_NAME) {
-            updatedCourses = { ...courses, [course]: [color, linkPairs] };
-            updatedModals = { ...modals, [course]: [color, linkPairs] };
+            updatedCourses.push([newCourse, newColor, newLinkPairs]);
+            updatedModals.push([newCourse, newColor, newLinkPairs]);
         } else {
-            const { [initCourseName]: unused1, ...tempUpdatedCourses } = courses;
-            const { [initCourseName]: unused2, ...tempUpdatedModals } = modals;
-            updatedCourses = { ...tempUpdatedCourses, [course]: [color, linkPairs] };
-            updatedModals = { ...tempUpdatedModals, [course]: [color, linkPairs] };
             setColorCount((prevColorCount) => {
                 const updatedColorCount = { ...prevColorCount };
                 updatedColorCount[initColor] = updatedColorCount[initColor] - 1;
                 return updatedColorCount;
             });
+            let courseIndex = updatedCourses.findIndex(el => el[0] === initCourseName);
+            updatedCourses.splice(courseIndex, 1, [newCourse, newColor, newLinkPairs]);
         }
-        console.log(colorCount)
+        // TODO subtract one from colors for edit
+
         setCourses(updatedCourses);
         setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
@@ -86,15 +98,22 @@ function App() {
             return updatedColorCount;
         });
 
-        const { [course]: unused1, ...updatedCourses } = courses;
-        const { [course]: unused2, ...updatedModals } = modals;
+        let updatedModals = modals;
+        let updatedCourses = courses;
+        updatedModals.splice(
+            updatedModals.findIndex(el => el[0] === course), 1)
+        updatedCourses.splice(
+            updatedCourses.findIndex(el => el[0] === course, 1)
+        )
+
         setCourses(updatedCourses);
         setModals(updatedModals);
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
     const renderModals = () => {
-        return Object.entries(modals).map(([course, [color, linkPairs]]) => (
+        console.log("Modals was: ", modals)
+        return modals.map(([course, color, linkPairs]) => (
             <Modal
                 key={course}
                 course={course}
@@ -113,7 +132,7 @@ function App() {
     }
 
     const renderCourses = () => {
-        return Object.entries(courses).map(([course, [color, linkPairs]]) => (
+        return courses.map(([course, color, linkPairs]) => (
             <Course
                 key={course}
                 course={course}

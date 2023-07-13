@@ -52,7 +52,7 @@ export function parseForm(form) {
 
 /**
  * Validates form input
- * @param {String} course The course name that the user input
+ * @param {String} courseName The course name that the user input
  * @param {Array} linkPairs an array of link pairs. Each link pair is a
  * sub-array of size two, with the first element being the link name and
  * the second element the link.
@@ -61,12 +61,13 @@ export function parseForm(form) {
  * @return {String} an error message if form input is invalid,
  * @return {null} otherwise
  */
-export function validateForm(course, initCourseName, linkPairs, courses) {
-  if (course === Constants.EMPTY_COURSE_NAME) {
+// TODO rename couse variable everywhere to courseName
+export function validateForm(courseName, initCourseName, linkPairs, courses) {
+  if (courseName === Constants.EMPTY_COURSE_NAME) {
     return Messages.ERROR_COURSE_NAME_EMPTY; 
   }
 
-  if (initCourseName !== course && course in courses) {
+  if (initCourseName !== courseName && courses.some(course => course[0] === courseName)) {
     return Messages.ERROR_TWO_COURSES_SAME_NAME; 
   }
 

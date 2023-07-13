@@ -277,7 +277,7 @@ test("Remove link", () => {
 })
 
 test("Correct color is suggested - after red course", () => {
-    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_RED_COURSE);
+    localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });

@@ -4,7 +4,7 @@ import { getColorHex, addBrTags } from "../HelperFunctions";
 import { Messages } from "../Constants";
 import "./Course.css";
 
-function Course({ course, color, linkPairs, onEdit }) {
+function Course({course, color, linkPairs, onEdit}) {
     // remove whitespace in course and use for id
     const courseId = course.replace(/\s/g, '');
     const frameId = `${courseId}-frame`;
