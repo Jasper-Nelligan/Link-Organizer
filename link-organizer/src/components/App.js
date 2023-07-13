@@ -21,8 +21,6 @@ function App() {
     ])
 
     // Update color of main modal to least used color
-    // TODO i'm resetting the link pairs and course name here, so is it necessary to do
-    // in the modal file?
     useEffect(() => {
         let updatedModals = modals;
         let courseIndex = updatedModals.findIndex(el => el[0] === Constants.EMPTY_COURSE_NAME);
@@ -37,7 +35,6 @@ function App() {
 
         if (storedCourses) {
             for (const course in storedCourses) {
-                // TODO instead of using 1, use constant that represents COLOR
                 const courseColor = storedCourses[course][1];
                 setColorCount((prevColorCount) => {
                     const updatedColorCount = { ...prevColorCount };
@@ -84,7 +81,6 @@ function App() {
             let courseIndex = updatedCourses.findIndex(el => el[0] === initCourseName);
             updatedCourses.splice(courseIndex, 1, [newCourse, newColor, newLinkPairs]);
         }
-        // TODO subtract one from colors for edit
 
         setCourses(updatedCourses);
         setModals(updatedModals);
@@ -112,7 +108,6 @@ function App() {
     }
 
     const renderModals = () => {
-        console.log("Modals was: ", modals)
         return modals.map(([course, color, linkPairs]) => (
             <Modal
                 key={course}
