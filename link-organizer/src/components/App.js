@@ -80,6 +80,7 @@ function App() {
             });
             let courseIndex = updatedCourses.findIndex(el => el[0] === initCourseName);
             updatedCourses.splice(courseIndex, 1, [newCourse, newColor, newLinkPairs]);
+            updatedModals.splice(courseIndex + 1, 1, [newCourse, newColor, newLinkPairs]);
         }
 
         setCourses(updatedCourses);

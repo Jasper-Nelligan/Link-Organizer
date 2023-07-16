@@ -107,12 +107,12 @@ test("Edit course", () => {
     let options = screen.getAllByRole('option');
     expect(options[1].selected).toBeTruthy();
 
-    const editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
+    let editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
     expect(editCourseBtn).toBeInTheDocument();
     fireEvent.click(editCourseBtn);
 
-    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
+    let courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    let courseInput = courseInputs.filter(courseInput => courseInput.value == TestConstants.COURSE_NAME_1)[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_2}})
 
@@ -128,14 +128,21 @@ test("Edit course", () => {
     expect(saveChangesBtn).toBeInTheDocument();
     fireEvent.click(saveChangesBtn);
 
-    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
-
     assertCourseTwoExists();
-
+    
     // Assert suggested color has gone back to default
     fireEvent.click(addCourseBtn)
     options = screen.getAllByRole('option');
     expect(options[0].selected).toBeTruthy();
+
+    // Clicking edit again should bring up modal for new course name
+    editCourseBtn = screen.getByRole('button', { name: Messages.EDIT });
+    expect(editCourseBtn).toBeInTheDocument();
+    fireEvent.click(editCourseBtn);
+    let delCourseBtn = screen.getByRole('button', { name: Messages.DELETE_COURSE });
+    expect(delCourseBtn).toBeInTheDocument();
+
+    expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_TWO_LINKS);
 })
 
 test("Add empty course", () => {
