@@ -6,8 +6,7 @@ import "./Course.css";
 
 function Course({course, color, linkPairs, onEdit}) {
     // remove whitespace in course and use for id
-    const courseId = course.replace(/\s/g, '');
-    const frameId = `${courseId}-frame`;
+    const frameId = `${course}-frame`;
 
     let elements = [];
 
@@ -47,8 +46,8 @@ function Course({course, color, linkPairs, onEdit}) {
 
     const editBtn = React.createElement(
         'button',
-        { type: "button", className: "edit-btn", id: "edit-" + courseId,
-        "data-modal": courseId + "-modal", onClick: () => {onEdit()}},
+        { type: "button", className: "edit-btn", id: "edit-" + course,
+        "data-modal": course + "-modal", onClick: () => {onEdit()}},
         Messages.EDIT
     )
     elements.push(editBtn);
