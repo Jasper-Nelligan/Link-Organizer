@@ -43,9 +43,9 @@ export const Messages = {
     COURSE: 'Course',
     URL: 'https://',
     LINK_NAME: 'Link Name',
-    ERROR_COURSE_NAME_EMPTY: 'Error: course name cannot be empty',
-    ERROR_TWO_COURSES_SAME_NAME: 'Error: cannot have two courses with the same name',
-    ERROR_LINK_NAME_EMPTY: 'Error: link name cannot be empty',
+    ERROR_COURSE_NAME_EMPTY: 'ERROR: course name cannot be empty',
+    ERROR_TWO_COURSES_SAME_NAME: 'ERROR: cannot have two courses with the same name',
+    ERROR_LINK_NAME_EMPTY: 'ERROR: link name cannot be empty',
     EDIT: "Edit"
 }
 
