@@ -88,7 +88,7 @@ function App() {
         localStorage.setItem('courses', JSON.stringify(updatedCourses));
     }
 
-    const deleteCourse = (course, color) => {
+    const deleteCourse = (courseName, color) => {
         setColorCount((prevColorCount) => {
             const updatedColorCount = { ...prevColorCount };
             updatedColorCount[color] = updatedColorCount[color] - 1;
@@ -98,9 +98,9 @@ function App() {
         let updatedModals = modals;
         let updatedCourses = courses;
         updatedModals.splice(
-            updatedModals.findIndex(el => el[0] === course), 1)
+            updatedModals.findIndex(el => el[0] === courseName), 1)
         updatedCourses.splice(
-            updatedCourses.findIndex(el => el[0] === course, 1)
+            updatedCourses.findIndex(el => el[0] === courseName, 1)
         )
 
         setCourses(updatedCourses);
@@ -109,32 +109,32 @@ function App() {
     }
 
     const renderModals = () => {
-        return modals.map(([course, color, linkPairs]) => (
+        return modals.map(([courseName, color, linkPairs]) => (
             <Modal
-                key={course}
-                course={course}
+                key={courseName}
+                courseName={courseName}
                 initColor={color}
                 linkPairs={linkPairs}
                 onClose={() => setShowModal(null)}
-                onAddOrUpdateCourse={(initCourseName, initColor, course, color, linkPairs) =>
-                    addOrUpdateCourse(initCourseName, initColor, course, color, linkPairs)}
+                onAddOrUpdateCourse={(initCourseName, initColor, courseName, color, linkPairs) =>
+                    addOrUpdateCourse(initCourseName, initColor, courseName, color, linkPairs)}
                 showCourse={showModal}
-                onDeleteCourse={(course, color) =>
-                    deleteCourse(course, color)}
-                onValidateForm={(formCourse, course, formLinkPairs) =>
-                    validateForm(formCourse, course, formLinkPairs, courses)}
+                onDeleteCourse={(courseName, color) =>
+                    deleteCourse(courseName, color)}
+                onValidateForm={(formCourse, courseName, formLinkPairs) =>
+                    validateForm(formCourse, courseName, formLinkPairs, courses)}
             />
         ));
     }
 
     const renderCourses = () => {
-        return courses.map(([course, color, linkPairs]) => (
+        return courses.map(([courseName, color, linkPairs]) => (
             <Course
-                key={course}
-                course={course}
+                key={courseName}
+                courseName={courseName}
                 color={color}
                 linkPairs={linkPairs}
-                onEdit={() => setShowModal(course)}
+                onEdit={() => setShowModal(courseName)}
             />
         ));
     }

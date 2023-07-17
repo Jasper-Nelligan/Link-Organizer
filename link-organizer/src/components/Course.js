@@ -4,16 +4,16 @@ import { getColorHex, addBrTags } from "../HelperFunctions";
 import { Messages } from "../Constants";
 import "./Course.css";
 
-function Course({course, color, linkPairs, onEdit}) {
+function Course({courseName, color, linkPairs, onEdit}) {
     // remove whitespace in course and use for id
-    const frameId = `${course}-frame`;
+    const frameId = `${courseName}-frame`;
 
     let elements = [];
 
     const title = React.createElement(
         'p',
         { className:'course-title' },
-        course
+        courseName
     );
     elements.push(title);
 
@@ -46,8 +46,8 @@ function Course({course, color, linkPairs, onEdit}) {
 
     const editBtn = React.createElement(
         'button',
-        { type: "button", className: "edit-btn", id: "edit-" + course,
-        "data-modal": course + "-modal", onClick: () => {onEdit()}},
+        { type: "button", className: "edit-btn", id: "edit-" + courseName,
+        "data-modal": courseName + "-modal", onClick: () => {onEdit()}},
         Messages.EDIT
     )
     elements.push(editBtn);
@@ -63,7 +63,7 @@ function Course({course, color, linkPairs, onEdit}) {
 }
 
 Course.propTypes = {
-    course: PropTypes.string,
+    courseName: PropTypes.string,
     color: PropTypes.string,
     linkPairs: PropTypes.arrayOf(PropTypes.array),
     onEdit: PropTypes.func

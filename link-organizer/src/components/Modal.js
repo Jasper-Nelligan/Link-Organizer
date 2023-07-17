@@ -5,7 +5,7 @@ import LinkField from "./LinkField";
 import { parseForm, getColorHex, clearForm, createLinkData } from "../HelperFunctions";
 import { Messages, Constants } from "../Constants.js";
 
-function Modal({ linkPairs, initColor, showCourse, course,
+function Modal({ linkPairs, initColor, showCourse, courseName,
         onClose, onAddOrUpdateCourse, onDeleteCourse, onValidateForm}) {
     const [errorMsg, updateErrorMsg] = useState(null);
     const [linkData, setLinkData] = useState(createLinkData(linkPairs));
@@ -28,16 +28,16 @@ function Modal({ linkPairs, initColor, showCourse, course,
 
     const onAddOrUpdateCourseClicked = () => {
         const [formCourse, formColor, formLinkPairs] = parseForm(formRef.current);
-        const newErrorMessage = onValidateForm(formCourse, course, formLinkPairs);
+        const newErrorMessage = onValidateForm(formCourse, courseName, formLinkPairs);
         updateErrorMsg(newErrorMessage);
         if (newErrorMessage == null) {
-            onAddOrUpdateCourse(course, initColor, formCourse, formColor, formLinkPairs);
+            onAddOrUpdateCourse(courseName, initColor, formCourse, formColor, formLinkPairs);
             onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
         }
     }
 
     const onCloseBtnClicked = () => {
-        if (course === Constants.EMPTY_COURSE_NAME) {
+        if (courseName === Constants.EMPTY_COURSE_NAME) {
             updateErrorMsg(null)
             setColor(initColor)
             clearForm(formRef.current);
@@ -61,17 +61,17 @@ function Modal({ linkPairs, initColor, showCourse, course,
         )
     }
 
-    const modalDisplay = showCourse === course ? 'block' : 'none';
+    const modalDisplay = showCourse === courseName ? 'block' : 'none';
     const errorMsgDisplay = errorMsg !== null ? 'inline' : 'none';
-    const deleteCourseDisplay = course !== Constants.EMPTY_COURSE_NAME ? 'inline' : 'none';
-    const saveCourseMsg = course === Constants.EMPTY_COURSE_NAME ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
+    const deleteCourseDisplay = courseName !== Constants.EMPTY_COURSE_NAME ? 'inline' : 'none';
+    const saveCourseMsg = courseName === Constants.EMPTY_COURSE_NAME ? Messages.CREATE_COURSE : Messages.SAVE_CHANGES;
 
     return (
         <div className="modal" id="modal" style={{ display: modalDisplay }}>
             <div className="modal-content">
                 <div className="form" ref={formRef} style={{ background: getColorHex(color) }}>
                     <input className="course-input" type="text" name="course"
-                        placeholder={Messages.COURSE} defaultValue={course}/>
+                        placeholder={Messages.COURSE} defaultValue={courseName}/>
 
                     <a className="close-button" aria-label="Close"
                         onClick={() =>
@@ -105,18 +105,18 @@ function Modal({ linkPairs, initColor, showCourse, course,
                         <button className="delete-course-btn"
                             style={{ display: deleteCourseDisplay }}
                             onClick={() =>
-                                onDeleteCourse(course, color)}>
+                                onDeleteCourse(courseName, color)}>
                             {Messages.DELETE_COURSE}
                         </button>
                         <button
-                            className={`submit-course-btn ${course === Constants.EMPTY_COURSE_NAME ? 'full-width' : Constants.EMPTY_COURSE_NAME}`}
+                            className={`submit-course-btn ${courseName === Constants.EMPTY_COURSE_NAME ? 'full-width' : Constants.EMPTY_COURSE_NAME}`}
                             onClick={() =>
                                 onAddOrUpdateCourseClicked(
                                     onClose,
                                     onAddOrUpdateCourse,
                                     formRef.current,
                                     updateErrorMsg,
-                                    course, setColor, setLinkData)}>
+                                    courseName, setColor, setLinkData)}>
                             {saveCourseMsg}
                         </button>
                     </div>
@@ -130,7 +130,7 @@ Modal.propTypes = {
     linkPairs: PropTypes.arrayOf(PropTypes.array),
     initColor: PropTypes.string,
     showCourse: PropTypes.string,
-    course: PropTypes.string,
+    courseName: PropTypes.string,
     onClose: PropTypes.func,
     onAddOrUpdateCourse: PropTypes.func,
     onDeleteCourse: PropTypes.func,
