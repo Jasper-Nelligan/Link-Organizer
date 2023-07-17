@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Modal.css";
 import LinkField from "./LinkField";
-import { parseForm, getColorHex, clearForm, createLinkData } from "../HelperFunctions";
+import { parseForm, getColorHex, clearForm, createLinkData, resetForm } from "../HelperFunctions";
 import { Messages, Constants } from "../Constants.js";
 
 function Modal({ linkPairs, initColor, showCourse, courseName,
@@ -32,17 +32,27 @@ function Modal({ linkPairs, initColor, showCourse, courseName,
         updateErrorMsg(newErrorMessage);
         if (newErrorMessage == null) {
             onAddOrUpdateCourse(courseName, initColor, formCourse, formColor, formLinkPairs);
-            onCloseBtnClicked(formRef.current, formCourse, setColor, setLinkData); 
+            updateErrorMsg(null);
+            setColor(initColor)
+            if (courseName === Constants.EMPTY_COURSE_NAME) {
+                clearForm(formRef.current);
+                setLinkData(Constants.DEFAULT_LINK_PAIRS)
+            }
+            onClose();
         }
     }
 
     const onCloseBtnClicked = () => {
+        updateErrorMsg(null)
+        setColor(initColor)
         if (courseName === Constants.EMPTY_COURSE_NAME) {
-            updateErrorMsg(null)
-            setColor(initColor)
-            clearForm(formRef.current);
             setLinkData(Constants.DEFAULT_LINK_PAIRS)
+            clearForm(formRef.current);
+        } else {
+            setLinkData(createLinkData(linkPairs))
+            resetForm(formRef.current, courseName, linkPairs);
         }
+
         onClose();
     }
 

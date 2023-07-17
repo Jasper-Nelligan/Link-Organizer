@@ -307,6 +307,8 @@ test("Default color is suggested after all colors used", () => {
     expect(options[0].selected).toBeTruthy();
 })
 
+// TODO add tests for if form is cleared for new course button and edit button
+
 function assertStaticElementsExist() {
     expect(screen.getByText(Messages.PAGE_TITLE)).toBeInTheDocument();
     expect(screen.getByText(Messages.PAGE_TITLE_PHRASE)).toBeInTheDocument();

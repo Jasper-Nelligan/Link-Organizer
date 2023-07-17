@@ -93,7 +93,7 @@ export function addBrTags(elements, numBrTags) {
 }
 
 /**
- * Given a course form, clears all input field
+ * Given a course form, clears all input fields
  * @param {HTML} form form that needs to be cleared
  */
 export function clearForm(form) {
@@ -106,6 +106,30 @@ export function clearForm(form) {
   // Clear links
   while (inputElements[i] != null) {
     inputElements[i++].value = '';
+  }
+}
+
+/**
+ * Given a course form, resets all input fields to given courseName and linkPairs
+ * @param {HTML} form form that needs to be reset
+ * @param {String} courseName
+ * @param {Array} linkPairs
+ */
+export function resetForm(form, courseName, linkPairs) {
+  let i = 0;
+  const inputElements = form.querySelectorAll('input');
+
+  // reset course value
+  inputElements[i++].value = courseName;
+
+  // reset links
+  for (let linkPair in linkPairs) {
+    // Prevents going out of bounds
+    if (inputElements[i] === undefined) {
+      continue;
+    }
+    inputElements[i++].value = linkPairs[linkPair][0]; 
+    inputElements[i++].value = linkPairs[linkPair][1]; 
   }
 }
 
