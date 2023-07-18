@@ -30,24 +30,26 @@ test("Add course", () => {
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
+    
+    // Assert Main Modal is cleared and suggested color has changed
     fireEvent.click(addCourseBtn)
 
-    const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
-    const courseInput = courseInputs.filter(courseInput =>
+    let courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    let courseInput = courseInputs.filter(courseInput =>
         courseInput.value == Constants.EMPTY_COURSE_NAME)[0];
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
     fireEvent.change(screen.getByRole('combobox'), { target: { value: Color.RED } });
-    const options = screen.getAllByRole('option');
+    let options = screen.getAllByRole('option');
     expect(options).toHaveLength(6);
     expect(options[0].selected).toBeTruthy();
 
-    const linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    let linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
     expect(linkNameInputs).toHaveLength(4);
     fireEvent.change(linkNameInputs[0], {target: {value: TestConstants.LINK_NAME_1}})
 
-    const linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    let linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
     expect(linkURLInputs).toHaveLength(4);
     fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
 
@@ -58,6 +60,31 @@ test("Add course", () => {
     expect(localStorage.getItem('courses')).toBe(TestConstants.LOCAL_STORAGE_COURSE_ONE);
 
     assertCourseOneExists();
+    fireEvent.click(addCourseBtn)
+
+    courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
+    courseInput = courseInputs.filter(courseInput =>
+        courseInput.value == Constants.EMPTY_COURSE_NAME)[0];
+    expect(courseInput).toBeInTheDocument();
+
+    // Modal color should be green now
+    options = screen.getAllByRole('option');
+    expect(options).toHaveLength(6);
+    expect(options[1].selected).toBeTruthy();
+
+    linkNameInputs = screen.getAllByPlaceholderText(Messages.LINK_NAME);
+    expect(linkNameInputs).toHaveLength(8);
+    expect(linkNameInputs[0].value).toBe('');
+    expect(linkNameInputs[1].value).toBe('');
+    expect(linkNameInputs[2].value).toBe('');
+    expect(linkNameInputs[3].value).toBe('');
+
+    linkURLInputs = screen.getAllByPlaceholderText(Messages.URL);
+    expect(linkURLInputs).toHaveLength(8);
+    expect(linkURLInputs[0].value).toBe('');
+    expect(linkURLInputs[1].value).toBe('');
+    expect(linkURLInputs[2].value).toBe('');
+    expect(linkURLInputs[3].value).toBe('');
 })
 
 test("Delete course", () => {
@@ -346,8 +373,7 @@ test("Main modal is cleared after closing - added link", () => {
     expect(closeBtn).toBeInTheDocument();
     fireEvent.click(closeBtn);
 
-    fireEvent.click(addCourseBtn)
-    assertEmptyModal();
+    assertMainModalIsEmpty();
 })
 
 test("Main modal is cleared after closing - deleted link", () => {
@@ -388,8 +414,7 @@ test("Main modal is cleared after closing - deleted link", () => {
     expect(closeBtn).toBeInTheDocument();
     fireEvent.click(closeBtn);
 
-    fireEvent.click(addCourseBtn)
-    assertEmptyModal();
+    assertMainModalIsEmpty();
 })
 
 test("Course modal is cleared after closing - added link", () => {
@@ -492,7 +517,11 @@ function assertCourseTwoExists() {
         .toHaveAttribute('href', TestConstants.LINK_2)
 }
 
-function assertEmptyModal() {
+function assertMainModalIsEmpty() {
+    const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
+    expect(addCourseBtn).toBeInTheDocument();
+    fireEvent.click(addCourseBtn)
+
     const courseInputs = screen.getAllByPlaceholderText(Messages.COURSE);
     const courseInput = courseInputs.filter(courseInput =>
         courseInput.value == Constants.EMPTY_COURSE_NAME)[0];
