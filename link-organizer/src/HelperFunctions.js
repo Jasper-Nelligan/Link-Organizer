@@ -1,29 +1,29 @@
 import { Color, ColorHex, Messages, Constants } from "./Constants";
-import React from 'react';
+import React from "react";
 
 /**
-* Returns a hex code for each course color option.
-* @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
-* @return {String} The hex code associated with each color according to the
-* color scheme of this web app.
-*/
+ * Returns a hex code for each course color option.
+ * @param {String} color 'red', 'green', 'blue', 'yellow', 'orange', or 'purple'
+ * @return {String} The hex code associated with each color according to the
+ * color scheme of this web app.
+ */
 export function getColorHex(color) {
-    switch (color) {
-        case Color.RED:
-            return ColorHex.RED;
-        case Color.GREEN:
-            return ColorHex.GREEN;
-        case Color.BLUE:
-            return ColorHex.BLUE;
-        case Color.YELLOW:
-            return ColorHex.YELLOW;
-        case Color.ORANGE:
-            return ColorHex.ORANGE;
-        case Color.PURPLE:
-            return ColorHex.PURPLE;
-        default:
-            console.log(`ERROR: ${color} is not a valid color`);
-    }
+  switch (color) {
+    case Color.RED:
+      return ColorHex.RED;
+    case Color.GREEN:
+      return ColorHex.GREEN;
+    case Color.BLUE:
+      return ColorHex.BLUE;
+    case Color.YELLOW:
+      return ColorHex.YELLOW;
+    case Color.ORANGE:
+      return ColorHex.ORANGE;
+    case Color.PURPLE:
+      return ColorHex.PURPLE;
+    default:
+      console.log(`ERROR: ${color} is not a valid color`);
+  }
 }
 
 /**
@@ -35,19 +35,19 @@ export function getColorHex(color) {
  * subarray.
  */
 export function parseForm(form) {
-    let i = 0;
-    const inputElements = form.querySelectorAll('input, select');
-    const course = inputElements[i++].value;
-    const color = inputElements[i++].value;
-  
-    // parse links and add to double array
-    const linkPairs = [];
-    while (inputElements[i] != null) {
-      const pair = [inputElements[i++].value, inputElements[i++].value];
-      linkPairs.push(pair);
-    }
+  let i = 0;
+  const inputElements = form.querySelectorAll("input, select");
+  const course = inputElements[i++].value;
+  const color = inputElements[i++].value;
 
-    return ([course, color, linkPairs]);
+  // parse links and add to double array
+  const linkPairs = [];
+  while (inputElements[i] != null) {
+    const pair = [inputElements[i++].value, inputElements[i++].value];
+    linkPairs.push(pair);
+  }
+
+  return [course, color, linkPairs];
 }
 
 /**
@@ -64,31 +64,34 @@ export function parseForm(form) {
 // TODO rename couse variable everywhere to courseName
 export function validateForm(courseName, initCourseName, linkPairs, courses) {
   if (courseName === Constants.EMPTY_COURSE_NAME) {
-    return Messages.ERROR_COURSE_NAME_EMPTY; 
+    return Messages.ERROR_COURSE_NAME_EMPTY;
   }
 
-  if (initCourseName !== courseName && courses.some(course => course[0] === courseName)) {
-    return Messages.ERROR_TWO_COURSES_SAME_NAME; 
+  if (
+    initCourseName !== courseName &&
+    courses.some((course) => course[0] === courseName)
+  ) {
+    return Messages.ERROR_TWO_COURSES_SAME_NAME;
   }
 
   // Check of link is present but has no link name
   for (let i = 0; i < linkPairs.length; i++) {
-    if (linkPairs[i][0] === '' && linkPairs[i][1] !== '') {
+    if (linkPairs[i][0] === "" && linkPairs[i][1] !== "") {
       return Messages.ERROR_LINK_NAME_EMPTY;
     }
   }
 
-  return (null);
+  return null;
 }
 
 /**
- * 
+ *
  * @param {Array} elements an array for the br elements to be pushed to
- * @param {Int} numBrTags number of br tags to add to elements 
+ * @param {Int} numBrTags number of br tags to add to elements
  */
 export function addBrTags(elements, numBrTags) {
   for (let i = 0; i < numBrTags; i++) {
-      elements.push(React.createElement('br'));
+    elements.push(React.createElement("br"));
   }
 }
 
@@ -98,14 +101,14 @@ export function addBrTags(elements, numBrTags) {
  */
 export function clearForm(form) {
   let i = 0;
-  const inputElements = form.querySelectorAll('input');
+  const inputElements = form.querySelectorAll("input");
 
   // Clear course value
-  inputElements[i++].value = '';
+  inputElements[i++].value = "";
 
   // Clear links
   while (inputElements[i] != null) {
-    inputElements[i++].value = '';
+    inputElements[i++].value = "";
   }
 }
 
@@ -117,7 +120,7 @@ export function clearForm(form) {
  */
 export function resetForm(form, courseName, linkPairs) {
   let i = 0;
-  const inputElements = form.querySelectorAll('input');
+  const inputElements = form.querySelectorAll("input");
 
   // reset course value
   inputElements[i++].value = courseName;
@@ -128,14 +131,14 @@ export function resetForm(form, courseName, linkPairs) {
     if (inputElements[i] === undefined) {
       continue;
     }
-    inputElements[i++].value = linkPairs[linkPair][0]; 
-    inputElements[i++].value = linkPairs[linkPair][1]; 
+    inputElements[i++].value = linkPairs[linkPair][0];
+    inputElements[i++].value = linkPairs[linkPair][1];
   }
 }
 
 /**
  * Parses the coloCount object and returns the color that has the lowest count
- * @param {Object} colorCount 
+ * @param {Object} colorCount
  * @returns least used color
  */
 export function getLeastUsedColor(colorCount) {
@@ -150,11 +153,11 @@ export function getLeastUsedColor(colorCount) {
   }
 
   return leastUsedColor;
-};
+}
 
 /**
  * Creates link data for modal link pairs
- * @param {Array} linkPairs 
+ * @param {Array} linkPairs
  * @returns link data for modal
  */
 export function createLinkData(linkPairs) {
@@ -162,10 +165,10 @@ export function createLinkData(linkPairs) {
   let firstLink = true;
   let id = 0;
   for (id; id < linkPairs.length; id++) {
-      initialLinkData.push([id, firstLink, linkPairs[id][0], linkPairs[id][1]])
-      if (firstLink) {
-          firstLink = false;
-      }
+    initialLinkData.push([id, firstLink, linkPairs[id][0], linkPairs[id][1]]);
+    if (firstLink) {
+      firstLink = false;
+    }
   }
   return initialLinkData;
 }
