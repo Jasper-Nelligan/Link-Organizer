@@ -24,9 +24,7 @@ test("Page loads successfully - course in localStorage", () => {
 test("Add course", () => {
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -53,7 +51,7 @@ test("Add course", () => {
     expect(linkURLInputs).toHaveLength(4);
     fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
 
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    const createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
@@ -176,33 +174,27 @@ test("Edit course", () => {
 test("Add empty course", () => {
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
     fireEvent.click(addCourseBtn)
 
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_COURSE_NAME_EMPTY);
     expect(errorMsg).toBeInTheDocument();
 
-    // Assert modal is still showing
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
-    expect(createCourseBtn).toBeInTheDocument();
+    assertMainModalShown(true);
 })
 
 test("Add duplicate course", () => {
     localStorage.setItem('courses', TestConstants.LOCAL_STORAGE_COURSE_ONE);
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -214,24 +206,20 @@ test("Add duplicate course", () => {
     expect(courseInput).toBeInTheDocument();
     fireEvent.change(courseInput, {target: {value: TestConstants.COURSE_NAME_1}})
 
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_TWO_COURSES_SAME_NAME);
     expect(errorMsg).toBeInTheDocument();
 
-    // Assert modal is still showing
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
-    expect(createCourseBtn).toBeInTheDocument();
+    assertMainModalShown(true);
 })
 
 test("Add course empty link name", () => {
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -247,24 +235,20 @@ test("Add course empty link name", () => {
     expect(linkURLInputs).toHaveLength(4);
     fireEvent.change(linkURLInputs[0], {target: {value: TestConstants.LINK_1}})
 
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
+    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
     expect(createCourseBtn).toBeInTheDocument();
     fireEvent.click(createCourseBtn);
 
     let errorMsg = screen.queryByText(Messages.ERROR_LINK_NAME_EMPTY);
     expect(errorMsg).toBeInTheDocument();
 
-    // Assert modal is still showing
-    createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE});
-    expect(createCourseBtn).toBeInTheDocument();
+    assertMainModalShown(true);
 })
 
 test("Add link", () => {
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -288,9 +272,7 @@ test("Add link", () => {
 test("Remove link", () => {
     render(<App/>);
 
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -338,9 +320,7 @@ test("Default color is suggested after all colors used", () => {
 test("Main modal is cleared after closing - added link", () => {
     render(<App/>);
     
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -379,9 +359,7 @@ test("Main modal is cleared after closing - added link", () => {
 test("Main modal is cleared after closing - deleted link", () => {
     render(<App/>);
     
-    // Assert modal is not shown
-    let createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
-    expect(createCourseBtn).toBeNull();
+    assertMainModalShown(false);
 
     const addCourseBtn = screen.getByRole('button', { name: Messages.ADD_COURSE });
     expect(addCourseBtn).toBeInTheDocument();
@@ -488,6 +466,15 @@ test("Course modal is cleared after closing - deleted link", () => {
 
     assertCourseOneModalIsUnchanged();
 })
+
+function assertMainModalShown(shouldBeShown) {
+    const createCourseBtn = screen.queryByRole('button', { name: Messages.CREATE_COURSE });
+    if (shouldBeShown) {
+        expect(createCourseBtn).toBeInTheDocument();
+    } else {
+        expect(createCourseBtn).toBeNull();
+    }
+}
 
 function assertStaticElementsExist() {
     expect(screen.getByText(Messages.PAGE_TITLE)).toBeInTheDocument();
