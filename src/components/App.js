@@ -36,7 +36,7 @@ function App() {
       Constants.EMPTY_LINK_PAIRS,
     ]);
     setModals(updatedModals);
-  }, [colorCount]);
+  }, [colorCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Retrieve the courses data from localStorage
   useEffect(() => {
@@ -70,7 +70,7 @@ function App() {
     } else {
       console.log("Error: course data from localStorage could not be fetched");
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addOrUpdateCourse = (
     initCourseName,
