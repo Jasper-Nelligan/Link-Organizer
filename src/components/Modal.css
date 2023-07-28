@@ -47,6 +47,7 @@ textarea {
   background: #f44336;
   color: #fff;
   padding: 5px;
+  text-decoration: none;
 }
 
 .close-button:hover,

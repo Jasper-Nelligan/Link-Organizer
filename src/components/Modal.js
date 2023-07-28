@@ -124,6 +124,7 @@ function Modal({
             className="close-button"
             aria-label="Close"
             onClick={() => onCloseBtnClicked()}
+            href="\#"
           >
             &times;
           </a>
