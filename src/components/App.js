@@ -198,12 +198,11 @@ function App() {
 
       {renderModals()}
       <div id="course-grid">{renderCourses()}</div>
-
       <p id="footer">
         {Messages.FOOTER_QUESTIONS}
+        {" "}
         <a href={Messages.FOOTER_GITHUB_LINK} target="_blank" rel="noreferrer">
-          {" "}
-          {Messages.FOOTER_GITHUB}{" "}
+          {Messages.FOOTER_GITHUB}
         </a>
       </p>
     </div>
