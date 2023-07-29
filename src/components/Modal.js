@@ -24,7 +24,7 @@ function Modal({
   const [errorMsg, updateErrorMsg] = useState(null);
   const [linkData, setLinkData] = useState(createLinkData(linkPairs));
   const [linkId, setLinkId] = useState(linkPairs.length - 1);
-  const [color, setColor] = useState(null);
+  const [color, setColor] = useState(initColor);
   const formRef = useRef(null);
   useEffect(() => {
     setColor(initColor);
