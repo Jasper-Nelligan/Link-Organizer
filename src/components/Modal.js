@@ -120,7 +120,7 @@ function Modal({
             defaultValue={courseName}
           />
 
-          <a
+          <a //eslint-disable-line
             className="close-button"
             aria-label="Close"
             onClick={() => onCloseBtnClicked()}
