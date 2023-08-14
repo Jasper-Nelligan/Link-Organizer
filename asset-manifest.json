@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Link-Organizer/static/css/main.0ad4922f.css",
+    "main.js": "/Link-Organizer/static/js/main.1e551505.js",
+    "index.html": "/Link-Organizer/index.html",
+    "main.0ad4922f.css.map": "/Link-Organizer/static/css/main.0ad4922f.css.map",
+    "main.1e551505.js.map": "/Link-Organizer/static/js/main.1e551505.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0ad4922f.css",
+    "static/js/main.1e551505.js"
+  ]
+}
