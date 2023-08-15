@@ -118,6 +118,7 @@ function Modal({
             name="course"
             placeholder={Messages.COURSE}
             defaultValue={courseName}
+            ref={input => input && !courseName && input.focus()}
           />
 
           <a //eslint-disable-line
