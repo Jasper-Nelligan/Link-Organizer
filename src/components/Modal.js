@@ -121,13 +121,12 @@ function Modal({
             ref={input => input && !courseName && input.focus()}
           />
 
-          <a //eslint-disable-line
+          <button
             className="close-button"
             aria-label="Close"
-            onClick={() => onCloseBtnClicked()}
-          >
-            &times;
-          </a>
+            onClick={() => onCloseBtnClicked()}>
+              &times;
+          </button>
 
           <label htmlFor="colors">{Messages.SELECT_COLOR}</label>
           <select

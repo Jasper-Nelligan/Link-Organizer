@@ -48,6 +48,7 @@ textarea {
   color: #fff;
   padding: 5px;
   text-decoration: none;
+  border: none;
 }
 
 .close-button:hover,
