@@ -130,7 +130,8 @@ function App() {
       1
     );
     updatedCourses.splice(
-      updatedCourses.findIndex((el) => el[0] === courseName, 1)
+      updatedCourses.findIndex((el) => el[0] === courseName, 1),
+      1
     );
 
     setCourses(updatedCourses);
